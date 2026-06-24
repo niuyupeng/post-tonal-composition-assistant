@@ -1,0 +1,10 @@
+\section{Results}
+
+Tables~\ref{tab:project2-main-results} and~\ref{tab:project2-ablation-results} are generated from \texttt{results/project2\_metrics.csv} and \texttt{results/project2\_constraints.csv}. The full corpus size is 20,000 / 2,000 / 2,000 for train / validation / test, respectively. The run used an RTX 4060 Ti 16GB system with Python 3.11.9, PyTorch 2.5.1+cu121, and CUDA availability true.
+
+The full experiment evaluated 13 rows: the rule-only baseline, 12 trained neural configurations, and the required ablations. The proposed constraint-guided Transformer row reports token accuracy 0.6263, target pc-set coverage 0.9950, row-order accuracy 0.2319, rhythmic-profile distance 0.8084, gesture consistency 0.5660, and MusicXML export success 1.0000. The rule-only baseline has no token accuracy because it does not use a trained sequence model.
+
+The final result files are stored in \texttt{results/project2\_metrics.csv}, \texttt{results/project2\_constraints.csv}, \texttt{results/project2\_generation\_examples.json}, and \texttt{results/project2\_full\_split\_summary.json}. Final MusicXML examples and analysis reports are stored in \texttt{expert\_eval/project2/}. Missing entries in the tables are marked as \texttt{PENDING\_REAL\_EXPERIMENT} only when a metric is not applicable to that configuration.
+
+\input{tables/project2_main_results}
+\input{tables/project2_ablation_results}

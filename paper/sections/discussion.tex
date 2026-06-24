@@ -1,0 +1,5 @@
+\section{Discussion}
+
+The full run confirms that the repository can train and evaluate the intended score-level neural-symbolic pipeline on local RTX 4060 Ti hardware. The results should be read as constraint-behavior measurements on a legal synthetic corpus, not as claims about imitation of copyrighted contemporary repertoire. The central research question is whether symbolic generation can assist composers while preserving explicit post-tonal constraints and producing inspectable analysis reports.
+
+The proposed model improves the measured row-order and rhythmic-profile metrics relative to the vanilla Transformer in this full run, while token accuracy remains similar. Several ablations expose the expected limitation of metric applicability: for example, row-order accuracy is not reported when serial conditioning is intentionally absent. Future work should add user-provided validation sets, richer notation, blind expert ratings from the prepared package, and more sophisticated decoding that balances local fluency against global aggregate and rhythmic-form constraints.

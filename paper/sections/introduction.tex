@@ -1,0 +1,7 @@
+\section{Introduction}
+
+Contemporary art music composition often uses explicit symbolic constraints: pitch-class sets, serial rows, aggregate completion, register plans, and rhythmic profiles. These constraints are poorly represented by generic pop-MIDI generation benchmarks. This project targets score-level post-tonal composition assistance, where generation is useful only if it can produce inspectable notation and explainable post-tonal analysis.
+
+The repository avoids copyrighted post-1945 scores by using a reproducible rule-generated corpus. The corpus is not claimed to model a historical style; it is a legal testbed for measuring whether neural and rule-based systems satisfy stated symbolic constraints.
+
+The practical contribution is an end-to-end pipeline: condition specification, synthetic data generation, neural training, rule and Transformer baselines, constraint-guided decoding, MusicXML export, analysis reports, and an expert-evaluation package for blind human ratings.

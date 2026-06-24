@@ -1,0 +1,44 @@
+experiment_name: rhythm_only
+seed: 47
+device: auto
+run_dir: runs/rhythm_only
+data_path: data/processed/project2_rhythm_only.pt
+vocab_path: data/processed/project2_rhythm_only.vocab.json
+generate_data: true
+corpus:
+  train_samples: 20000
+  val_samples: 2000
+  test_samples: 2000
+  min_measures: 4
+  max_measures: 16
+  min_voices: 2
+  max_voices: 8
+  export_musicxml: false
+  musicxml_dir: data/generated/rhythm_only_musicxml
+  ablation: rhythm_only
+model:
+  hidden_size: 384
+  layers: 6
+  heads: 6
+  dropout: 0.1
+  max_seq_len: 256
+training:
+  epochs: 60
+  batch_size: 16
+  lr: 0.0003
+  weight_decay: 0.01
+  val_fraction: 0.1
+  early_stopping_patience: 10
+  fast_dev_run: false
+  fp16: true
+  num_workers: 0
+evaluation:
+  split: test
+  max_batches: null
+  export_examples: 20
+  generation_examples: 20
+  constraint_metric_samples: 2000
+  model_generation: true
+  constraint_guided_decoding: false
+  constraint_guided_attempts: 1
+  max_new_tokens: 224

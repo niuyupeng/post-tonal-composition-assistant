@@ -1,0 +1,81 @@
+{
+  "analysis": {
+    "aggregate_completion_rate": 0.5,
+    "density_curve": [
+      10.0,
+      10.0,
+      3.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "density_curve_error": 2.5333333015441895,
+    "expected_row_form": null,
+    "generated_interval_vector": [
+      3,
+      0,
+      3,
+      6,
+      3,
+      0
+    ],
+    "gesture_consistency_score": 0.49758454826143056,
+    "gesture_features": {
+      "average_duration": 0.3478260934352875,
+      "note_density": 0.38333333333333336,
+      "onset_dispersion": 1.034609079360962,
+      "register_spread": 41.0,
+      "rest_ratio": 0.1458333283662796
+    },
+    "instrument_range_violation_rate": 0.0,
+    "interval_vector_distance": 0.0,
+    "note_count": 23,
+    "pcset": [
+      0,
+      3,
+      4,
+      7,
+      8,
+      11
+    ],
+    "pcset_coverage": 1.0,
+    "range_violation_rate": 0.0,
+    "rhythmic_profile_distance": 0.8444444537162781,
+    "row_order_accuracy": null,
+    "serial_transformation_accuracy": null
+  },
+  "metadata": {
+    "gesture": "rhythmic_burst",
+    "instrument": "violin",
+    "interval_vector": [
+      3,
+      0,
+      3,
+      6,
+      3,
+      0
+    ],
+    "measures": 15,
+    "pcset": [
+      0,
+      3,
+      4,
+      7,
+      8,
+      11
+    ],
+    "rhythm_profile": "sparse",
+    "row": null,
+    "row_form": null,
+    "voices": 8
+  }
+}

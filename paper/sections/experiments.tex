@@ -1,0 +1,7 @@
+\section{Experiment Setup}
+
+Experiments compare a rule generator, a vanilla Transformer, the proposed constraint-guided Transformer, no-constraint Transformer variants, and focused ablations for pc-set, serial, rhythm, and gesture conditioning. The CPU smoke configuration remains an engineering check only; the full run reported here uses the full synthetic split saved in \texttt{results/project2\_full\_split\_summary.json}.
+
+The full local run used an NVIDIA GeForce RTX 4060 Ti 16GB GPU, Python 3.11.9, PyTorch 2.5.1+cu121, and CUDA availability set to true. The evaluated corpus split is 20,000 training samples, 2,000 validation samples, and 2,000 test samples, with \texttt{smoke=false} in the saved split summary.
+
+The default Transformer uses six layers, hidden size 384, six attention heads, maximum sequence length 256, batch size 16, Windows-safe dataloading with zero workers, fp16 autocast, gradient clipping, and early stopping with patience 10. Twelve neural configurations were trained, and the rule-only baseline was evaluated without a neural checkpoint, giving 13 evaluated rows in \texttt{results/project2\_metrics.csv}.

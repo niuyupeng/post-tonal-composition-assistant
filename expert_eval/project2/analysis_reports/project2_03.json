@@ -1,0 +1,95 @@
+{
+  "analysis": {
+    "aggregate_completion_rate": 0.75,
+    "density_curve": [
+      2.0,
+      2.0,
+      1.0,
+      1.0,
+      3.0
+    ],
+    "density_curve_error": 1.0,
+    "expected_row_form": [
+      10,
+      3,
+      0,
+      1,
+      7,
+      4,
+      8,
+      9,
+      6,
+      2,
+      5,
+      11
+    ],
+    "generated_interval_vector": [
+      7,
+      6,
+      7,
+      7,
+      6,
+      3
+    ],
+    "gesture_consistency_score": 0.71875,
+    "gesture_features": {
+      "average_duration": 1.7777777910232544,
+      "note_density": 0.45,
+      "onset_dispersion": 1.048220157623291,
+      "register_spread": 30.0,
+      "rest_ratio": 1.2999999523162842
+    },
+    "instrument_range_violation_rate": 0.0,
+    "interval_vector_distance": 26.0,
+    "note_count": 9,
+    "pcset": [
+      0,
+      1,
+      2,
+      5,
+      6
+    ],
+    "pcset_coverage": 0.6,
+    "range_violation_rate": 0.0,
+    "rhythmic_profile_distance": 0.3333333432674408,
+    "row_order_accuracy": 0.2222222222222222,
+    "serial_transformation_accuracy": 0.2222222222222222
+  },
+  "metadata": {
+    "gesture": "registral_expansion",
+    "instrument": "violin",
+    "interval_vector": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      1
+    ],
+    "measures": 5,
+    "pcset": [
+      0,
+      1,
+      2,
+      5,
+      6
+    ],
+    "rhythm_profile": "sparse",
+    "row": [
+      2,
+      9,
+      0,
+      11,
+      5,
+      8,
+      4,
+      3,
+      6,
+      10,
+      7,
+      1
+    ],
+    "row_form": "I10",
+    "voices": 2
+  }
+}

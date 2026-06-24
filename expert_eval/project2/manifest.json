@@ -1,0 +1,690 @@
+{
+  "count": 20,
+  "items": [
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_01.json",
+      "condition_metadata": {
+        "gesture": "rhythmic_burst",
+        "measures": 15,
+        "pcset": [
+          0,
+          3,
+          4,
+          7,
+          8,
+          11
+        ],
+        "rhythm_profile": "sparse",
+        "row": null,
+        "row_form": null,
+        "voices": 8
+      },
+      "id": "project2_01",
+      "metrics": {
+        "aggregate_completion_rate": 0.5,
+        "gesture_consistency_score": 0.49758454826143056,
+        "interval_vector_distance": 0.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.8444444537162781
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_01.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_02.json",
+      "condition_metadata": {
+        "gesture": "pointillistic",
+        "measures": 6,
+        "pcset": [
+          0,
+          1,
+          5,
+          6,
+          8
+        ],
+        "rhythm_profile": "burst",
+        "row": null,
+        "row_form": null,
+        "voices": 3
+      },
+      "id": "project2_02",
+      "metrics": {
+        "aggregate_completion_rate": 0.4166666666666667,
+        "gesture_consistency_score": 0.7414682513191586,
+        "interval_vector_distance": 0.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.4166666567325592
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_02.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_03.json",
+      "condition_metadata": {
+        "gesture": "registral_expansion",
+        "measures": 5,
+        "pcset": [
+          0,
+          1,
+          2,
+          5,
+          6
+        ],
+        "rhythm_profile": "sparse",
+        "row": [
+          2,
+          9,
+          0,
+          11,
+          5,
+          8,
+          4,
+          3,
+          6,
+          10,
+          7,
+          1
+        ],
+        "row_form": "I10",
+        "voices": 2
+      },
+      "id": "project2_03",
+      "metrics": {
+        "aggregate_completion_rate": 0.75,
+        "gesture_consistency_score": 0.71875,
+        "interval_vector_distance": 26.0,
+        "pcset_coverage": 0.6,
+        "rhythmic_profile_distance": 0.3333333432674408
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_03.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_04.json",
+      "condition_metadata": {
+        "gesture": "sustained",
+        "measures": 12,
+        "pcset": [
+          0,
+          2,
+          4,
+          7,
+          9
+        ],
+        "rhythm_profile": "pointillistic",
+        "row": [
+          1,
+          5,
+          3,
+          7,
+          8,
+          11,
+          2,
+          10,
+          0,
+          9,
+          4,
+          6
+        ],
+        "row_form": "I1",
+        "voices": 5
+      },
+      "id": "project2_04",
+      "metrics": {
+        "aggregate_completion_rate": 1.0,
+        "gesture_consistency_score": 0.37430553966098357,
+        "interval_vector_distance": 56.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.6944444179534912
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_04.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_05.json",
+      "condition_metadata": {
+        "gesture": "pointillistic",
+        "measures": 6,
+        "pcset": [
+          0,
+          1,
+          4,
+          6
+        ],
+        "rhythm_profile": "medium",
+        "row": null,
+        "row_form": null,
+        "voices": 7
+      },
+      "id": "project2_05",
+      "metrics": {
+        "aggregate_completion_rate": 0.3333333333333333,
+        "gesture_consistency_score": 0.5432088721366156,
+        "interval_vector_distance": 0.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 1.3333332538604736
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_05.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_06.json",
+      "condition_metadata": {
+        "gesture": "silence_gap",
+        "measures": 14,
+        "pcset": [
+          0,
+          1,
+          4,
+          6
+        ],
+        "rhythm_profile": "sustained",
+        "row": [
+          0,
+          7,
+          2,
+          6,
+          8,
+          10,
+          5,
+          9,
+          11,
+          4,
+          3,
+          1
+        ],
+        "row_form": "R6",
+        "voices": 3
+      },
+      "id": "project2_06",
+      "metrics": {
+        "aggregate_completion_rate": 0.75,
+        "gesture_consistency_score": 0.808163240977696,
+        "interval_vector_distance": 30.0,
+        "pcset_coverage": 0.75,
+        "rhythmic_profile_distance": 0.4047619104385376
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_06.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_07.json",
+      "condition_metadata": {
+        "gesture": "registral_expansion",
+        "measures": 6,
+        "pcset": [
+          0,
+          1,
+          5,
+          6,
+          8
+        ],
+        "rhythm_profile": "pointillistic",
+        "row": null,
+        "row_form": null,
+        "voices": 4
+      },
+      "id": "project2_07",
+      "metrics": {
+        "aggregate_completion_rate": 0.4166666666666667,
+        "gesture_consistency_score": 0.3125,
+        "interval_vector_distance": 0.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.7121212482452393
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_07.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_08.json",
+      "condition_metadata": {
+        "gesture": "rhythmic_burst",
+        "measures": 7,
+        "pcset": [
+          0,
+          1,
+          4,
+          6
+        ],
+        "rhythm_profile": "burst",
+        "row": null,
+        "row_form": null,
+        "voices": 4
+      },
+      "id": "project2_08",
+      "metrics": {
+        "aggregate_completion_rate": 0.3333333333333333,
+        "gesture_consistency_score": 0.8629075629370553,
+        "interval_vector_distance": 0.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.7142857313156128
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_08.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_09.json",
+      "condition_metadata": {
+        "gesture": "silence_gap",
+        "measures": 7,
+        "pcset": [
+          0,
+          1,
+          4,
+          6
+        ],
+        "rhythm_profile": "additive",
+        "row": [
+          0,
+          6,
+          4,
+          8,
+          9,
+          2,
+          1,
+          3,
+          5,
+          10,
+          11,
+          7
+        ],
+        "row_form": "P1",
+        "voices": 4
+      },
+      "id": "project2_09",
+      "metrics": {
+        "aggregate_completion_rate": 1.0,
+        "gesture_consistency_score": 0.318877569266728,
+        "interval_vector_distance": 60.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.5714285969734192
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_09.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_10.json",
+      "condition_metadata": {
+        "gesture": "pointillistic",
+        "measures": 15,
+        "pcset": [
+          0,
+          1,
+          2,
+          5,
+          6
+        ],
+        "rhythm_profile": "burst",
+        "row": null,
+        "row_form": null,
+        "voices": 3
+      },
+      "id": "project2_10",
+      "metrics": {
+        "aggregate_completion_rate": 0.4166666666666667,
+        "gesture_consistency_score": 0.6384920615998525,
+        "interval_vector_distance": 0.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.4416666626930237
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_10.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_11.json",
+      "condition_metadata": {
+        "gesture": "sustained",
+        "measures": 9,
+        "pcset": [
+          0,
+          3,
+          4,
+          7,
+          8,
+          11
+        ],
+        "rhythm_profile": "pointillistic",
+        "row": null,
+        "row_form": null,
+        "voices": 6
+      },
+      "id": "project2_11",
+      "metrics": {
+        "aggregate_completion_rate": 0.5,
+        "gesture_consistency_score": 0.2701149384180705,
+        "interval_vector_distance": 0.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.7575757503509521
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_11.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_12.json",
+      "condition_metadata": {
+        "gesture": "silence_gap",
+        "measures": 13,
+        "pcset": [
+          0,
+          1,
+          4,
+          6
+        ],
+        "rhythm_profile": "dense",
+        "row": [
+          3,
+          1,
+          9,
+          10,
+          4,
+          0,
+          5,
+          8,
+          6,
+          11,
+          7,
+          2
+        ],
+        "row_form": "P8",
+        "voices": 4
+      },
+      "id": "project2_12",
+      "metrics": {
+        "aggregate_completion_rate": 1.0,
+        "gesture_consistency_score": 0.3692307692307692,
+        "interval_vector_distance": 60.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.6538461446762085
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_12.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_13.json",
+      "condition_metadata": {
+        "gesture": "rhythmic_burst",
+        "measures": 6,
+        "pcset": [
+          0,
+          2,
+          3,
+          5
+        ],
+        "rhythm_profile": "sparse",
+        "row": [
+          9,
+          7,
+          6,
+          8,
+          2,
+          0,
+          3,
+          5,
+          4,
+          10,
+          1,
+          11
+        ],
+        "row_form": "R9",
+        "voices": 2
+      },
+      "id": "project2_13",
+      "metrics": {
+        "aggregate_completion_rate": 0.8333333333333334,
+        "gesture_consistency_score": 0.5069444378217061,
+        "interval_vector_distance": 39.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.5
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_13.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_14.json",
+      "condition_metadata": {
+        "gesture": "fragmented",
+        "measures": 11,
+        "pcset": [
+          0,
+          1,
+          4
+        ],
+        "rhythm_profile": "medium",
+        "row": null,
+        "row_form": null,
+        "voices": 7
+      },
+      "id": "project2_14",
+      "metrics": {
+        "aggregate_completion_rate": 0.25,
+        "gesture_consistency_score": 0.7551236351331075,
+        "interval_vector_distance": 0.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.8311688303947449
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_14.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_15.json",
+      "condition_metadata": {
+        "gesture": "registral_expansion",
+        "measures": 8,
+        "pcset": [
+          0,
+          3,
+          4,
+          7,
+          8,
+          11
+        ],
+        "rhythm_profile": "dense",
+        "row": null,
+        "row_form": null,
+        "voices": 4
+      },
+      "id": "project2_15",
+      "metrics": {
+        "aggregate_completion_rate": 0.5,
+        "gesture_consistency_score": 0.21484375,
+        "interval_vector_distance": 0.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.8653846383094788
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_15.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_16.json",
+      "condition_metadata": {
+        "gesture": "rhythmic_burst",
+        "measures": 16,
+        "pcset": [
+          0,
+          3,
+          4,
+          7,
+          8,
+          11
+        ],
+        "rhythm_profile": "medium",
+        "row": [
+          2,
+          5,
+          9,
+          8,
+          11,
+          1,
+          6,
+          7,
+          10,
+          3,
+          0,
+          4
+        ],
+        "row_form": "I8",
+        "voices": 5
+      },
+      "id": "project2_16",
+      "metrics": {
+        "aggregate_completion_rate": 1.0,
+        "gesture_consistency_score": 0.5201646950509813,
+        "interval_vector_distance": 51.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.8303571343421936
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_16.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_17.json",
+      "condition_metadata": {
+        "gesture": "rhythmic_burst",
+        "measures": 4,
+        "pcset": [
+          0,
+          1,
+          4
+        ],
+        "rhythm_profile": "sparse",
+        "row": [
+          11,
+          10,
+          7,
+          0,
+          5,
+          1,
+          4,
+          2,
+          6,
+          3,
+          8,
+          9
+        ],
+        "row_form": "P1",
+        "voices": 8
+      },
+      "id": "project2_17",
+      "metrics": {
+        "aggregate_completion_rate": 1.0,
+        "gesture_consistency_score": 0.7527006136046515,
+        "interval_vector_distance": 63.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 2.375
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_17.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_18.json",
+      "condition_metadata": {
+        "gesture": "sustained",
+        "measures": 9,
+        "pcset": [
+          0,
+          2,
+          3,
+          5
+        ],
+        "rhythm_profile": "sparse",
+        "row": null,
+        "row_form": null,
+        "voices": 5
+      },
+      "id": "project2_18",
+      "metrics": {
+        "aggregate_completion_rate": 0.3333333333333333,
+        "gesture_consistency_score": 0.34126982423994273,
+        "interval_vector_distance": 0.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.555555522441864
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_18.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_19.json",
+      "condition_metadata": {
+        "gesture": "sustained",
+        "measures": 13,
+        "pcset": [
+          0,
+          1,
+          5,
+          6,
+          8
+        ],
+        "rhythm_profile": "pointillistic",
+        "row": [
+          1,
+          6,
+          4,
+          11,
+          10,
+          5,
+          2,
+          7,
+          9,
+          0,
+          8,
+          3
+        ],
+        "row_form": "I11",
+        "voices": 4
+      },
+      "id": "project2_19",
+      "metrics": {
+        "aggregate_completion_rate": 1.0,
+        "gesture_consistency_score": 0.338417316094423,
+        "interval_vector_distance": 56.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 0.6410256028175354
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_19.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    },
+    {
+      "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_20.json",
+      "condition_metadata": {
+        "gesture": "fragmented",
+        "measures": 5,
+        "pcset": [
+          0,
+          3,
+          4,
+          7,
+          8,
+          11
+        ],
+        "rhythm_profile": "sustained",
+        "row": [
+          3,
+          8,
+          1,
+          7,
+          6,
+          11,
+          9,
+          4,
+          0,
+          5,
+          10,
+          2
+        ],
+        "row_form": "RI6",
+        "voices": 5
+      },
+      "id": "project2_20",
+      "metrics": {
+        "aggregate_completion_rate": 1.0,
+        "gesture_consistency_score": 0.670088631766183,
+        "interval_vector_distance": 51.0,
+        "pcset_coverage": 1.0,
+        "rhythmic_profile_distance": 2.0999999046325684
+      },
+      "musicxml": "expert_eval\\project2\\musicxml\\project2_20.musicxml",
+      "source": "full_2000_sample_proposed_evaluation"
+    }
+  ],
+  "run": "formal_retrain_full_2000_eval"
+}

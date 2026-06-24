@@ -1,0 +1,97 @@
+{
+  "analysis": {
+    "aggregate_completion_rate": 1.0,
+    "density_curve": [
+      10.0,
+      4.0,
+      5.0,
+      8.0,
+      0.0
+    ],
+    "density_curve_error": 4.199999809265137,
+    "expected_row_form": [
+      7,
+      11,
+      4,
+      9,
+      5,
+      0,
+      10,
+      3,
+      2,
+      8,
+      1,
+      6
+    ],
+    "generated_interval_vector": [
+      12,
+      12,
+      12,
+      12,
+      12,
+      6
+    ],
+    "gesture_consistency_score": 0.670088631766183,
+    "gesture_features": {
+      "average_duration": 0.9444444179534912,
+      "note_density": 1.35,
+      "onset_dispersion": 1.2728029489517212,
+      "register_spread": 41.0,
+      "rest_ratio": 0.4000000059604645
+    },
+    "instrument_range_violation_rate": 0.0,
+    "interval_vector_distance": 51.0,
+    "note_count": 27,
+    "pcset": [
+      0,
+      3,
+      4,
+      7,
+      8,
+      11
+    ],
+    "pcset_coverage": 1.0,
+    "range_violation_rate": 0.0,
+    "rhythmic_profile_distance": 2.0999999046325684,
+    "row_order_accuracy": 0.2222222222222222,
+    "serial_transformation_accuracy": 0.2222222222222222
+  },
+  "metadata": {
+    "gesture": "fragmented",
+    "instrument": "clarinet",
+    "interval_vector": [
+      3,
+      0,
+      3,
+      6,
+      3,
+      0
+    ],
+    "measures": 5,
+    "pcset": [
+      0,
+      3,
+      4,
+      7,
+      8,
+      11
+    ],
+    "rhythm_profile": "sustained",
+    "row": [
+      3,
+      8,
+      1,
+      7,
+      6,
+      11,
+      9,
+      4,
+      0,
+      5,
+      10,
+      2
+    ],
+    "row_form": "RI6",
+    "voices": 5
+  }
+}

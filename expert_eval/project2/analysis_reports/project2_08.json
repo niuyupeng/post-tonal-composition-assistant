@@ -1,0 +1,69 @@
+{
+  "analysis": {
+    "aggregate_completion_rate": 0.3333333333333333,
+    "density_curve": [
+      19.0,
+      11.0,
+      7.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "density_curve_error": 5.714285850524902,
+    "expected_row_form": null,
+    "generated_interval_vector": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "gesture_consistency_score": 0.8629075629370553,
+    "gesture_features": {
+      "average_duration": 0.3310810923576355,
+      "note_density": 1.3214285714285714,
+      "onset_dispersion": 1.1367026567459106,
+      "register_spread": 36.0,
+      "rest_ratio": 0.1071428582072258
+    },
+    "instrument_range_violation_rate": 0.0,
+    "interval_vector_distance": 0.0,
+    "note_count": 37,
+    "pcset": [
+      0,
+      1,
+      4,
+      6
+    ],
+    "pcset_coverage": 1.0,
+    "range_violation_rate": 0.0,
+    "rhythmic_profile_distance": 0.7142857313156128,
+    "row_order_accuracy": null,
+    "serial_transformation_accuracy": null
+  },
+  "metadata": {
+    "gesture": "rhythmic_burst",
+    "instrument": "flute",
+    "interval_vector": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "measures": 7,
+    "pcset": [
+      0,
+      1,
+      4,
+      6
+    ],
+    "rhythm_profile": "burst",
+    "row": null,
+    "row_form": null,
+    "voices": 4
+  }
+}

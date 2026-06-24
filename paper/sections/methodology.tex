@@ -1,0 +1,7 @@
+\section{Methodology}
+
+The system contains four layers, summarized in Figure~\ref{fig:method-pipeline}. First, a legal synthetic generator creates fragments conditioned on pitch-class sets, optional interval vectors, twelve-tone rows, P/R/I/RI forms, rhythmic profiles, gesture labels, instrument, voice count, and measure count. Second, theory utilities compute pc-set coverage, interval vectors, row-order accuracy, aggregate completion, density curves, gesture features, and range violations. Third, an event tokenizer represents conditions and score events as Transformer-readable sequences. Fourth, generation uses a rule baseline or neural model with non-differentiable constraint penalties applied during decoding or reranking.
+
+All outputs remain symbolic. MusicXML export is used for notation inspection, and analysis reports are saved alongside generated scores.
+
+The proposed decoding procedure samples candidate symbolic continuations and reranks them with explicit post-tonal penalties. These penalties are not treated as differentiable training losses. They are used only where the metric is naturally symbolic, such as pc-set coverage, aggregate completion, row-order accuracy, rhythmic-profile distance, gesture consistency, and instrument range validity.

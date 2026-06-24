@@ -1,0 +1,79 @@
+{
+  "analysis": {
+    "aggregate_completion_rate": 0.4166666666666667,
+    "density_curve": [
+      12.0,
+      13.0,
+      0.0,
+      7.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "density_curve_error": 3.5333333015441895,
+    "expected_row_form": null,
+    "generated_interval_vector": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      1
+    ],
+    "gesture_consistency_score": 0.6384920615998525,
+    "gesture_features": {
+      "average_duration": 0.3125,
+      "note_density": 0.5333333333333333,
+      "onset_dispersion": 1.03030264377594,
+      "register_spread": 30.0,
+      "rest_ratio": 0.09583333134651184
+    },
+    "instrument_range_violation_rate": 0.0,
+    "interval_vector_distance": 0.0,
+    "note_count": 32,
+    "pcset": [
+      0,
+      1,
+      2,
+      5,
+      6
+    ],
+    "pcset_coverage": 1.0,
+    "range_violation_rate": 0.0,
+    "rhythmic_profile_distance": 0.4416666626930237,
+    "row_order_accuracy": null,
+    "serial_transformation_accuracy": null
+  },
+  "metadata": {
+    "gesture": "pointillistic",
+    "instrument": "generic_voice",
+    "interval_vector": [
+      3,
+      1,
+      1,
+      2,
+      2,
+      1
+    ],
+    "measures": 15,
+    "pcset": [
+      0,
+      1,
+      2,
+      5,
+      6
+    ],
+    "rhythm_profile": "burst",
+    "row": null,
+    "row_form": null,
+    "voices": 3
+  }
+}
