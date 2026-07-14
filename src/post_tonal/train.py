@@ -60,34 +60,45 @@ def run_epoch(
     scaler: torch.cuda.amp.GradScaler | None,
     fast_dev_run: bool = False,
     use_amp: bool = False,
+    gradient_accumulation_steps: int = 1,
 ) -> dict[str, float]:
     is_train = optimizer is not None
+    accumulation_steps = max(1, int(gradient_accumulation_steps))
     model.train(is_train)
     loss_fn = nn.CrossEntropyLoss(ignore_index=-100)
     total_loss = 0.0
     total_acc = 0.0
     batches = 0
     iterator = tqdm(loader, desc="train" if is_train else "valid", leave=False)
-    for batch in iterator:
+    if is_train:
+        optimizer.zero_grad(set_to_none=True)
+    for batch_idx, batch in enumerate(iterator):
         input_ids = batch["input_ids"].to(device)
         labels = batch["labels"].to(device)
         attention_mask = batch["attention_mask"].to(device)
-        if is_train:
-            optimizer.zero_grad(set_to_none=True)
         with torch.cuda.amp.autocast(enabled=use_amp):
             logits = model(input_ids, attention_mask)
             loss = loss_fn(logits.reshape(-1, logits.shape[-1]), labels.reshape(-1))
         if is_train:
+            backward_loss = loss / accumulation_steps
             if scaler is not None and use_amp:
-                scaler.scale(loss).backward()
-                scaler.unscale_(optimizer)
-                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-                scaler.step(optimizer)
-                scaler.update()
+                scaler.scale(backward_loss).backward()
             else:
-                loss.backward()
+                backward_loss.backward()
+
+            is_last_batch = batch_idx + 1 == len(loader)
+            is_fast_dev_last = fast_dev_run and batch_idx + 1 >= 2
+            should_step = (batch_idx + 1) % accumulation_steps == 0 or is_last_batch or is_fast_dev_last
+            if should_step:
+                if scaler is not None and use_amp:
+                    scaler.unscale_(optimizer)
                 torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-                optimizer.step()
+                if scaler is not None and use_amp:
+                    scaler.step(optimizer)
+                    scaler.update()
+                else:
+                    optimizer.step()
+                optimizer.zero_grad(set_to_none=True)
         total_loss += float(loss.item())
         total_acc += token_accuracy(logits.detach(), labels)
         batches += 1
@@ -131,6 +142,7 @@ def train(config_path: str | Path) -> dict[str, Any]:
     optimizer = torch.optim.AdamW(model.parameters(), lr=float(train_cfg.get("lr", 3e-4)), weight_decay=float(train_cfg.get("weight_decay", 0.01)))
     use_amp = device.type == "cuda" and bool(train_cfg.get("fp16", True))
     scaler = torch.cuda.amp.GradScaler(enabled=use_amp)
+    accumulation_steps = max(1, int(train_cfg.get("gradient_accumulation_steps", 1)))
 
     metrics_path = Path(run_dir) / "metrics.csv"
     best_val = float("inf")
@@ -150,6 +162,7 @@ def train(config_path: str | Path) -> dict[str, Any]:
                 scaler,
                 fast_dev_run=bool(train_cfg.get("fast_dev_run", False)),
                 use_amp=use_amp,
+                gradient_accumulation_steps=accumulation_steps,
             )
             with torch.no_grad():
                 val_metrics = run_epoch(
@@ -189,7 +202,16 @@ def train(config_path: str | Path) -> dict[str, Any]:
                 if bad_epochs >= patience:
                     break
 
-    summary = {"best_val_loss": best_val, "epochs_ran": len(history), "device": str(device), "history": history}
+    batch_size = int(train_cfg.get("batch_size", 16))
+    summary = {
+        "best_val_loss": best_val,
+        "epochs_ran": len(history),
+        "device": str(device),
+        "batch_size": batch_size,
+        "gradient_accumulation_steps": accumulation_steps,
+        "effective_batch_size": batch_size * accumulation_steps,
+        "history": history,
+    }
     save_json(summary, Path(run_dir) / "train_summary.json")
     return summary
 

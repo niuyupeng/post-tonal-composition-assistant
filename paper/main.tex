@@ -25,10 +25,20 @@
   urlcolor=blue!50!black
 }
 
+\ifdefined\anonymoussubmission
+  \newcommand{\submissionauthor}{Anonymous author(s)}
+  \newcommand{\submissionaffiliation}{Affiliation withheld for review}
+  \newcommand{\repositorystatement}{An anonymized source and data snapshot will be supplied during review in accordance with the journal's policy.}
+\else
+  \newcommand{\submissionauthor}{PENDING\_AUTHOR}
+  \newcommand{\submissionaffiliation}{PENDING\_AFFILIATION}
+  \newcommand{\repositorystatement}{The source repository is maintained at \url{https://github.com/niuyupeng/yinyue2}. At the time of writing it is private; an archival public release is pending the chosen journal's policy.}
+\fi
+
 \title{Neural-Symbolic Post-Tonal Composition Assistance with\\
 Pitch-Class Set, Serial, and Rhythmic-Profile Constraints\\[0.5em]
 \large 融合音级集合、序列与节奏轮廓约束的神经符号后调性作曲辅助方法}
-\author{PENDING\_AUTHOR}
+\author{\submissionauthor\\\small \submissionaffiliation}
 \date{}
 
 \begin{document}

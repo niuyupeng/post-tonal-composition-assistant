@@ -22,13 +22,16 @@
       "id": "project2_01",
       "metrics": {
         "aggregate_completion_rate": 0.5,
-        "gesture_consistency_score": 0.49758454826143056,
+        "gesture_consistency_score": 0.48484847280714244,
         "interval_vector_distance": 0.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.8444444537162781
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.8222222328186035,
+        "row_order_accuracy": null
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_01.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022000",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_02.json",
@@ -50,13 +53,16 @@
       "id": "project2_02",
       "metrics": {
         "aggregate_completion_rate": 0.4166666666666667,
-        "gesture_consistency_score": 0.7414682513191586,
+        "gesture_consistency_score": 0.8383928599811735,
         "interval_vector_distance": 0.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.4166666567325592
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.3541666567325592,
+        "row_order_accuracy": null
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_02.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022001",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_03.json",
@@ -90,14 +96,17 @@
       },
       "id": "project2_03",
       "metrics": {
-        "aggregate_completion_rate": 0.75,
-        "gesture_consistency_score": 0.71875,
-        "interval_vector_distance": 26.0,
+        "aggregate_completion_rate": 0.6666666666666666,
+        "gesture_consistency_score": 0.625,
+        "interval_vector_distance": 18.0,
         "pcset_coverage": 0.6,
-        "rhythmic_profile_distance": 0.3333333432674408
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.4000000059604645,
+        "row_order_accuracy": 0.125
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_03.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022002",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_04.json",
@@ -132,13 +141,16 @@
       "id": "project2_04",
       "metrics": {
         "aggregate_completion_rate": 1.0,
-        "gesture_consistency_score": 0.37430553966098357,
+        "gesture_consistency_score": 0.33417144086625844,
         "interval_vector_distance": 56.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.6944444179534912
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.7361111044883728,
+        "row_order_accuracy": 0.27586206896551724
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_04.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022003",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_05.json",
@@ -159,13 +171,16 @@
       "id": "project2_05",
       "metrics": {
         "aggregate_completion_rate": 0.3333333333333333,
-        "gesture_consistency_score": 0.5432088721366156,
+        "gesture_consistency_score": 0.633035709555187,
         "interval_vector_distance": 0.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 1.3333332538604736
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 1.3666666746139526,
+        "row_order_accuracy": null
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_05.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022004",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_06.json",
@@ -199,13 +214,16 @@
       "id": "project2_06",
       "metrics": {
         "aggregate_completion_rate": 0.75,
-        "gesture_consistency_score": 0.808163240977696,
+        "gesture_consistency_score": 0.3744898080825806,
         "interval_vector_distance": 30.0,
         "pcset_coverage": 0.75,
-        "rhythmic_profile_distance": 0.4047619104385376
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.4523809254169464,
+        "row_order_accuracy": 0.0
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_06.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022005",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_07.json",
@@ -227,13 +245,16 @@
       "id": "project2_07",
       "metrics": {
         "aggregate_completion_rate": 0.4166666666666667,
-        "gesture_consistency_score": 0.3125,
+        "gesture_consistency_score": 0.2604166666666667,
         "interval_vector_distance": 0.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.7121212482452393
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.7424242496490479,
+        "row_order_accuracy": null
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_07.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022006",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_08.json",
@@ -254,13 +275,16 @@
       "id": "project2_08",
       "metrics": {
         "aggregate_completion_rate": 0.3333333333333333,
-        "gesture_consistency_score": 0.8629075629370553,
+        "gesture_consistency_score": 0.785218253968254,
         "interval_vector_distance": 0.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.7142857313156128
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.625,
+        "row_order_accuracy": null
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_08.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022007",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_09.json",
@@ -294,13 +318,16 @@
       "id": "project2_09",
       "metrics": {
         "aggregate_completion_rate": 1.0,
-        "gesture_consistency_score": 0.318877569266728,
+        "gesture_consistency_score": 0.4132653304508754,
         "interval_vector_distance": 60.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.5714285969734192
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.6904761791229248,
+        "row_order_accuracy": 0.25
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_09.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022008",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_10.json",
@@ -322,13 +349,16 @@
       "id": "project2_10",
       "metrics": {
         "aggregate_completion_rate": 0.4166666666666667,
-        "gesture_consistency_score": 0.6384920615998525,
+        "gesture_consistency_score": 0.6442640665977719,
         "interval_vector_distance": 0.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.4416666626930237
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.42500001192092896,
+        "row_order_accuracy": null
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_10.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022009",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_11.json",
@@ -351,13 +381,16 @@
       "id": "project2_11",
       "metrics": {
         "aggregate_completion_rate": 0.5,
-        "gesture_consistency_score": 0.2701149384180705,
+        "gesture_consistency_score": 0.2660256226857503,
         "interval_vector_distance": 0.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.7575757503509521
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.7272727489471436,
+        "row_order_accuracy": null
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_11.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022010",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_12.json",
@@ -391,13 +424,16 @@
       "id": "project2_12",
       "metrics": {
         "aggregate_completion_rate": 1.0,
-        "gesture_consistency_score": 0.3692307692307692,
+        "gesture_consistency_score": 0.46538461538461534,
         "interval_vector_distance": 60.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.6538461446762085
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.6813187003135681,
+        "row_order_accuracy": 0.3
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_12.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022011",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_13.json",
@@ -430,14 +466,17 @@
       },
       "id": "project2_13",
       "metrics": {
-        "aggregate_completion_rate": 0.8333333333333334,
-        "gesture_consistency_score": 0.5069444378217061,
-        "interval_vector_distance": 39.0,
+        "aggregate_completion_rate": 1.0,
+        "gesture_consistency_score": 0.5089285572369893,
+        "interval_vector_distance": 60.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.5
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.3888888657093048,
+        "row_order_accuracy": 0.21428571428571427
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_13.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022012",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_14.json",
@@ -457,13 +496,16 @@
       "id": "project2_14",
       "metrics": {
         "aggregate_completion_rate": 0.25,
-        "gesture_consistency_score": 0.7551236351331075,
+        "gesture_consistency_score": 0.7927749024497137,
         "interval_vector_distance": 0.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.8311688303947449
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.8311688303947449,
+        "row_order_accuracy": null
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_14.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022013",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_15.json",
@@ -486,13 +528,16 @@
       "id": "project2_15",
       "metrics": {
         "aggregate_completion_rate": 0.5,
-        "gesture_consistency_score": 0.21484375,
+        "gesture_consistency_score": 0.25390625,
         "interval_vector_distance": 0.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.8653846383094788
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.8846153616905212,
+        "row_order_accuracy": null
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_15.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022014",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_16.json",
@@ -528,13 +573,16 @@
       "id": "project2_16",
       "metrics": {
         "aggregate_completion_rate": 1.0,
-        "gesture_consistency_score": 0.5201646950509813,
+        "gesture_consistency_score": 0.5350796646542019,
         "interval_vector_distance": 51.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.8303571343421936
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.8035714030265808,
+        "row_order_accuracy": 0.2647058823529412
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_16.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022015",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_17.json",
@@ -567,13 +615,16 @@
       "id": "project2_17",
       "metrics": {
         "aggregate_completion_rate": 1.0,
-        "gesture_consistency_score": 0.7527006136046515,
+        "gesture_consistency_score": 0.7986111044883728,
         "interval_vector_distance": 63.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 2.375
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 2.625,
+        "row_order_accuracy": 0.2
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_17.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022016",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_18.json",
@@ -594,13 +645,16 @@
       "id": "project2_18",
       "metrics": {
         "aggregate_completion_rate": 0.3333333333333333,
-        "gesture_consistency_score": 0.34126982423994273,
+        "gesture_consistency_score": 0.41203705469767254,
         "interval_vector_distance": 0.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.555555522441864
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.5185185074806213,
+        "row_order_accuracy": null
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_18.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022017",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_19.json",
@@ -635,13 +689,16 @@
       "id": "project2_19",
       "metrics": {
         "aggregate_completion_rate": 1.0,
-        "gesture_consistency_score": 0.338417316094423,
+        "gesture_consistency_score": 0.49970860664661115,
         "interval_vector_distance": 56.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 0.6410256028175354
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 0.6474359035491943,
+        "row_order_accuracy": 0.2727272727272727
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_19.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022018",
+      "source": "controlled_constraint_reranked"
     },
     {
       "analysis_report": "expert_eval\\project2\\analysis_reports\\project2_20.json",
@@ -677,14 +734,17 @@
       "id": "project2_20",
       "metrics": {
         "aggregate_completion_rate": 1.0,
-        "gesture_consistency_score": 0.670088631766183,
+        "gesture_consistency_score": 0.38860204484727645,
         "interval_vector_distance": 51.0,
         "pcset_coverage": 1.0,
-        "rhythmic_profile_distance": 2.0999999046325684
+        "range_violation_rate": 0.0,
+        "rhythmic_profile_distance": 1.600000023841858,
+        "row_order_accuracy": 0.22727272727272727
       },
       "musicxml": "expert_eval\\project2\\musicxml\\project2_20.musicxml",
-      "source": "full_2000_sample_proposed_evaluation"
+      "sample_id": "synthetic_022019",
+      "source": "controlled_constraint_reranked"
     }
   ],
-  "run": "formal_retrain_full_2000_eval"
+  "run": "controlled_constraint_reranked"
 }

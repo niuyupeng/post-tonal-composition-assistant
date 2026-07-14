@@ -79,7 +79,10 @@ Deliverable: submission-ready manuscript and supplementary package.
 | Abstract, Results, and Discussion | complete pending final audit | all numeric claims sourced from paired CSV/JSON | evidence-bound prose |
 | Controlled effect figure | complete | selected endpoints have prespecified favorable directions | PDF/SVG/PNG and source CSV |
 | Representative score figure | integrated | controlled example 019 is structurally valid, spans the requested 5/5 measures, and has a matching JSON report | rendered score and self-contained caption |
-| Final manuscript QA | complete for the current draft | all numbers traced to artifacts; LaTeX compiles without warnings; 16 tests pass | 20-page PDF and claim audit |
+| Expert package preparation | complete; ratings pending | 20 controlled $K=4$ MusicXML files parse structurally and are anonymized | condition-aware forms, manifest, withheld reports |
+| Multi-seed replication | waiting for explicit GPU slot | batch-16 OOM and concurrent-workload interruption preserved as diagnostics | three configs; no aggregate claim until all runs complete |
+| Submission package | prepared with explicit gates | no author identity, policy, or declaration inferred | anonymous wrapper, checklist, cover letter, metadata form, declarations |
+| Final manuscript QA | complete for the current draft | all numbers traced to artifacts; LaTeX compiles without warnings; 17 tests pass | 20-page PDF and claim audit |
 | GitHub synchronization | current manuscript-preparation commits synchronized | remote branch matches local commit | final evidence-bound manuscript commit after controlled analysis |
 
 The critical dependency chain is $K=4$ evaluation $\rightarrow$ paired statistics $\rightarrow$ controlled table and figure $\rightarrow$ Abstract/Results/Discussion $\rightarrow$ final numerical audit. Literature, method prose, figure preparation, testing, and repository commits proceed in parallel. No manuscript sentence may bypass this chain by substituting archived cross-configuration values for the controlled comparison.

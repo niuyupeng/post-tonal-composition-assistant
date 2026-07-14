@@ -13,7 +13,7 @@ With one checkpoint and one test set fixed, does four-candidate symbolic reranki
 1. Controlled paired evaluation: same checkpoint, same 2,000 test conditions, and the same per-sample random seeds for K=1 and K=4.
 2. Full-run training and corpus artifacts: 20,000/2,000/2,000 split, smoke=false, RTX 4060 Ti execution.
 3. Archived 13-row experiment table: descriptive only because separately generated datasets and seeds prevent a controlled causal comparison.
-4. Expert package: structurally valid MusicXML examples are available, but blind ratings have not been collected.
+4. Expert package: 20 controlled $K=4$ outputs are available as anonymized, structurally valid MusicXML with condition-aware forms, but blind ratings have not been collected.
 
 ## Paper Positioning
 
@@ -24,6 +24,8 @@ The neural architecture is a standard six-layer causal Transformer with conditio
 - Full training and archived evaluations: complete.
 - Controlled K=1 evaluation: complete.
 - Controlled K=4 evaluation and paired bootstrap analysis: complete for 2,000 aligned conditions.
+- Expert package: rebuilt from `controlled_constraint_reranked`; 20/20 files parse as `score-partwise`, creator metadata are anonymous, and encoding dates are removed.
+- Multi-seed replication: configs are prepared; one batch-16 run encountered OOM and one batch-8/accumulation-2 run was paused during unrelated GPU contention. Partial artifacts are diagnostic only. Resumption awaits an explicit GPU slot.
 - Evidence-bound Abstract, Results, and Discussion: complete; numerical audit and warning-free 20-page compilation passed.
 - Primary target: Journal of New Music Research; Applied Sciences is the faster SCIE fallback.
 - Author and affiliation metadata: pending.

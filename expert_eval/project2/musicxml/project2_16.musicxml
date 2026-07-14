@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE score-partwise  PUBLIC "-//Recordare//DTD MusicXML 4.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
+<?xml version='1.0' encoding='utf-8'?>
 <score-partwise version="4.0">
   <work>
     <work-title>Synthetic post-tonal fragment</work-title>
   </work>
   <movement-title>Synthetic post-tonal fragment</movement-title>
   <identification>
-    <creator type="composer">Rule-generated synthetic corpus</creator>
+    <creator type="composer">Anonymous score-level composition assistant</creator>
     <encoding>
-      <encoding-date>2026-06-17</encoding-date>
       <software>music21 v.10.3.0</software>
       <supports element="beam" type="yes" />
       <supports element="stem" type="yes" />
@@ -22,70 +20,68 @@
     </scaling>
   </defaults>
   <part-list>
-    <score-part id="Pe9522b2776af611ac335208660fcda8a">
+    <score-part id="P25ecb7c4e6843a44965ccb51d820f8eb">
       <part-name>Flute</part-name>
       <part-abbreviation>Fl</part-abbreviation>
-      <score-instrument id="If41c911a246f68732a9e25fda1494577">
+      <score-instrument id="Ie9ac0701a2e577fb0959b162b9cb3bd7">
         <instrument-name>Flute</instrument-name>
         <instrument-abbreviation>Fl</instrument-abbreviation>
       </score-instrument>
-      <midi-instrument id="If41c911a246f68732a9e25fda1494577">
+      <midi-instrument id="Ie9ac0701a2e577fb0959b162b9cb3bd7">
         <midi-channel>1</midi-channel>
         <midi-program>74</midi-program>
       </midi-instrument>
     </score-part>
-    <score-part id="Pee317e6acb32569ad57cc09ffd651d3c">
+    <score-part id="Pa10d430052e97975cfaaf5211cdd5be2">
       <part-name>Flute</part-name>
       <part-abbreviation>Fl</part-abbreviation>
-      <score-instrument id="I62786757a78dca9f7ed29416c0d454e5">
+      <score-instrument id="I14b1b85487b2dcc24d582142d9d46cd6">
         <instrument-name>Flute</instrument-name>
         <instrument-abbreviation>Fl</instrument-abbreviation>
       </score-instrument>
-      <midi-instrument id="I62786757a78dca9f7ed29416c0d454e5">
+      <midi-instrument id="I14b1b85487b2dcc24d582142d9d46cd6">
         <midi-channel>2</midi-channel>
         <midi-program>74</midi-program>
       </midi-instrument>
     </score-part>
-    <score-part id="P7c7e73f41de64411971cabecab12bd6d">
+    <score-part id="P67f209a6cab59308504a9088a4249087">
       <part-name>Flute</part-name>
       <part-abbreviation>Fl</part-abbreviation>
-      <score-instrument id="Ie63ec7a4267c41a8114ad5fc5fd9a53b">
+      <score-instrument id="I502a514b606f2edb1c1792874c6308f1">
         <instrument-name>Flute</instrument-name>
         <instrument-abbreviation>Fl</instrument-abbreviation>
       </score-instrument>
-      <midi-instrument id="Ie63ec7a4267c41a8114ad5fc5fd9a53b">
+      <midi-instrument id="I502a514b606f2edb1c1792874c6308f1">
         <midi-channel>3</midi-channel>
         <midi-program>74</midi-program>
       </midi-instrument>
     </score-part>
-    <score-part id="Pa556a1b75d32bf14363ac3724f5682d1">
+    <score-part id="P0050bcfc536cd3ba7ea97ab05c0bba5a">
       <part-name>Flute</part-name>
       <part-abbreviation>Fl</part-abbreviation>
-      <score-instrument id="Ieb9175c8aee5d398a14a4f405a06a442">
+      <score-instrument id="I0f51ce05afbd103f2e1398e0523ce060">
         <instrument-name>Flute</instrument-name>
         <instrument-abbreviation>Fl</instrument-abbreviation>
       </score-instrument>
-      <midi-instrument id="Ieb9175c8aee5d398a14a4f405a06a442">
+      <midi-instrument id="I0f51ce05afbd103f2e1398e0523ce060">
         <midi-channel>4</midi-channel>
         <midi-program>74</midi-program>
       </midi-instrument>
     </score-part>
-    <score-part id="P241c3a1d450f19e9209cdb2af120ca26">
+    <score-part id="Pdfb671f08d62322fa4c7cf8533f924d7">
       <part-name>Flute</part-name>
       <part-abbreviation>Fl</part-abbreviation>
-      <score-instrument id="I333f228a575310dafd1fb2dd4f716ed9">
+      <score-instrument id="Id0ad327cf59fe074a08e1a0e56fe288c">
         <instrument-name>Flute</instrument-name>
         <instrument-abbreviation>Fl</instrument-abbreviation>
       </score-instrument>
-      <midi-instrument id="I333f228a575310dafd1fb2dd4f716ed9">
+      <midi-instrument id="Id0ad327cf59fe074a08e1a0e56fe288c">
         <midi-channel>5</midi-channel>
         <midi-program>74</midi-program>
       </midi-instrument>
     </score-part>
   </part-list>
-  <!--=========================== Part 1 ===========================-->
-  <part id="Pe9522b2776af611ac335208660fcda8a">
-    <!--========================= Measure 1 ==========================-->
+  <part id="P25ecb7c4e6843a44965ccb51d820f8eb">
     <measure implicit="no" number="1">
       <attributes>
         <divisions>10080</divisions>
@@ -99,19 +95,29 @@
         </clef>
       </attributes>
       <note>
-        <pitch>
-          <step>G</step>
-          <alter>1</alter>
-          <octave>6</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <accidental>sharp</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
         <rest />
         <duration>2520</duration>
         <type>16th</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>7560</duration>
+        <type>eighth</type>
+        <dot />
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <alter>0</alter>
+          <octave>7</octave>
+        </pitch>
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
       </note>
       <note>
         <pitch>
@@ -130,36 +136,85 @@
       </note>
       <note>
         <pitch>
-          <step>C</step>
-          <alter>0</alter>
-          <octave>6</octave>
-        </pitch>
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note>
-        <rest />
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
           <step>A</step>
           <alter>0</alter>
           <octave>6</octave>
         </pitch>
         <duration>5040</duration>
         <type>eighth</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <alter>1</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>5040</duration>
+        <type>eighth</type>
+        <accidental>sharp</accidental>
+      </note>
+    </measure>
+    <measure implicit="no" number="2">
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>5040</duration>
+        <type>eighth</type>
+        <accidental>flat</accidental>
+        <stem>down</stem>
+        <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>0</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+        <accidental>natural</accidental>
+        <stem>down</stem>
+        <beam number="1">end</beam>
+        <beam number="2">backward hook</beam>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>7560</duration>
+        <type>eighth</type>
+        <dot />
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+        <duration>5040</duration>
+        <type>eighth</type>
+        <accidental>sharp</accidental>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <alter>0</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>5040</duration>
+        <type>eighth</type>
+        <accidental>natural</accidental>
       </note>
       <note print-object="no" print-spacing="yes">
         <rest />
@@ -170,15 +225,293 @@
         <pitch>
           <step>G</step>
           <alter>0</alter>
+          <octave>5</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+        <accidental>natural</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>7560</duration>
+        <type>eighth</type>
+        <dot />
+      </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+      </barline>
+    </measure>
+  </part>
+  <part id="Pa10d430052e97975cfaaf5211cdd5be2">
+    <measure implicit="no" number="1">
+      <attributes>
+        <divisions>10080</divisions>
+        <time>
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+        <accidental>sharp</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>0</alter>
+          <octave>5</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+        <accidental>sharp</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>7560</duration>
+        <type>eighth</type>
+        <dot />
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <alter>0</alter>
           <octave>6</octave>
+        </pitch>
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+    </measure>
+    <measure implicit="no" number="2">
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <alter>-1</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>5040</duration>
+        <type>eighth</type>
+        <accidental>flat</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+        <accidental>sharp</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>7560</duration>
+        <type>eighth</type>
+        <dot />
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+        <accidental>sharp</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <alter>-1</alter>
+          <octave>5</octave>
+        </pitch>
+        <duration>5040</duration>
+        <type>eighth</type>
+        <accidental>flat</accidental>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <alter>0</alter>
+          <octave>4</octave>
         </pitch>
         <duration>5040</duration>
         <type>eighth</type>
         <accidental>natural</accidental>
       </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+      </barline>
     </measure>
-    <!--========================= Measure 2 ==========================-->
+  </part>
+  <part id="P67f209a6cab59308504a9088a4249087">
+    <measure implicit="no" number="1">
+      <attributes>
+        <divisions>10080</divisions>
+        <time>
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <alter>0</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>0</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>7560</duration>
+        <type>eighth</type>
+        <dot />
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+        <accidental>sharp</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>0</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>2520</duration>
+        <tie type="start" />
+        <type>16th</type>
+        <notations>
+          <tied type="start" />
+        </notations>
+      </note>
+    </measure>
     <measure implicit="no" number="2">
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>0</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>2520</duration>
+        <tie type="stop" />
+        <type>16th</type>
+        <notations>
+          <tied type="stop" />
+        </notations>
+      </note>
       <note>
         <rest />
         <duration>2520</duration>
@@ -193,7 +526,7 @@
         <pitch>
           <step>A</step>
           <alter>0</alter>
-          <octave>5</octave>
+          <octave>4</octave>
         </pitch>
         <duration>2520</duration>
         <type>16th</type>
@@ -201,8 +534,129 @@
       </note>
       <note print-object="no" print-spacing="yes">
         <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
         <duration>5040</duration>
         <type>eighth</type>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>0</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>5040</duration>
+        <type>eighth</type>
+        <accidental>natural</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>10080</duration>
+        <type>quarter</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+      </barline>
+    </measure>
+  </part>
+  <part id="P0050bcfc536cd3ba7ea97ab05c0bba5a">
+    <measure implicit="no" number="1">
+      <attributes>
+        <divisions>10080</divisions>
+        <time>
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>7560</duration>
+        <type>eighth</type>
+        <dot />
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <alter>1</alter>
+          <octave>5</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+        <accidental>sharp</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <alter>-1</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>2520</duration>
+        <type>16th</type>
+        <accidental>flat</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <alter>0</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note>
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>7560</duration>
+        <type>eighth</type>
+        <dot />
+      </note>
+    </measure>
+    <measure implicit="no" number="2">
+      <note>
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>2520</duration>
+        <type>16th</type>
       </note>
       <note>
         <pitch>
@@ -214,14 +668,24 @@
         <type>eighth</type>
         <accidental>natural</accidental>
       </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
       <note>
         <pitch>
-          <step>F</step>
+          <step>E</step>
           <alter>0</alter>
           <octave>6</octave>
         </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
+        <duration>2520</duration>
+        <type>16th</type>
         <accidental>natural</accidental>
       </note>
       <note print-object="no" print-spacing="yes">
@@ -235,9 +699,7 @@
       </barline>
     </measure>
   </part>
-  <!--=========================== Part 2 ===========================-->
-  <part id="Pee317e6acb32569ad57cc09ffd651d3c">
-    <!--========================= Measure 1 ==========================-->
+  <part id="Pdfb671f08d62322fa4c7cf8533f924d7">
     <measure implicit="no" number="1">
       <attributes>
         <divisions>10080</divisions>
@@ -250,243 +712,10 @@
           <line>2</line>
         </clef>
       </attributes>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
       <note>
-        <pitch>
-          <step>E</step>
-          <alter>0</alter>
-          <octave>4</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <alter>-1</alter>
-          <octave>4</octave>
-        </pitch>
-        <duration>2520</duration>
-        <type>16th</type>
-        <accidental>flat</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>7560</duration>
-        <type>eighth</type>
-        <dot />
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <alter>1</alter>
-          <octave>4</octave>
-        </pitch>
-        <duration>2520</duration>
-        <type>16th</type>
-        <accidental>sharp</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>7560</duration>
-        <type>eighth</type>
-        <dot />
-      </note>
-      <note>
-        <pitch>
-          <step>E</step>
-          <alter>-1</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <accidental>flat</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>0</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>2520</duration>
-        <tie type="start" />
-        <type>16th</type>
-        <notations>
-          <tied type="start" />
-        </notations>
-      </note>
-    </measure>
-    <!--========================= Measure 2 ==========================-->
-    <measure implicit="no" number="2">
-      <note print-object="no" print-spacing="yes">
         <rest />
         <duration>5040</duration>
         <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>0</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>2520</duration>
-        <tie type="stop" />
-        <type>16th</type>
-        <notations>
-          <tied type="stop" />
-        </notations>
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <alter>1</alter>
-          <octave>6</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <accidental>sharp</accidental>
-      </note>
-      <note>
-        <rest />
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <alter>0</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <accidental>natural</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>17640</duration>
-        <type>quarter</type>
-        <dot />
-        <dot />
-      </note>
-      <barline location="right">
-        <bar-style>light-heavy</bar-style>
-      </barline>
-    </measure>
-  </part>
-  <!--=========================== Part 3 ===========================-->
-  <part id="P7c7e73f41de64411971cabecab12bd6d">
-    <!--========================= Measure 1 ==========================-->
-    <measure implicit="no" number="1">
-      <attributes>
-        <divisions>10080</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-      </attributes>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <alter>0</alter>
-          <octave>6</octave>
-        </pitch>
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>7560</duration>
-        <type>eighth</type>
-        <dot />
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <alter>0</alter>
-          <octave>4</octave>
-        </pitch>
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>E</step>
-          <alter>0</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>D</step>
-          <alter>0</alter>
-          <octave>6</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-    </measure>
-    <!--========================= Measure 2 ==========================-->
-    <measure implicit="no" number="2">
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>1</alter>
-          <octave>4</octave>
-        </pitch>
-        <duration>2520</duration>
-        <type>16th</type>
-        <accidental>sharp</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>7560</duration>
-        <type>eighth</type>
-        <dot />
       </note>
       <note>
         <pitch>
@@ -496,12 +725,11 @@
         </pitch>
         <duration>2520</duration>
         <type>16th</type>
-        <accidental>natural</accidental>
       </note>
       <note print-object="no" print-spacing="yes">
         <rest />
-        <duration>2520</duration>
-        <type>16th</type>
+        <duration>5040</duration>
+        <type>eighth</type>
       </note>
       <note>
         <rest />
@@ -515,69 +743,23 @@
         <dot />
       </note>
       <note>
-        <pitch>
-          <step>G</step>
-          <alter>1</alter>
-          <octave>4</octave>
-        </pitch>
-        <duration>2520</duration>
-        <type>16th</type>
-        <accidental>sharp</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>10080</duration>
-        <type>quarter</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
         <rest />
         <duration>2520</duration>
         <type>16th</type>
       </note>
-      <barline location="right">
-        <bar-style>light-heavy</bar-style>
-      </barline>
-    </measure>
-  </part>
-  <!--=========================== Part 4 ===========================-->
-  <part id="Pa556a1b75d32bf14363ac3724f5682d1">
-    <!--========================= Measure 1 ==========================-->
-    <measure implicit="no" number="1">
-      <attributes>
-        <divisions>10080</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-      </attributes>
       <note print-object="no" print-spacing="yes">
         <rest />
-        <duration>7560</duration>
+        <duration>5040</duration>
         <type>eighth</type>
-        <dot />
       </note>
       <note>
         <pitch>
-          <step>D</step>
+          <step>B</step>
           <alter>0</alter>
-          <octave>6</octave>
+          <octave>5</octave>
         </pitch>
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note>
-        <rest />
-        <duration>2520</duration>
-        <type>16th</type>
+        <duration>5040</duration>
+        <type>eighth</type>
       </note>
       <note print-object="no" print-spacing="yes">
         <rest />
@@ -586,18 +768,19 @@
       </note>
       <note>
         <pitch>
-          <step>G</step>
-          <alter>1</alter>
-          <octave>6</octave>
+          <step>E</step>
+          <alter>0</alter>
+          <octave>5</octave>
         </pitch>
         <duration>2520</duration>
         <type>16th</type>
-        <accidental>sharp</accidental>
       </note>
+    </measure>
+    <measure implicit="no" number="2">
       <note print-object="no" print-spacing="yes">
         <rest />
-        <duration>2520</duration>
-        <type>16th</type>
+        <duration>5040</duration>
+        <type>eighth</type>
       </note>
       <note>
         <rest />
@@ -610,240 +793,39 @@
         <type>quarter</type>
       </note>
       <note>
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-    </measure>
-    <!--========================= Measure 2 ==========================-->
-    <measure implicit="no" number="2">
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
         <pitch>
-          <step>F</step>
-          <alter>1</alter>
-          <octave>5</octave>
+          <step>B</step>
+          <alter>0</alter>
+          <octave>4</octave>
         </pitch>
         <duration>2520</duration>
         <type>16th</type>
-        <accidental>sharp</accidental>
+        <accidental>natural</accidental>
       </note>
       <note print-object="no" print-spacing="yes">
         <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
+        <duration>2520</duration>
+        <type>16th</type>
       </note>
       <note>
         <pitch>
-          <step>E</step>
+          <step>B</step>
           <alter>-1</alter>
           <octave>4</octave>
         </pitch>
         <duration>5040</duration>
         <type>eighth</type>
         <accidental>flat</accidental>
-        <stem>down</stem>
-        <beam number="1">begin</beam>
-      </note>
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>0</alter>
-          <octave>6</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <accidental>natural</accidental>
-        <stem>down</stem>
-        <beam number="1">end</beam>
       </note>
       <note print-object="no" print-spacing="yes">
         <rest />
-        <duration>17640</duration>
+        <duration>10080</duration>
         <type>quarter</type>
-        <dot />
-        <dot />
-      </note>
-      <barline location="right">
-        <bar-style>light-heavy</bar-style>
-      </barline>
-    </measure>
-  </part>
-  <!--=========================== Part 5 ===========================-->
-  <part id="P241c3a1d450f19e9209cdb2af120ca26">
-    <!--========================= Measure 1 ==========================-->
-    <measure implicit="no" number="1">
-      <attributes>
-        <divisions>10080</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-      </attributes>
-      <note>
-        <pitch>
-          <step>F</step>
-          <alter>1</alter>
-          <octave>6</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <accidental>sharp</accidental>
-        <stem>down</stem>
-        <beam number="1">begin</beam>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <alter>0</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <stem>down</stem>
-        <beam number="1">end</beam>
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <alter>0</alter>
-          <octave>4</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <stem>up</stem>
-        <beam number="1">begin</beam>
-      </note>
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>1</alter>
-          <octave>4</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <accidental>sharp</accidental>
-        <stem>up</stem>
-        <beam number="1">end</beam>
       </note>
       <note print-object="no" print-spacing="yes">
         <rest />
         <duration>2520</duration>
         <type>16th</type>
-      </note>
-      <note>
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <alter>0</alter>
-          <octave>4</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <alter>-1</alter>
-          <octave>4</octave>
-        </pitch>
-        <duration>2520</duration>
-        <type>16th</type>
-        <accidental>flat</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>2520</duration>
-        <type>16th</type>
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <alter>0</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>2520</duration>
-        <tie type="start" />
-        <type>16th</type>
-        <accidental>natural</accidental>
-        <notations>
-          <tied type="start" />
-        </notations>
-      </note>
-    </measure>
-    <!--========================= Measure 2 ==========================-->
-    <measure implicit="no" number="2">
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <alter>0</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>2520</duration>
-        <tie type="stop" />
-        <type>16th</type>
-        <notations>
-          <tied type="stop" />
-        </notations>
-      </note>
-      <note>
-        <pitch>
-          <step>E</step>
-          <alter>0</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <accidental>natural</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <alter>-1</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>5040</duration>
-        <type>eighth</type>
-        <accidental>flat</accidental>
-      </note>
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>1</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>2520</duration>
-        <type>16th</type>
-        <accidental>sharp</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>17640</duration>
-        <type>quarter</type>
-        <dot />
-        <dot />
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>

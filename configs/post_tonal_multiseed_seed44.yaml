@@ -1,0 +1,27 @@
+experiment_name: multiseed_seed44
+seed: 44
+device: auto
+run_dir: runs/multiseed/seed_44
+data_path: data/processed/project2_main.pt
+vocab_path: data/processed/project2_main.vocab.json
+generate_data: false
+corpus:
+  train_samples: 20000
+  val_samples: 2000
+  test_samples: 2000
+model:
+  hidden_size: 384
+  layers: 6
+  heads: 6
+  dropout: 0.1
+  max_seq_len: 256
+training:
+  epochs: 60
+  batch_size: 8
+  gradient_accumulation_steps: 2
+  lr: 0.0003
+  weight_decay: 0.01
+  early_stopping_patience: 10
+  fast_dev_run: false
+  fp16: true
+  num_workers: 0

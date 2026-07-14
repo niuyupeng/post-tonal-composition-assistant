@@ -108,3 +108,14 @@ Run label: formal_retrain_2026_06_17_plus_full_2000_eval
 - Paired statistics are stored in `results/project2_controlled_statistics.json` and `results/project2_controlled_statistics.csv`.
 - The generated main table is `paper/tables/project2_controlled_results.tex`; the effect figure is `paper/figures/controlled_effects.pdf`.
 - The evidence-bound manuscript compiled with XeLaTeX to `paper/main.pdf` without layout or reference warnings, and the post-change test run completed with 16 passing tests.
+
+## Post-run credibility work (2026-07-15)
+
+- Added three independent-seed configs under `configs/post_tonal_multiseed_seed42.yaml`, `post_tonal_multiseed_seed43.yaml`, and `post_tonal_multiseed_seed44.yaml` without changing the completed formal-run artifacts above.
+- Added tested gradient accumulation support. Replication configs use physical batch size 8 and two accumulation steps, preserving an effective batch size of 16.
+- A seed-43 batch-16 replication reached 26 complete epochs before CUDA OOM; its partial artifacts are preserved under `runs/multiseed/seed_43_batch16_oom_20260714_2254/` and are not reported as results.
+- A seed-42 batch-8/accumulation-2 replication reached 17 complete epochs before it was stopped during concurrent GPU use by unrelated projects. Its partial artifacts are preserved under `runs/multiseed/seed_42_concurrent_gpu_contention_20260715_0007/` and are not reported as results.
+- Resource coordination now requires an explicit GPU slot before replication resumes. No automatic continuation is active, and no partial multi-seed value has been inserted into the manuscript.
+- Rebuilt `expert_eval/project2/` from 20 structurally valid `controlled_constraint_reranked` outputs. The MusicXML creator is anonymous, encoding dates are removed, target conditions are included in the rating forms, and automatic reports are identified as material to withhold from raters.
+- Added `paper/main_anonymous.tex` and the gated submission drafts under `paper/submission/`. Author identity, affiliations, funding, conflicts, originality confirmation, archive DOI, and exact live-portal formatting remain author or journal inputs.
+- The post-change test run completed with 17 passing tests.

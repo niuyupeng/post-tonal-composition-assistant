@@ -83,7 +83,8 @@ foreach ($file in $aggregateFiles) {
 & $Python -m post_tonal.prepare_expert_eval `
     --output-dir expert_eval/project2 `
     --count 20 `
-    --seed 2026
+    --examples-json results/project2_generation_examples.json `
+    --experiment proposed_constraint_guided_transformer
 
 Write-Host "CPU-safe Project 2 verification suite complete."
 Write-Host "Aggregate metrics: results/project2_metrics.csv"

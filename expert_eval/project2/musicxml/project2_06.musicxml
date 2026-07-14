@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE score-partwise  PUBLIC "-//Recordare//DTD MusicXML 4.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
+<?xml version='1.0' encoding='utf-8'?>
 <score-partwise version="4.0">
   <work>
     <work-title>Synthetic post-tonal fragment</work-title>
   </work>
   <movement-title>Synthetic post-tonal fragment</movement-title>
   <identification>
-    <creator type="composer">Rule-generated synthetic corpus</creator>
+    <creator type="composer">Anonymous score-level composition assistant</creator>
     <encoding>
-      <encoding-date>2026-06-17</encoding-date>
       <software>music21 v.10.3.0</software>
       <supports element="beam" type="yes" />
       <supports element="stem" type="yes" />
@@ -22,46 +20,44 @@
     </scaling>
   </defaults>
   <part-list>
-    <score-part id="P7c6ceae1a9c74ae4284642be412c5924">
+    <score-part id="P28dcbe4f75ed39e4922975124407442c">
       <part-name>Violin</part-name>
       <part-abbreviation>Vln</part-abbreviation>
-      <score-instrument id="I8eb727cd794f61dfb70fd7329638c6c3">
+      <score-instrument id="Ia535ea8a0e2ee63232a48b0438fda297">
         <instrument-name>Violin</instrument-name>
         <instrument-abbreviation>Vln</instrument-abbreviation>
       </score-instrument>
-      <midi-instrument id="I8eb727cd794f61dfb70fd7329638c6c3">
+      <midi-instrument id="Ia535ea8a0e2ee63232a48b0438fda297">
         <midi-channel>1</midi-channel>
         <midi-program>41</midi-program>
       </midi-instrument>
     </score-part>
-    <score-part id="Pd1634062d406977914776b945f9fd6b4">
+    <score-part id="P779fe30bcc5f82256eb754e1375d69a1">
       <part-name>Violin</part-name>
       <part-abbreviation>Vln</part-abbreviation>
-      <score-instrument id="I4aba6b98693d1d55f40af3cd15729a96">
+      <score-instrument id="I785ace4f421cd0e518b8bd18cf754f95">
         <instrument-name>Violin</instrument-name>
         <instrument-abbreviation>Vln</instrument-abbreviation>
       </score-instrument>
-      <midi-instrument id="I4aba6b98693d1d55f40af3cd15729a96">
+      <midi-instrument id="I785ace4f421cd0e518b8bd18cf754f95">
         <midi-channel>2</midi-channel>
         <midi-program>41</midi-program>
       </midi-instrument>
     </score-part>
-    <score-part id="Pe697f53626f382865e1b9cbfc5fb9771">
+    <score-part id="P5f2fa614ccdd4230586407b09e40fe6f">
       <part-name>Violin</part-name>
       <part-abbreviation>Vln</part-abbreviation>
-      <score-instrument id="Icf610f06d2be87fbf3adf7bf9e095102">
+      <score-instrument id="I4f663b86e60d09c723add70bda6ad84b">
         <instrument-name>Violin</instrument-name>
         <instrument-abbreviation>Vln</instrument-abbreviation>
       </score-instrument>
-      <midi-instrument id="Icf610f06d2be87fbf3adf7bf9e095102">
+      <midi-instrument id="I4f663b86e60d09c723add70bda6ad84b">
         <midi-channel>3</midi-channel>
         <midi-program>41</midi-program>
       </midi-instrument>
     </score-part>
   </part-list>
-  <!--=========================== Part 1 ===========================-->
-  <part id="P7c6ceae1a9c74ae4284642be412c5924">
-    <!--========================= Measure 1 ==========================-->
+  <part id="P28dcbe4f75ed39e4922975124407442c">
     <measure implicit="no" number="1">
       <attributes>
         <divisions>10080</divisions>
@@ -75,149 +71,44 @@
         </clef>
       </attributes>
       <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-    </measure>
-    <!--========================= Measure 2 ==========================-->
-    <measure implicit="no" number="2">
-      <note print-object="no" print-spacing="yes">
         <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <rest />
-        <duration>35280</duration>
+        <duration>20160</duration>
         <type>half</type>
-        <dot />
-        <dot />
-      </note>
-    </measure>
-    <!--========================= Measure 3 ==========================-->
-    <measure implicit="no" number="3">
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
       </note>
       <note>
         <pitch>
-          <step>F</step>
-          <alter>0</alter>
+          <step>B</step>
+          <alter>-1</alter>
           <octave>5</octave>
         </pitch>
-        <duration>20160</duration>
-        <type>half</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>10080</duration>
-        <type>quarter</type>
-      </note>
-      <note>
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-    </measure>
-    <!--========================= Measure 4 ==========================-->
-    <measure implicit="no" number="4">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-      <note>
-        <rest />
-        <duration>10080</duration>
-        <type>quarter</type>
-      </note>
-    </measure>
-    <!--========================= Measure 5 ==========================-->
-    <measure implicit="no" number="5">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-    </measure>
-    <!--========================= Measure 6 ==========================-->
-    <measure implicit="no" number="6">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-    </measure>
-    <!--========================= Measure 7 ==========================-->
-    <measure implicit="no" number="7">
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>35280</duration>
-        <type>half</type>
-        <dot />
-        <dot />
-      </note>
-      <note>
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-    </measure>
-    <!--========================= Measure 8 ==========================-->
-    <measure implicit="no" number="8">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-      <note>
-        <rest />
         <duration>15120</duration>
-        <type>quarter</type>
-        <dot />
-      </note>
-    </measure>
-    <!--========================= Measure 9 ==========================-->
-    <measure implicit="no" number="9">
-      <note>
-        <rest />
-        <duration>20160</duration>
-        <type>half</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>E</step>
-          <alter>-1</alter>
-          <octave>6</octave>
-        </pitch>
-        <duration>15120</duration>
-        <tie type="start" />
         <type>quarter</type>
         <dot />
         <accidental>flat</accidental>
+      </note>
+      <note>
+        <pitch>
+          <step>D</step>
+          <alter>0</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>5040</duration>
+        <tie type="start" />
+        <type>eighth</type>
         <notations>
           <tied type="start" />
         </notations>
       </note>
     </measure>
-    <!--========================= Measure 10 =========================-->
-    <measure implicit="no" number="10">
+    <measure implicit="no" number="2">
       <note print-object="no" print-spacing="yes">
         <rest measure="yes" />
         <duration>40320</duration>
       </note>
       <note>
         <pitch>
-          <step>E</step>
-          <alter>-1</alter>
+          <step>D</step>
+          <alter>0</alter>
           <octave>6</octave>
         </pitch>
         <duration>15120</duration>
@@ -228,328 +119,8 @@
           <tied type="stop" />
         </notations>
       </note>
-      <barline location="right">
-        <bar-style>light-heavy</bar-style>
-      </barline>
     </measure>
-  </part>
-  <!--=========================== Part 2 ===========================-->
-  <part id="Pd1634062d406977914776b945f9fd6b4">
-    <!--========================= Measure 1 ==========================-->
-    <measure implicit="no" number="1">
-      <attributes>
-        <divisions>10080</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-      </attributes>
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-    </measure>
-    <!--========================= Measure 2 ==========================-->
-    <measure implicit="no" number="2">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-    </measure>
-    <!--========================= Measure 3 ==========================-->
     <measure implicit="no" number="3">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-    </measure>
-    <!--========================= Measure 4 ==========================-->
-    <measure implicit="no" number="4">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-    </measure>
-    <!--========================= Measure 5 ==========================-->
-    <measure implicit="no" number="5">
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>1</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>20160</duration>
-        <type>half</type>
-        <accidental>sharp</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>10080</duration>
-        <type>quarter</type>
-      </note>
-      <note>
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-    </measure>
-    <!--========================= Measure 6 ==========================-->
-    <measure implicit="no" number="6">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-      <note>
-        <rest />
-        <duration>35280</duration>
-        <type>half</type>
-        <dot />
-        <dot />
-      </note>
-    </measure>
-    <!--========================= Measure 7 ==========================-->
-    <measure implicit="no" number="7">
-      <note>
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <alter>0</alter>
-          <octave>3</octave>
-        </pitch>
-        <duration>5040</duration>
-        <tie type="start" />
-        <type>eighth</type>
-        <notations>
-          <tied type="start" />
-        </notations>
-      </note>
-    </measure>
-    <!--========================= Measure 8 ==========================-->
-    <measure implicit="no" number="8">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <alter>0</alter>
-          <octave>3</octave>
-        </pitch>
-        <duration>35280</duration>
-        <tie type="stop" />
-        <type>half</type>
-        <dot />
-        <dot />
-        <notations>
-          <tied type="stop" />
-        </notations>
-      </note>
-    </measure>
-    <!--========================= Measure 9 ==========================-->
-    <measure implicit="no" number="9">
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>20160</duration>
-        <type>half</type>
-      </note>
-      <note>
-        <rest />
-        <duration>20160</duration>
-        <type>half</type>
-      </note>
-    </measure>
-    <!--========================= Measure 10 =========================-->
-    <measure implicit="no" number="10">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-      <note>
-        <rest />
-        <duration>10080</duration>
-        <type>quarter</type>
-      </note>
-      <barline location="right">
-        <bar-style>light-heavy</bar-style>
-      </barline>
-    </measure>
-  </part>
-  <!--=========================== Part 3 ===========================-->
-  <part id="Pe697f53626f382865e1b9cbfc5fb9771">
-    <!--========================= Measure 1 ==========================-->
-    <measure implicit="no" number="1">
-      <attributes>
-        <divisions>10080</divisions>
-        <time>
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-      </attributes>
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>0</alter>
-          <octave>7</octave>
-        </pitch>
-        <duration>20160</duration>
-        <type>half</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>15120</duration>
-        <type>quarter</type>
-        <dot />
-      </note>
-      <note>
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-    </measure>
-    <!--========================= Measure 2 ==========================-->
-    <measure implicit="no" number="2">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-      <note>
-        <rest />
-        <duration>15120</duration>
-        <type>quarter</type>
-        <dot />
-      </note>
-    </measure>
-    <!--========================= Measure 3 ==========================-->
-    <measure implicit="no" number="3">
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>10080</duration>
-        <type>quarter</type>
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <alter>0</alter>
-          <octave>7</octave>
-        </pitch>
-        <duration>15120</duration>
-        <type>quarter</type>
-        <dot />
-      </note>
-      <note>
-        <pitch>
-          <step>E</step>
-          <alter>0</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>15120</duration>
-        <type>quarter</type>
-        <dot />
-      </note>
-      <note>
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-    </measure>
-    <!--========================= Measure 4 ==========================-->
-    <measure implicit="no" number="4">
-      <note>
-        <rest />
-        <duration>15120</duration>
-        <type>quarter</type>
-        <dot />
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>20160</duration>
-        <type>half</type>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>5040</duration>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <alter>0</alter>
-          <octave>3</octave>
-        </pitch>
-        <duration>15120</duration>
-        <tie type="start" />
-        <type>quarter</type>
-        <dot />
-        <accidental>natural</accidental>
-        <notations>
-          <tied type="start" />
-        </notations>
-      </note>
-    </measure>
-    <!--========================= Measure 5 ==========================-->
-    <measure implicit="no" number="5">
-      <note print-object="no" print-spacing="yes">
-        <rest measure="yes" />
-        <duration>40320</duration>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <alter>0</alter>
-          <octave>3</octave>
-        </pitch>
-        <duration>5040</duration>
-        <tie type="stop" />
-        <type>eighth</type>
-        <notations>
-          <tied type="stop" />
-        </notations>
-      </note>
-    </measure>
-    <!--========================= Measure 6 ==========================-->
-    <measure implicit="no" number="6">
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>15120</duration>
-        <type>quarter</type>
-        <dot />
-      </note>
-      <note>
-        <pitch>
-          <step>G</step>
-          <alter>1</alter>
-          <octave>3</octave>
-        </pitch>
-        <duration>15120</duration>
-        <type>quarter</type>
-        <dot />
-        <accidental>sharp</accidental>
-      </note>
-      <note print-object="no" print-spacing="yes">
-        <rest />
-        <duration>10080</duration>
-        <type>quarter</type>
-      </note>
-    </measure>
-    <!--========================= Measure 7 ==========================-->
-    <measure implicit="no" number="7">
       <note print-object="no" print-spacing="yes">
         <rest />
         <duration>10080</duration>
@@ -562,9 +133,13 @@
         <dot />
       </note>
     </measure>
-    <!--========================= Measure 8 ==========================-->
-    <measure implicit="no" number="8">
+    <measure implicit="no" number="4">
       <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>20160</duration>
+        <type>half</type>
+      </note>
+      <note>
         <rest />
         <duration>10080</duration>
         <type>quarter</type>
@@ -574,14 +149,93 @@
         <duration>20160</duration>
         <type>half</type>
       </note>
+    </measure>
+    <measure implicit="no" number="5">
       <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>15120</duration>
+        <type>quarter</type>
+        <dot />
+      </note>
+      <note>
         <rest />
         <duration>10080</duration>
         <type>quarter</type>
       </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <alter>1</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>20160</duration>
+        <type>half</type>
+        <accidental>sharp</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+      </barline>
     </measure>
-    <!--========================= Measure 9 ==========================-->
-    <measure implicit="no" number="9">
+  </part>
+  <part id="P779fe30bcc5f82256eb754e1375d69a1">
+    <measure implicit="no" number="1">
+      <attributes>
+        <divisions>10080</divisions>
+        <time>
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+          <clef-octave-change>1</clef-octave-change>
+        </clef>
+      </attributes>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <alter>0</alter>
+          <octave>7</octave>
+        </pitch>
+        <duration>15120</duration>
+        <type>quarter</type>
+        <dot />
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>20160</duration>
+        <type>half</type>
+      </note>
+    </measure>
+    <measure implicit="no" number="2">
+      <note print-object="no" print-spacing="yes">
+        <rest measure="yes" />
+        <duration>40320</duration>
+      </note>
+    </measure>
+    <measure implicit="no" number="3">
+      <note print-object="no" print-spacing="yes">
+        <rest measure="yes" />
+        <duration>40320</duration>
+      </note>
+    </measure>
+    <measure implicit="no" number="4">
+      <note print-object="no" print-spacing="yes">
+        <rest measure="yes" />
+        <duration>40320</duration>
+      </note>
+    </measure>
+    <measure implicit="no" number="5">
       <note print-object="no" print-spacing="yes">
         <rest />
         <duration>5040</duration>
@@ -589,18 +243,13 @@
       </note>
       <note>
         <rest />
-        <duration>20160</duration>
+        <duration>35280</duration>
         <type>half</type>
-      </note>
-      <note>
-        <rest />
-        <duration>15120</duration>
-        <type>quarter</type>
+        <dot />
         <dot />
       </note>
     </measure>
-    <!--========================= Measure 10 =========================-->
-    <measure implicit="no" number="10">
+    <measure implicit="no" number="6">
       <note print-object="no" print-spacing="yes">
         <rest measure="yes" />
         <duration>40320</duration>
@@ -609,6 +258,179 @@
         <rest />
         <duration>5040</duration>
         <type>eighth</type>
+      </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+      </barline>
+    </measure>
+  </part>
+  <part id="P5f2fa614ccdd4230586407b09e40fe6f">
+    <measure implicit="no" number="1">
+      <attributes>
+        <divisions>10080</divisions>
+        <time>
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>30240</duration>
+        <type>half</type>
+        <dot />
+      </note>
+      <note>
+        <rest />
+        <duration>10080</duration>
+        <type>quarter</type>
+      </note>
+    </measure>
+    <measure implicit="no" number="2">
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+      <note>
+        <pitch>
+          <step>E</step>
+          <alter>-1</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>30240</duration>
+        <type>half</type>
+        <dot />
+        <accidental>flat</accidental>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>0</alter>
+          <octave>7</octave>
+        </pitch>
+        <duration>5040</duration>
+        <tie type="start" />
+        <type>eighth</type>
+        <notations>
+          <tied type="start" />
+        </notations>
+      </note>
+    </measure>
+    <measure implicit="no" number="3">
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>15120</duration>
+        <type>quarter</type>
+        <dot />
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <alter>0</alter>
+          <octave>7</octave>
+        </pitch>
+        <duration>15120</duration>
+        <tie type="stop" />
+        <type>quarter</type>
+        <dot />
+        <notations>
+          <tied type="stop" />
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <alter>0</alter>
+          <octave>6</octave>
+        </pitch>
+        <duration>20160</duration>
+        <type>half</type>
+        <accidental>natural</accidental>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <alter>0</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>5040</duration>
+        <tie type="start" />
+        <type>eighth</type>
+        <accidental>natural</accidental>
+        <notations>
+          <tied type="start" />
+        </notations>
+      </note>
+    </measure>
+    <measure implicit="no" number="4">
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>15120</duration>
+        <type>quarter</type>
+        <dot />
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <alter>0</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>15120</duration>
+        <tie type="stop" />
+        <type>quarter</type>
+        <dot />
+        <notations>
+          <tied type="stop" />
+        </notations>
+      </note>
+      <note>
+        <rest />
+        <duration>20160</duration>
+        <type>half</type>
+      </note>
+      <note>
+        <rest />
+        <duration>5040</duration>
+        <type>eighth</type>
+      </note>
+    </measure>
+    <measure implicit="no" number="5">
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>15120</duration>
+        <type>quarter</type>
+        <dot />
+      </note>
+      <note>
+        <rest />
+        <duration>15120</duration>
+        <type>quarter</type>
+        <dot />
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <alter>1</alter>
+          <octave>4</octave>
+        </pitch>
+        <duration>15120</duration>
+        <type>quarter</type>
+        <dot />
+        <accidental>sharp</accidental>
+      </note>
+      <note print-object="no" print-spacing="yes">
+        <rest />
+        <duration>10080</duration>
+        <type>quarter</type>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>

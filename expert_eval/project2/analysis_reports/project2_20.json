@@ -2,13 +2,13 @@
   "analysis": {
     "aggregate_completion_rate": 1.0,
     "density_curve": [
-      10.0,
+      6.0,
+      5.0,
       4.0,
       5.0,
-      8.0,
-      0.0
+      2.0
     ],
-    "density_curve_error": 4.199999809265137,
+    "density_curve_error": 3.200000047683716,
     "expected_row_form": [
       7,
       11,
@@ -31,17 +31,17 @@
       12,
       6
     ],
-    "gesture_consistency_score": 0.670088631766183,
+    "gesture_consistency_score": 0.38860204484727645,
     "gesture_features": {
-      "average_duration": 0.9444444179534912,
-      "note_density": 1.35,
-      "onset_dispersion": 1.2728029489517212,
-      "register_spread": 41.0,
-      "rest_ratio": 0.4000000059604645
+      "average_duration": 1.0,
+      "note_density": 1.1,
+      "onset_dispersion": 1.167527198791504,
+      "register_spread": 38.0,
+      "rest_ratio": 0.8500000238418579
     },
     "instrument_range_violation_rate": 0.0,
     "interval_vector_distance": 51.0,
-    "note_count": 27,
+    "note_count": 22,
     "pcset": [
       0,
       3,
@@ -52,9 +52,9 @@
     ],
     "pcset_coverage": 1.0,
     "range_violation_rate": 0.0,
-    "rhythmic_profile_distance": 2.0999999046325684,
-    "row_order_accuracy": 0.2222222222222222,
-    "serial_transformation_accuracy": 0.2222222222222222
+    "rhythmic_profile_distance": 1.600000023841858,
+    "row_order_accuracy": 0.22727272727272727,
+    "serial_transformation_accuracy": 0.22727272727272727
   },
   "metadata": {
     "gesture": "fragmented",

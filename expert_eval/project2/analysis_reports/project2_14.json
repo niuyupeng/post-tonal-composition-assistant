@@ -2,8 +2,8 @@
   "analysis": {
     "aggregate_completion_rate": 0.25,
     "density_curve": [
-      24.0,
-      6.0,
+      23.0,
+      7.0,
       0.0,
       0.0,
       0.0,
@@ -24,11 +24,11 @@
       0,
       0
     ],
-    "gesture_consistency_score": 0.7551236351331075,
+    "gesture_consistency_score": 0.7927749024497137,
     "gesture_features": {
-      "average_duration": 0.7083333134651184,
+      "average_duration": 0.7333333492279053,
       "note_density": 0.6818181818181818,
-      "onset_dispersion": 1.177450180053711,
+      "onset_dispersion": 1.0228296518325806,
       "register_spread": 36.0,
       "rest_ratio": 0.3181818127632141
     },

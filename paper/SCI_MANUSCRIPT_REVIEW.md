@@ -31,8 +31,8 @@ The primary quantitative evidence is the controlled comparison between single-ca
 
 ### Evidence still missing for stronger claims
 
-16. Blind ratings from composers or post-tonal analysts have not been collected. Usefulness, gesture recognizability, engraving quality, and material coherence remain `PENDING_REAL_EXPERIMENT`.
-17. Only one primary training seed is available. Cross-seed robustness remains `PENDING_REAL_EXPERIMENT`.
+16. Blind ratings from composers or post-tonal analysts have not been collected. The 20-example controlled-reranking package is anonymous and condition-aware, but usefulness, gesture recognizability, engraving quality, and material coherence remain `PENDING_REAL_EXPERIMENT`.
+17. Only one completed primary training seed is available. Three replication configs are prepared, but interrupted partial runs are diagnostic only. Cross-seed robustness remains `PENDING_REAL_EXPERIMENT` until an explicit GPU slot is available.
 18. Validation on legally supplied external MusicXML is not yet available. The study must not claim stylistic authenticity to post-1945 repertoire.
 19. Author, affiliation, contribution, conflict-of-interest, and data/code-release metadata still require completion before submission.
 20. The current manuscript is journal-neutral. Final Journal of New Music Research formatting and declarations must be applied against the current author instructions.
@@ -46,6 +46,7 @@ The primary quantitative evidence is the controlled comparison between single-ca
 - The method figure, training diagnostics, controlled-effect figure, and representative full-span score are integrated.
 - Related work now covers computer-assisted composition, formal constraints, symbolic generation, and controllable generation with verified primary references.
 - MusicXML provenance text is neutral for future neural exports, and the paper limits the parse check to structural validity.
+- The expert package now draws from the controlled $K=4$ outputs, removes creator/date metadata, exposes target conditions to raters, and withholds automatic reports from rating materials.
 - The Chinese title is valid UTF-8; earlier terminal mojibake was a display-decoding issue rather than a source-file defect.
 
 ## Recommended paper positioning
@@ -56,4 +57,4 @@ The Journal of New Music Research is the best disciplinary target for this bound
 
 ## Completion gate
 
-The current draft has passed LaTeX compilation, numerical traceability from every Abstract/Results value to the controlled JSON/CSV, figure legibility, citation resolution, and pytest. Submission packaging still requires author metadata and a decision on whether to submit the bounded automatic study now or wait for expert ratings and multi-seed replication.
+The current draft has passed LaTeX compilation, numerical traceability from every Abstract/Results value to the controlled JSON/CSV, figure legibility, citation resolution, and pytest. An anonymous wrapper and submission drafts are prepared. Submission still requires author metadata, live-portal format verification, and a decision on whether to submit the bounded automatic study now or wait for expert ratings and multi-seed replication.

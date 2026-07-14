@@ -95,7 +95,8 @@ try {
     & $Python -m post_tonal.prepare_expert_eval `
         --output-dir expert_eval/project2 `
         --count 20 `
-        --seed 2026
+        --examples-json results/project2_generation_examples.json `
+        --experiment proposed_constraint_guided_transformer
 
     & $Python -m post_tonal.full_run write-report `
         --output results/project2_full_run_report.md

@@ -12,6 +12,8 @@
 | C8 | The system is useful to contemporary composers. | Blind expert ratings | gap | `PENDING_REAL_EXPERIMENT`; do not infer from automatic metrics |
 | C9 | Findings are stable across training seeds. | Multi-seed runs | gap | `PENDING_REAL_EXPERIMENT`; disclose single-seed limitation |
 | C10 | The model reproduces authentic post-1945 style. | Copyright-safe external validation | rejected | Outside the present study and not claimed |
+| C11 | The expert package contains 20 anonymous controlled-reranking MusicXML examples with paired condition metadata and withheld automatic reports. | `expert_eval/project2/manifest.json`; package structural audit | supported | Package-preparation statement only; no human-evaluation claim |
+| C12 | Findings are robust across three independent training seeds. | `runs/multiseed/` | gap | `PENDING_REAL_EXPERIMENT`; partial interrupted runs are diagnostic and must not be aggregated |
 
 ## Metric Qualifications
 
