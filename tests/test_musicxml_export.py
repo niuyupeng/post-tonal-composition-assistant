@@ -23,4 +23,5 @@ def test_musicxml_export(tmp_path: Path):
     assert out.stat().st_size > 0
     root = ElementTree.parse(out).getroot()
     assert root.tag.endswith("score-partwise")
+    assert root.findtext("./identification/creator") == "Synthetic post-tonal research output"
     assert musicxml_structurally_valid(out)

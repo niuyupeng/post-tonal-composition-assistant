@@ -46,7 +46,7 @@ def events_to_score(events: list[dict[str, Any]], metadata: dict[str, Any] | Non
     score = stream.Score(id="post_tonal_fragment")
     score.metadata = m21metadata.Metadata()
     score.metadata.title = metadata.get("title", "Synthetic post-tonal fragment")
-    score.metadata.composer = "Rule-generated synthetic corpus"
+    score.metadata.composer = metadata.get("creator", "Synthetic post-tonal research output")
 
     for voice_idx in range(voices):
         part = stream.Part(id=f"voice_{voice_idx}")
@@ -116,6 +116,7 @@ def _fallback_musicxml(events: list[dict[str, Any]], metadata: dict[str, Any]) -
     voices = max(1, int(metadata.get("voices", max([int(e.get("voice", 0)) for e in events], default=0) + 1)))
     title = escape(str(metadata.get("title", "Synthetic post-tonal fragment")))
     instrument = escape(str(metadata.get("instrument", "generic_voice")))
+    creator = escape(str(metadata.get("creator", "Synthetic post-tonal research output")))
     parts = []
     part_list = []
     for voice_idx in range(voices):
@@ -156,7 +157,7 @@ def _fallback_musicxml(events: list[dict[str, Any]], metadata: dict[str, Any]) -
         '"http://www.musicxml.org/dtds/partwise.dtd">\n'
         '<score-partwise version="3.1">\n'
         f"  <work><work-title>{title}</work-title></work>\n"
-        "  <identification><creator type=\"composer\">Rule-generated synthetic corpus</creator></identification>\n"
+        f"  <identification><creator type=\"composer\">{creator}</creator></identification>\n"
         "  <part-list>\n"
         + "".join(part_list)
         + "  </part-list>\n"

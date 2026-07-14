@@ -1,11 +1,27 @@
 \documentclass[11pt]{article}
 
 \usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
 \usepackage{booktabs}
-\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,fit,positioning}
 \usepackage[UTF8]{ctex}
+\usepackage{hyperref}
 
-\title{Neural-Symbolic Post-Tonal Composition Assistant with Pitch-Class Set, Serial, and Rhythmic-Profile Constraints\\
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!50!black,
+  citecolor=blue!50!black,
+  urlcolor=blue!50!black
+}
+
+\title{Neural-Symbolic Post-Tonal Composition Assistance with\\
+Pitch-Class Set, Serial, and Rhythmic-Profile Constraints\\[0.5em]
 \large 融合音级集合、序列与节奏轮廓约束的神经符号后调性作曲辅助方法}
 \author{PENDING\_AUTHOR}
 \date{}
@@ -14,6 +30,9 @@
 \maketitle
 
 \input{sections/abstract}
+
+\noindent\textbf{Keywords:} computer-assisted composition; post-tonal music; symbolic music generation; pitch-class set theory; twelve-tone serialism; constraint-guided decoding; MusicXML
+
 \input{sections/introduction}
 \input{sections/related_work}
 \input{sections/methodology}

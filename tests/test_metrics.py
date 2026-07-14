@@ -1,7 +1,15 @@
+import json
+
+import numpy as np
+
+from post_tonal.analyze_controlled_results import analyze_controlled_results, paired_bootstrap_ci
+from post_tonal.make_tables import _format
 from post_tonal.models.rule_generator import RuleGenerator
+from post_tonal.models.transformer import PostTonalTransformer
 from post_tonal.theory.analysis_report import analyze_events
 from post_tonal.theory.gesture import compute_gesture_features, gesture_consistency_score
 from post_tonal.theory.pcset import interval_vector
+from post_tonal.utils import set_seed
 
 
 def test_gesture_metrics_and_analysis_report():
@@ -24,3 +32,70 @@ def test_gesture_metrics_and_analysis_report():
     assert 0.0 <= report["pcset_coverage"] <= 1.0
     assert 0.0 <= report["aggregate_completion_rate"] <= 1.0
     assert report["instrument_range_violation_rate"] == 0.0
+
+
+def test_seeded_transformer_sampling_is_reproducible():
+    set_seed(17)
+    model = PostTonalTransformer(vocab_size=32, hidden_size=24, layers=1, heads=3, max_seq_len=16, dropout=0.0)
+    prefix = [1, 4, 7]
+
+    set_seed(91)
+    first = model.sample(prefix, eos_id=2, max_new_tokens=8, top_k=8)
+    set_seed(91)
+    second = model.sample(prefix, eos_id=2, max_new_tokens=8, top_k=8)
+
+    assert first == second
+
+
+def test_paired_bootstrap_ci_tracks_constant_improvement():
+    low, high = paired_bootstrap_ci(np.full(12, 0.25), seed=5, samples=200)
+    assert low == 0.25
+    assert high == 0.25
+
+
+def test_controlled_analysis_reports_serial_and_nonserial_subsets(tmp_path):
+    common_analysis = {
+        "pcset_coverage": 0.5,
+        "interval_vector_distance": 2.0,
+        "row_order_accuracy": None,
+        "aggregate_completion_rate": 0.5,
+        "rhythmic_profile_distance": 1.0,
+        "density_curve_error": 1.0,
+        "gesture_consistency_score": 0.5,
+        "range_violation_rate": 0.0,
+    }
+    single_samples = [
+        {"sample_id": "nonserial", "metadata": {"row": None, "row_form": None}, "analysis": dict(common_analysis)},
+        {
+            "sample_id": "serial",
+            "metadata": {"row": list(range(12)), "row_form": "P0"},
+            "analysis": {**common_analysis, "row_order_accuracy": 0.25},
+        },
+    ]
+    reranked_samples = json.loads(json.dumps(single_samples))
+    reranked_samples[0]["analysis"]["pcset_coverage"] = 0.75
+    reranked_samples[1]["analysis"]["row_order_accuracy"] = 0.5
+    single_path = tmp_path / "single.json"
+    reranked_path = tmp_path / "reranked.json"
+    single_path.write_text(json.dumps({"samples": single_samples}), encoding="utf-8")
+    reranked_path.write_text(json.dumps({"samples": reranked_samples}), encoding="utf-8")
+
+    result = analyze_controlled_results(
+        single_path,
+        reranked_path,
+        tmp_path / "stats.json",
+        tmp_path / "stats.csv",
+        tmp_path / "stats.tex",
+        bootstrap_samples=50,
+    )
+    endpoints = {row["endpoint"]: row for row in result["metrics"]}
+    assert endpoints["pcset_coverage:all"]["n"] == 2
+    assert endpoints["pcset_coverage:non-serial"]["n"] == 1
+    assert endpoints["pcset_coverage:serial"]["n"] == 1
+    assert endpoints["interval_vector_distance:serial"]["n"] == 1
+    assert endpoints["row_order_accuracy:serial"]["n"] == 1
+    assert endpoints["aggregate_completion_rate:non-serial"]["n"] == 1
+
+
+def test_missing_table_metric_is_not_applicable():
+    assert _format(None) == "--"

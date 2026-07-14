@@ -1,5 +1,28 @@
 \section{Evaluation Metrics}
+\label{sec:metrics}
 
-Evaluation is split between sequence-model behavior and post-tonal constraint behavior. Token accuracy and cross-entropy loss are reported for trained Transformer checkpoints on the held-out split. Constraint metrics are computed from decoded or rule-generated symbolic events: target pc-set coverage, interval-vector distance, row-order accuracy, aggregate completion rate, serial transformation accuracy, rhythmic-profile distance, density-curve error, gesture consistency score, range violation rate, and MusicXML export success rate.
+Metrics are divided into sequence-model diagnostics, condition-adherence measures, and score-output checks. Arrows in the result tables indicate whether larger ($\uparrow$) or smaller ($\downarrow$) values are preferred.
 
-MusicXML export success requires the file to be written and structurally parsed as a score-level MusicXML document. Human expert evaluation uses blind 1--7 ratings for material coherence, pc-set consistency, serial logic clarity, rhythmic control, gesture recognizability, notational usefulness, and usefulness for contemporary composition sketching.
+\paragraph{Next-token diagnostics.}
+Token accuracy is the fraction of non-padding targets whose next token is predicted by the maximum-logit class. Cross-entropy is averaged over the same concatenated condition--score sequence. Because condition-prefix positions are included, these values diagnose language-model fit but are not musical-quality scores.
+
+\paragraph{Pitch-class-set measures.}
+For generated pitch-class support $P(x)$ and nonempty target set $S$, coverage is
+\begin{equation}
+  \mathrm{Cov}_{\mathrm{pc}}(x,S)=\frac{|P(x)\cap S|}{|S|}.
+\end{equation}
+This is recall-like and does not penalize pitch classes outside $S$. Interval-vector distance is the $L_1$ distance between the generated and target six-entry interval-class vectors. The metric is not applicable when no target set or interval vector is supplied.
+
+\paragraph{Serial measures.}
+Cyclic row-order accuracy compares every generated note in global decoded event order with the corresponding position of the requested row form, wrapping after 12 positions. Simultaneous notes are ordered by their token sequence rather than treated as unordered verticalities. Aggregate completion is $|P(x)|/12$. The implementation's serial-transformation accuracy is numerically identical to cyclic row-order accuracy; to avoid double-counting, the manuscript reports only row-order accuracy. Row-conditioned metrics are not applicable when no row and form label are supplied.
+
+\paragraph{Rhythmic measures.}
+Each fragment is converted to a per-measure note-onset density curve. Density-curve error is the mean absolute difference from a deterministic reference realization generated with seed 1234. This reference is a profile template, not the exact stochastic rhythm realization used when constructing a corpus target. Rhythmic-profile distance normalizes that error by the maximum reference density, allowing comparisons across profile types and lengths. Lower values indicate closer agreement with the fixed template.
+
+\paragraph{Gesture measures.}
+Each gesture label is associated with expected ranges of within-measure onset dispersion, register spread, note density, mean duration, and rest-duration mass normalized by fragment span. The last quantity can exceed one in polyphonic passages because overlapping voices contribute separately. Feature-wise closeness values are averaged to produce a score in $[0,1]$. This is an explainable heuristic consistency measure rather than a perceptual judgment.
+
+\paragraph{Notation and range checks.}
+Range-violation rate is the proportion of pitched events outside the configured instrument range. MusicXML export success is the proportion of requested exports that are written and parsed structurally as MusicXML scores. Structural success does not imply engraving quality; that question is reserved for expert evaluation.
+
+For the controlled comparison, aggregate values are computed over all 2,000 test conditions and paired per-item records are retained for mean differences, win--tie--loss rates, and nonparametric bootstrap confidence intervals. No confidence interval is reported until it has been computed from those saved records.

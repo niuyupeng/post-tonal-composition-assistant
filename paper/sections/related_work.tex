@@ -1,5 +1,24 @@
 \section{Related Work}
+\label{sec:related}
 
-Computer-assisted composition environments such as OpenMusic provide symbolic workflows for compositional reasoning. Pitch-class set theory and serial procedures provide analytical vocabulary for post-tonal materials. Symbolic music generation with Transformer models demonstrates sequence modeling capacity, while neural-symbolic approaches motivate explicit constraint checks and guided decoding.
+\subsection{Computer-assisted composition and post-tonal representation}
 
-This work differs from audio generation and popular-song accompaniment models by focusing on contemporary score fragments, MusicXML output, and explainable constraint metrics.
+Computer-assisted composition has a longer history than data-driven music generation. OpenMusic represents musical objects and transformations in a visual programming environment, allowing a composer to formalize and revise compositional procedures without reducing the task to audio synthesis \cite{assayag1999openmusic}. The music21 toolkit provides a complementary programmatic layer for symbolic score analysis, transformation, and interchange \cite{cuthbert2010music21}. These systems establish symbolic inspectability as a practical requirement for compositional software.
+
+Pitch-class set theory supplies equivalence under transposition and inversion, normal and prime forms, and interval-class vectors for non-tonal pitch organization \cite{forte1973structure,straus2016posttonal}. Post-tonal theory also treats ordered twelve-tone rows, $P/R/I/RI$ transformations, and aggregates as distinct from unordered set classes. The present system keeps that distinction in both its condition representation and its analysis report.
+
+\subsection{Neural symbolic music generation}
+
+Neural music generation spans different objectives, representations, and forms of control \cite{briot2020deep}. The Transformer architecture provides a standard causal sequence model \cite{vaswani2017attention}, and Music Transformer adapted self-attention to long symbolic performance sequences \cite{huang2019musictransformer}. Later event representations made meter and beat structure more explicit for expressive pop-piano generation \cite{huang2020popmusic}. These studies show that event sequences can support long musical outputs, but their principal corpora and evaluation tasks do not directly measure pitch-class-set adherence, serial transformations, or post-tonal gesture control.
+
+Our model therefore uses the Transformer as an established sequence generator rather than claiming an architectural advance. Its event vocabulary is intentionally smaller than performance-oriented encodings because the output target is a quantized, editable score fragment. Conditions for pitch, serial order, rhythm, gesture, instrumentation, and span are written into the same symbolic sequence as a prefix.
+
+\subsection{Constraint-aware generation}
+
+Several systems make neural generation steerable. DeepBach permits positional constraints on notes, rhythms, and cadences during pseudo-Gibbs sampling \cite{hadjeres2017deepbach}. Anticipation-RNN incorporates future unary constraints into sequence generation through a backward constraint network and a forward token network \cite{hadjeres2020anticipation}. Outside purely neural sampling, MorpheuS uses optimization to preserve recurrent patterns and follow a target tension profile \cite{herremans2019morpheus}. These methods motivate explicit control, but they address different musical domains and constraint types.
+
+The approach studied here separates probabilistic generation from deterministic score analysis. A causal Transformer samples several candidates, after which post-tonal functions rerank them by pitch-class coverage, interval-vector distance, row order, aggregate completion, rhythmic profile, gesture features, and instrumental range. This design accepts the computational cost of multiple candidates in exchange for diagnostics that can be shown to a composer and saved with the score.
+
+\subsection{Position of the present study}
+
+The study connects three established practices: formal symbolic manipulation from computer-assisted composition, event-based neural sequence generation, and constraint-aware selection. Its narrower contribution is an evaluated workflow conditioned on 4--16-measure post-tonal sketch requests that returns both MusicXML and an explanation of constraint adherence. The legal synthetic corpus makes the condition--target relation reproducible, while the controlled decoding comparison tests the contribution of reranking without changing the checkpoint or test material.

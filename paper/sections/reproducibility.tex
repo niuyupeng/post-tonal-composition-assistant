@@ -1,3 +1,10 @@
 \section{Reproducibility Statement}
+\label{sec:reproducibility}
 
-All default data are generated from deterministic scripts and fixed seeds. No copyrighted contemporary scores are bundled, scraped, or required. The CPU smoke command is \texttt{.\textbackslash scripts\textbackslash run\_project2\_all\_experiments.ps1}. The full local command for an RTX 4060 Ti 16GB system is \texttt{.\textbackslash scripts\textbackslash run\_project2\_full\_local.ps1}. The scripts write aggregate metrics to \texttt{results/project2\_metrics.csv}, constraint metrics to \texttt{results/project2\_constraints.csv}, generation metadata to \texttt{results/project2\_generation\_examples.json}, and LaTeX tables to \texttt{paper/tables/}.
+All bundled training data are generated from source code and fixed seeds; no copyrighted post-1945 score is downloaded or required. The full split and seed are recorded in \path{results/project2_full_split_summary.json}. Large processed tensors and checkpoints are excluded from version control, but the scripts and configuration files needed to regenerate them are retained.
+
+On Windows, the CPU engineering check is executed with \path{scripts/smoke_project2.ps1}. The complete local CUDA pipeline is executed with \path{scripts/run_project2_full_local.ps1} in a Python 3.11 environment. Configuration files record architecture, optimizer, split sizes, fp16 use, early stopping, and the Windows-safe worker count.
+
+Aggregate metrics are stored in \path{results/project2_metrics.csv} and \path{results/project2_constraints.csv}; controlled decoder metrics and per-sample reports use the \path{project2_controlled} prefix. Generated examples are paired with JSON analysis reports under \path{expert_eval/project2/}. Tables are created from CSV/JSON outputs rather than transcribed manually.
+
+The source repository is maintained at \url{https://github.com/niuyupeng/yinyue2}. At the time of writing it is private; an archival public release or anonymized review snapshot is pending the chosen journal's policy.

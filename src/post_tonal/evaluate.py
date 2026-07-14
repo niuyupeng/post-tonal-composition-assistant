@@ -21,7 +21,7 @@ from post_tonal.models.transformer import PostTonalTransformer
 from post_tonal.theory.analysis_report import analyze_events
 from post_tonal.generate import candidate_loss
 from post_tonal.train import maybe_generate_data, token_accuracy
-from post_tonal.utils import ensure_dir, get_device, load_yaml, save_json
+from post_tonal.utils import ensure_dir, get_device, load_yaml, save_json, set_seed
 
 
 def _mean(values: list[float | None]) -> float | None:
@@ -148,14 +148,17 @@ def evaluate(
     metrics_csv: str | Path | None = None,
     constraints_csv: str | Path | None = None,
     examples_output: str | Path | None = None,
+    per_sample_output: str | Path | None = None,
     main_table_output: str | Path | None = None,
     ablation_table_output: str | Path | None = None,
 ) -> dict[str, Any]:
     config = load_yaml(config_path)
+    eval_cfg = config.get("evaluation", {})
+    evaluation_seed = int(eval_cfg.get("seed", config.get("seed", 0)))
+    set_seed(evaluation_seed)
     maybe_generate_data(config)
     tokenizer = ScoreTokenizer.load(config["vocab_path"])
     dataset = PostTonalDataset(config["data_path"], max_seq_len=int(config.get("model", {}).get("max_seq_len", 256)), split=split)
-    eval_cfg = config.get("evaluation", {})
     experiment_name = experiment_name or str(config.get("experiment_name", Path(config_path).stem))
 
     model_metrics: dict[str, float | None] = {"token_accuracy": None, "loss": None}
@@ -189,6 +192,7 @@ def evaluate(
         model_metrics = {"token_accuracy": _mean(accuracies), "loss": _mean(losses)}
 
     reports: list[dict[str, Any]] = []
+    per_sample_records: list[dict[str, Any]] = []
     xml_success = 0
     examples: list[dict[str, Any]] = []
     export_examples = int(eval_cfg.get("export_examples", 0) or 0)
@@ -206,11 +210,24 @@ def evaluate(
     for idx, sample in enumerate(eval_samples):
         metadata = sample.get("metadata", {})
         if use_model_generation:
+            set_seed(evaluation_seed + idx)
             events = generated_events_from_model(model, tokenizer, metadata, attempts=attempts, max_new_tokens=max_new_tokens)
         else:
             events = sample.get("events", [])
         report = analyze_events(events, metadata)
         reports.append(report)
+        per_sample_records.append(
+            {
+                "experiment": experiment_name,
+                "split": split,
+                "sample_index": idx,
+                "sample_id": sample.get("id"),
+                "evaluation_seed": evaluation_seed + idx,
+                "candidate_attempts": attempts if use_model_generation else 0,
+                "metadata": metadata,
+                "analysis": report,
+            }
+        )
         if idx < export_examples:
             out_path = export_dir / f"{experiment_name}_{split}_{idx:03d}.musicxml"
             report_path = export_dir / f"{experiment_name}_{split}_{idx:03d}.json"
@@ -240,6 +257,7 @@ def evaluate(
     for extra_idx, sample in enumerate(dataset.samples[export_examples:generation_count], start=export_examples):
         metadata = sample.get("metadata", {})
         if use_model_generation:
+            set_seed(evaluation_seed + extra_idx)
             events = generated_events_from_model(model, tokenizer, metadata, attempts=attempts, max_new_tokens=max_new_tokens)
         else:
             events = sample.get("events", [])
@@ -291,6 +309,18 @@ def evaluate(
         append_csv_row(constraints_csv, metrics, CONSTRAINT_FIELDS)
     if examples_output is not None:
         append_examples(examples_output, examples)
+    if per_sample_output is not None:
+        save_json(
+            {
+                "experiment": experiment_name,
+                "split": split,
+                "evaluation_seed": evaluation_seed,
+                "candidate_attempts": attempts if use_model_generation else 0,
+                "num_samples": len(per_sample_records),
+                "samples": per_sample_records,
+            },
+            per_sample_output,
+        )
     if table_output is not None:
         write_latex_table(metrics, table_output)
     if main_table_output is not None:
@@ -327,6 +357,7 @@ def main() -> None:
     parser.add_argument("--metrics-csv", default=None)
     parser.add_argument("--constraints-csv", default=None)
     parser.add_argument("--examples-output", default=None)
+    parser.add_argument("--per-sample-output", default=None)
     parser.add_argument("--main-table-output", default=None)
     parser.add_argument("--ablation-table-output", default=None)
     args = parser.parse_args()
@@ -340,6 +371,7 @@ def main() -> None:
         metrics_csv=args.metrics_csv,
         constraints_csv=args.constraints_csv,
         examples_output=args.examples_output,
+        per_sample_output=args.per_sample_output,
         main_table_output=args.main_table_output,
         ablation_table_output=args.ablation_table_output,
     )

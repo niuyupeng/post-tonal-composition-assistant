@@ -1,7 +1,35 @@
-\section{Experiment Setup}
+\section{Experimental Setup}
+\label{sec:experiments}
 
-Experiments compare a rule generator, a vanilla Transformer, the proposed constraint-guided Transformer, no-constraint Transformer variants, and focused ablations for pc-set, serial, rhythm, and gesture conditioning. The CPU smoke configuration remains an engineering check only; the full run reported here uses the full synthetic split saved in \texttt{results/project2\_full\_split\_summary.json}.
+\subsection{Data splits}
 
-The full local run used an NVIDIA GeForce RTX 4060 Ti 16GB GPU, Python 3.11.9, PyTorch 2.5.1+cu121, and CUDA availability set to true. The evaluated corpus split is 20,000 training samples, 2,000 validation samples, and 2,000 test samples, with \texttt{smoke=false} in the saved split summary.
+The general synthetic corpus contains 24,000 fragments: 20,000 for training, 2,000 for validation, and 2,000 for testing. Split membership is written explicitly into the processed data file rather than reconstructed at evaluation time. The primary corpus uses random seed 42 and conditions each target on a requested span of 4--16 measures, 2--8 voices, one of six instrument labels, one of seven rhythmic profiles, and one of seven gesture labels. The saved split summary records \texttt{smoke=false}; CPU smoke data are used only for software verification and never enter the reported experiment.
 
-The default Transformer uses six layers, hidden size 384, six attention heads, maximum sequence length 256, batch size 16, Windows-safe dataloading with zero workers, fp16 autocast, gradient clipping, and early stopping with patience 10. Twelve neural configurations were trained, and the rule-only baseline was evaluated without a neural checkpoint, giving 13 evaluated rows in \texttt{results/project2\_metrics.csv}.
+\subsection{Training protocol}
+
+The Transformer has six layers, hidden size 384, six heads, feed-forward size 1,536, dropout 0.1, and a maximum sequence length of 256. Training uses AdamW with learning rate $3\times10^{-4}$, weight decay 0.01, batch size 16, gradient clipping at norm 1.0, and fp16 autocast. The maximum is 60 epochs with early-stopping patience 10. The primary checkpoint stopped after 25 epochs; its lowest validation loss, 0.8111, occurred at epoch 15. Dataloading uses zero worker processes for Windows compatibility. Figure~\ref{fig:training-diagnostics} reports the saved optimization trajectories.
+
+All full training ran locally with Python 3.11.9 and PyTorch 2.5.1+cu121 on an NVIDIA GeForce RTX 4060 Ti with 16GB VRAM. CUDA was available throughout the completed run. No CUDA out-of-memory adjustment or dataset reduction was used.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/training_diagnostics.pdf}
+  \caption{Primary-checkpoint training diagnostics from the saved run history. (a) Cross-entropy loss. The marker identifies the checkpoint selected at epoch 15. (b) Full-sequence next-token accuracy, which includes the condition prefix and is not a measure of musical quality.}
+  \label{fig:training-diagnostics}
+\end{figure}
+
+\subsection{Controlled decoding comparison}
+
+The primary comparison focuses on the inference procedure. Both conditions load the same seed-42 checkpoint and the same 2,000-item test split. The single-candidate condition samples $K=1$ continuation. The proposed condition samples $K=4$ continuations and selects the minimum-penalty candidate using Eq.~\eqref{eq:reranking}. Sampling uses temperature 1.0, top-$k=20$, and at most 224 new tokens. Evaluation seed 42042 is expanded deterministically as seed $42042+i$ for test item $i$. Thus, the $K=1$ candidate is also the first member of the corresponding $K=4$ set. Per-item reports are saved for paired differences, win--tie--loss rates, and bootstrap confidence intervals.
+
+\subsection{Procedural reference and exploratory ablations}
+
+The rule generator is reported as a procedural reference because it constructs targets directly from the requested constraints. It is not an independent learned baseline and its serial accuracy should be understood as an oracle-style property of the generator.
+
+The completed experiment archive also contains twelve trained neural configurations and one rule-reference row. These include independently trained vanilla and no-constraint models, explicit removal of pc-set or row information, focused pc-set/serial/rhythm/gesture configurations, and fixed-default variants. In the latter, rhythm or gesture variability is collapsed to \texttt{medium} or \texttt{fragmented}; those configurations do not remove the corresponding token type. Because configurations use different corpus seeds, their aggregate differences are treated as exploratory rather than as paired causal effects.
+
+Two independently seeded no-constraint configurations are retained as replication-style diagnostic rows. Metrics whose target condition is absent are marked not applicable rather than interpreted as perfect performance.
+
+\subsection{Score and expert-evaluation outputs}
+
+For each evaluated system, 20 examples are exported for structural MusicXML checking. The proposed-system package contains paired MusicXML and JSON reports together with a blind rating form covering post-tonal coherence, pc-set/interval consistency, serial clarity, rhythmic control, gesture recognizability, notational usefulness, and usefulness for contemporary composition sketching. No human ratings had been collected at the time of this automatic evaluation; corresponding artistic claims remain pending.

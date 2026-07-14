@@ -1,7 +1,27 @@
 \section{Introduction}
+\label{sec:introduction}
 
-Contemporary art music composition often uses explicit symbolic constraints: pitch-class sets, serial rows, aggregate completion, register plans, and rhythmic profiles. These constraints are poorly represented by generic pop-MIDI generation benchmarks. This project targets score-level post-tonal composition assistance, where generation is useful only if it can produce inspectable notation and explainable post-tonal analysis.
+Post-tonal composition frequently begins from explicit symbolic materials: a pitch-class collection, an interval-class profile, a twelve-tone row and its transformations, a registral trajectory, or a characteristic rhythmic surface. Computer-assisted composition environments have long supported the manipulation of such structures, but recent neural music systems are more often evaluated on tonal continuation, popular-song structure, performance MIDI, or audio generation \cite{assayag1999openmusic,briot2020deep}. Those settings do not directly answer a practical question faced by composers of contemporary score-based music: can a generative model produce an editable sketch while preserving named post-tonal constraints and explaining where it satisfies or violates them?
 
-The repository avoids copyrighted post-1945 scores by using a reproducible rule-generated corpus. The corpus is not claimed to model a historical style; it is a legal testbed for measuring whether neural and rule-based systems satisfy stated symbolic constraints.
+This question requires a different interface and a different evaluation vocabulary. Pitch-class set theory supplies normal order, prime form, and interval vectors \cite{forte1973structure,straus2016posttonal}; serial practice requires explicit $P/R/I/RI$ transformations and aggregate tracking; rhythmic and gestural intentions are expressed over score time rather than audio frames. The output must also be inspectable as notation. A fluent token sequence is therefore insufficient if it cannot be converted into a score or if its relation to the requested material remains opaque.
 
-The practical contribution is an end-to-end pipeline: condition specification, synthetic data generation, neural training, rule and Transformer baselines, constraint-guided decoding, MusicXML export, analysis reports, and an expert-evaluation package for blind human ratings.
+Data legality presents a second challenge. A large fraction of relevant post-1945 repertoire remains copyrighted, and a scraped corpus would be difficult to release or reproduce. We instead use a deterministic procedural corpus as a controlled testbed. The corpus is not intended to imitate a composer or establish historical style. Its purpose is to expose known condition--target relations so that constraint adherence, failure modes, and decoding trade-offs can be measured without distributing protected scores.
+
+We study a condition-prefix Transformer that generates quantized event sequences and a neural-symbolic decoder that reranks sampled candidates using non-differentiable post-tonal diagnostics. The approach is deliberately modest at the neural level: it does not introduce a new attention architecture. Its contribution lies in connecting causal symbolic generation to pitch-class-set, serial, rhythmic, gestural, register, and notation-level checks, and in returning both a MusicXML sketch and a machine-readable explanation.
+
+The study addresses three research questions:
+\begin{itemize}
+  \item \textbf{RQ1:} With the neural checkpoint and test conditions fixed, does multi-candidate symbolic reranking improve explicit constraint metrics relative to single-candidate sampling?
+  \item \textbf{RQ2:} What descriptive patterns appear across the archived condition-removal and fixed-default configurations?
+  \item \textbf{RQ3:} Can the resulting fragments be exported reliably as structurally valid MusicXML with inspectable analysis reports?
+\end{itemize}
+
+The main contributions are:
+\begin{enumerate}
+  \item a legal and reproducible 24,000-fragment synthetic corpus protocol for score-level post-tonal conditions;
+  \item a compact condition-prefix/event representation and locally trainable Transformer conditioned on requested spans of 4--16 measures and 2--8 voices;
+  \item an inference-time candidate-reranking objective grounded in pc-set, serial, rhythmic, gestural, and range diagnostics; and
+  \item an evaluation and export layer that connects aggregate metrics to MusicXML examples and per-fragment JSON reports.
+\end{enumerate}
+
+The resulting claims are intentionally bounded. Quantitative findings concern a synthetic constraint testbed, not stylistic authenticity. Expert judgments of compositional usefulness are planned with the supplied blind-rating package but are not inferred from automatic metrics.
