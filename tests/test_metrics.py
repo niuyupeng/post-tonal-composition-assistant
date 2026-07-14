@@ -95,6 +95,8 @@ def test_controlled_analysis_reports_serial_and_nonserial_subsets(tmp_path):
     assert endpoints["interval_vector_distance:serial"]["n"] == 1
     assert endpoints["row_order_accuracy:serial"]["n"] == 1
     assert endpoints["aggregate_completion_rate:non-serial"]["n"] == 1
+    assert endpoints["aggregate_completion_rate:non-serial"]["higher_is_better"] is None
+    assert endpoints["aggregate_completion_rate:non-serial"]["favorable_improvement"] is None
 
 
 def test_missing_table_metric_is_not_applicable():

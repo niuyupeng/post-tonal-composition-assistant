@@ -65,9 +65,9 @@ ENDPOINTS: list[dict[str, Any]] = [
     },
     {
         "metric": "aggregate_completion_rate",
-        "label": "Aggregate",
+        "label": "Aggregate (diagnostic)",
         "subset": "non-serial",
-        "higher_is_better": True,
+        "higher_is_better": None,
     },
     {
         "metric": "rhythmic_profile_distance",
@@ -177,9 +177,15 @@ def analyze_controlled_results(
         single_values = np.asarray([pair[0] for pair in paired], dtype=np.float64)
         reranked_values = np.asarray([pair[1] for pair in paired], dtype=np.float64)
         raw_difference = reranked_values - single_values
-        improvements = raw_difference if spec["higher_is_better"] else -raw_difference
+        higher_is_better = spec["higher_is_better"]
+        if higher_is_better is None:
+            effects = raw_difference
+            effect_orientation = "raw reranked minus single; no favorable direction specified"
+        else:
+            effects = raw_difference if higher_is_better else -raw_difference
+            effect_orientation = "positive favors constraint reranking"
         ci_low, ci_high = paired_bootstrap_ci(
-            improvements,
+            effects,
             seed=bootstrap_seed + metric_index,
             samples=bootstrap_samples,
         )
@@ -190,17 +196,18 @@ def analyze_controlled_results(
                 "metric": metric,
                 "label": spec["label"],
                 "subset": subset,
-                "higher_is_better": bool(spec["higher_is_better"]),
+                "higher_is_better": higher_is_better,
+                "effect_orientation": effect_orientation,
                 "n": int(len(paired)),
                 "single_mean": float(single_values.mean()),
                 "reranked_mean": float(reranked_values.mean()),
                 "raw_difference_reranked_minus_single": float(raw_difference.mean()),
-                "favorable_improvement": float(improvements.mean()),
+                "favorable_improvement": None if higher_is_better is None else float(effects.mean()),
                 "ci95_low": ci_low,
                 "ci95_high": ci_high,
-                "win_rate": float(np.mean(improvements > tolerance)),
-                "tie_rate": float(np.mean(np.abs(improvements) <= tolerance)),
-                "loss_rate": float(np.mean(improvements < -tolerance)),
+                "win_rate": None if higher_is_better is None else float(np.mean(effects > tolerance)),
+                "tie_rate": None if higher_is_better is None else float(np.mean(np.abs(effects) <= tolerance)),
+                "loss_rate": None if higher_is_better is None else float(np.mean(effects < -tolerance)),
             }
         )
 
@@ -211,7 +218,7 @@ def analyze_controlled_results(
         "paired_conditions": len(single),
         "bootstrap_seed": bootstrap_seed,
         "bootstrap_samples": bootstrap_samples,
-        "improvement_definition": "positive values favor constraint reranking",
+        "improvement_definition": "positive favorable_improvement values favor constraint reranking; endpoints without a prespecified favorable direction report only raw change",
         "metrics": rows,
     }
     save_json(result, output_json)
@@ -235,16 +242,21 @@ def analyze_controlled_results(
         "\\midrule",
     ]
     for row in rows:
+        if row["favorable_improvement"] is None:
+            effect_value = row["raw_difference_reranked_minus_single"]
+            effect_cell = f"{effect_value:+.4f}$^{{\\dagger}}$"
+        else:
+            effect_cell = f"{row['favorable_improvement']:+.4f}"
         lines.append(
             f"{row['label']} & {row['subset']} & {row['single_mean']:.4f} & {row['reranked_mean']:.4f} & "
-            f"{row['favorable_improvement']:+.4f} & "
+            f"{effect_cell} & "
             f"[{row['ci95_low']:+.4f}, {row['ci95_high']:+.4f}] & {row['n']} \\\\"
         )
     lines.extend(
         [
             "\\bottomrule",
             "\\end{tabular}",
-            "\\caption{Controlled same-checkpoint decoding comparison. Favorable differences are oriented so that positive values favor four-candidate constraint reranking. Confidence intervals are paired nonparametric bootstrap intervals over test conditions.}",
+            "\\caption{Controlled same-checkpoint decoding comparison. Favorable differences are oriented so that positive values favor four-candidate constraint reranking. Confidence intervals are paired nonparametric bootstrap intervals over test conditions. $^{\\dagger}$The non-serial aggregate row is a raw diagnostic change because no aggregate target is present for that subset.}",
             "\\label{tab:controlled-decoding}",
             "\\end{table*}",
             "",
