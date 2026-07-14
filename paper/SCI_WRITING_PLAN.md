@@ -65,3 +65,25 @@ Deliverable: submission-ready manuscript and supplementary package.
 3. Verify and expand the bibliography with primary sources.
 4. Build figures and compile the PDF.
 5. Decide whether to submit a bounded proof-of-concept now or wait for expert ratings and multi-seed evidence.
+
+## Fast-track execution board
+
+| Workstream | Status | Evidence gate | Output |
+|---|---|---|---|
+| Scientific and implementation review | complete | source, configs, checkpoints, and archived outputs inspected | `SCI_MANUSCRIPT_REVIEW.md`, `CLAIMS_LEDGER.md` |
+| Core method and experiment prose | complete pending final cross-check | implementation facts and full-run artifacts | Methodology, Experimental Setup, Evaluation Metrics, Limitations, Reproducibility |
+| Primary literature and positioning | complete pending journal-style conversion | verified publisher or conference records | Related Work and `references.bib` |
+| Controlled $K=1$ evaluation | complete | 2,000 aligned per-sample records | single-candidate JSON and aggregate metrics |
+| Controlled $K=4$ evaluation | running | 2,000 aligned per-sample records from the same checkpoint and conditions | reranked JSON and aggregate metrics |
+| Paired statistics | blocked only by $K=4$ output | sample IDs and metadata must match exactly | paired CSV/JSON, bootstrap intervals, controlled table |
+| Abstract, Results, and Discussion | blocked only for numeric claims | paired CSV/JSON and generated table | final evidence-bound prose |
+| Controlled effect figure | blocked only by paired statistics | selected endpoints must have prespecified direction | PDF/SVG/PNG and source CSV |
+| Representative score figure | pending controlled export review | structurally valid MusicXML plus matching JSON report | rendered score and self-contained caption |
+| Final manuscript QA | pending preceding outputs | all numbers trace to artifacts; LaTeX and tests pass | compiled PDF and claim audit |
+| GitHub synchronization | locally committed; network retry pending | GitHub HTTPS connectivity | remote branch and draft pull request |
+
+The critical dependency chain is $K=4$ evaluation $\rightarrow$ paired statistics $\rightarrow$ controlled table and figure $\rightarrow$ Abstract/Results/Discussion $\rightarrow$ final numerical audit. Literature, method prose, figure preparation, testing, and repository commits proceed in parallel. No manuscript sentence may bypass this chain by substituting archived cross-configuration values for the controlled comparison.
+
+## Submission decision gate
+
+The fastest defensible submission is a bounded proof-of-concept centered on automatic constraint adherence, reproducible synthetic data, and structurally valid score export. Composer preference, perceptual gesture recognition, and practical usefulness remain outside that claim set until blind ratings are collected. Multi-seed training and expert evaluation would strengthen the paper, but their absence must be stated as a limitation rather than hidden behind the controlled single-checkpoint analysis.

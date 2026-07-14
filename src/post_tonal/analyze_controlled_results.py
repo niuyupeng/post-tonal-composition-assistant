@@ -218,6 +218,8 @@ def analyze_controlled_results(
         "paired_conditions": len(single),
         "bootstrap_seed": bootstrap_seed,
         "bootstrap_samples": bootstrap_samples,
+        "bootstrap_method": "paired percentile bootstrap over test conditions",
+        "multiple_endpoint_adjustment": "none",
         "improvement_definition": "positive favorable_improvement values favor constraint reranking; endpoints without a prespecified favorable direction report only raw change",
         "metrics": rows,
     }
@@ -256,7 +258,7 @@ def analyze_controlled_results(
         [
             "\\bottomrule",
             "\\end{tabular}",
-            "\\caption{Controlled same-checkpoint decoding comparison. Favorable differences are oriented so that positive values favor four-candidate constraint reranking. Confidence intervals are paired nonparametric bootstrap intervals over test conditions. $^{\\dagger}$The non-serial aggregate row is a raw diagnostic change because no aggregate target is present for that subset.}",
+            "\\caption{Controlled same-checkpoint decoding comparison. Favorable differences are oriented so that positive values favor four-candidate constraint reranking. Confidence intervals are paired percentile bootstrap intervals over test conditions and are not adjusted for multiple endpoints. $^{\\dagger}$The non-serial aggregate row is a raw diagnostic change because no aggregate target is present for that subset.}",
             "\\label{tab:controlled-decoding}",
             "\\end{table*}",
             "",

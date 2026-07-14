@@ -89,6 +89,8 @@ def test_controlled_analysis_reports_serial_and_nonserial_subsets(tmp_path):
         bootstrap_samples=50,
     )
     endpoints = {row["endpoint"]: row for row in result["metrics"]}
+    assert result["bootstrap_method"] == "paired percentile bootstrap over test conditions"
+    assert result["multiple_endpoint_adjustment"] == "none"
     assert endpoints["pcset_coverage:all"]["n"] == 2
     assert endpoints["pcset_coverage:non-serial"]["n"] == 1
     assert endpoints["pcset_coverage:serial"]["n"] == 1
