@@ -1,0 +1,2464 @@
+[
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.5,
+      "density_curve": [
+        12.0,
+        11.0,
+        2.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 2.6666667461395264,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        3,
+        0,
+        3,
+        6,
+        3,
+        0
+      ],
+      "gesture_consistency_score": 0.5069444378217061,
+      "gesture_features": {
+        "average_duration": 0.3499999940395355,
+        "note_density": 0.4166666666666667,
+        "onset_dispersion": 1.2081390619277954,
+        "register_spread": 45.0,
+        "rest_ratio": 0.15416666865348816
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 25,
+      "pcset": [
+        0,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.8888888955116272,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_000.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_000.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022000",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.4166666666666667,
+      "density_curve": [
+        9.0,
+        7.0,
+        10.0,
+        3.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 3.5,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        2,
+        1,
+        1,
+        2,
+        3,
+        1
+      ],
+      "gesture_consistency_score": 0.7376470978297885,
+      "gesture_features": {
+        "average_duration": 0.3103448152542114,
+        "note_density": 1.2083333333333333,
+        "onset_dispersion": 0.9347785711288452,
+        "register_spread": 37.0,
+        "rest_ratio": 0.2604166567325592
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 29,
+      "pcset": [
+        0,
+        1,
+        5,
+        6,
+        8
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.4375,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_001.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_001.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022001",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        4.0,
+        2.0,
+        2.0,
+        3.0,
+        2.0
+      ],
+      "density_curve_error": 1.399999976158142,
+      "expected_row_form": [
+        10,
+        3,
+        0,
+        1,
+        7,
+        4,
+        8,
+        9,
+        6,
+        2,
+        5,
+        11
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.96875,
+      "gesture_features": {
+        "average_duration": 1.6538461446762085,
+        "note_density": 0.65,
+        "onset_dispersion": 1.0219484567642212,
+        "register_spread": 36.0,
+        "rest_ratio": 0.800000011920929
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 56.0,
+      "note_count": 13,
+      "pcset": [
+        0,
+        1,
+        2,
+        5,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.46666666865348816,
+      "row_order_accuracy": 0.15384615384615385,
+      "serial_transformation_accuracy": 0.15384615384615385
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_002.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_002.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022002",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        18.0,
+        16.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 9.25,
+      "expected_row_form": [
+        1,
+        9,
+        11,
+        7,
+        6,
+        3,
+        0,
+        4,
+        2,
+        5,
+        10,
+        8
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.25980393091837567,
+      "gesture_features": {
+        "average_duration": 2.058823585510254,
+        "note_density": 0.7083333333333334,
+        "onset_dispersion": 1.1584324836730957,
+        "register_spread": 11.0,
+        "rest_ratio": 0.4791666567325592
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 56.0,
+      "note_count": 34,
+      "pcset": [
+        0,
+        2,
+        4,
+        7,
+        9
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.7708333134651184,
+      "row_order_accuracy": 0.29411764705882354,
+      "serial_transformation_accuracy": 0.29411764705882354
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_003.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_003.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022003",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.3333333333333333,
+      "density_curve": [
+        30.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 7.166666507720947,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "gesture_consistency_score": 0.5385270739358569,
+      "gesture_features": {
+        "average_duration": 0.40441176295280457,
+        "note_density": 1.4166666666666667,
+        "onset_dispersion": 1.0947983264923096,
+        "register_spread": 38.0,
+        "rest_ratio": 0.2083333283662796
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 34,
+      "pcset": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 1.4333332777023315,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_004.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_004.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022004",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.75,
+      "density_curve": [
+        3.0,
+        2.0,
+        2.0,
+        0.0,
+        2.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 1.3571428060531616,
+      "expected_row_form": [
+        7,
+        9,
+        10,
+        5,
+        3,
+        11,
+        4,
+        2,
+        0,
+        8,
+        1,
+        6
+      ],
+      "generated_interval_vector": [
+        7,
+        6,
+        6,
+        7,
+        7,
+        3
+      ],
+      "gesture_consistency_score": 0.3744898080825806,
+      "gesture_features": {
+        "average_duration": 1.9444444179534912,
+        "note_density": 0.16071428571428573,
+        "onset_dispersion": 1.154700517654419,
+        "register_spread": 41.0,
+        "rest_ratio": 0.2946428656578064
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 30.0,
+      "note_count": 9,
+      "pcset": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "pcset_coverage": 0.75,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.4523809254169464,
+      "row_order_accuracy": 0.0,
+      "serial_transformation_accuracy": 0.0
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_005.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_005.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022005",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.4166666666666667,
+      "density_curve": [
+        23.0,
+        7.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 8.833333015441895,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        2,
+        1,
+        1,
+        2,
+        3,
+        1
+      ],
+      "gesture_consistency_score": 0.17708333333333331,
+      "gesture_features": {
+        "average_duration": 0.30000001192092896,
+        "note_density": 1.25,
+        "onset_dispersion": 1.2743189334869385,
+        "register_spread": 13.0,
+        "rest_ratio": 0.2395833283662796
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 30,
+      "pcset": [
+        0,
+        1,
+        5,
+        6,
+        8
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.803030252456665,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_006.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_006.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022006",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.3333333333333333,
+      "density_curve": [
+        23.0,
+        16.0,
+        2.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 6.285714149475098,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "gesture_consistency_score": 0.9068670102528162,
+      "gesture_features": {
+        "average_duration": 0.31707316637039185,
+        "note_density": 1.4642857142857142,
+        "onset_dispersion": 1.1326701641082764,
+        "register_spread": 36.0,
+        "rest_ratio": 0.0357142873108387
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 41,
+      "pcset": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.7857142686843872,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_007.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_007.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022007",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        12.0,
+        4.0,
+        12.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 4.4285712242126465,
+      "expected_row_form": [
+        1,
+        7,
+        5,
+        9,
+        10,
+        3,
+        2,
+        4,
+        6,
+        11,
+        0,
+        8
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.10204081024442402,
+      "gesture_features": {
+        "average_duration": 0.578125,
+        "note_density": 1.1428571428571428,
+        "onset_dispersion": 1.1738264560699463,
+        "register_spread": 49.0,
+        "rest_ratio": 0.3214285671710968
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 60.0,
+      "note_count": 32,
+      "pcset": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.738095223903656,
+      "row_order_accuracy": 0.09375,
+      "serial_transformation_accuracy": 0.09375
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_008.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_008.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022008",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.4166666666666667,
+      "density_curve": [
+        11.0,
+        6.0,
+        4.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 3.4000000953674316,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        3,
+        1,
+        1,
+        2,
+        2,
+        1
+      ],
+      "gesture_consistency_score": 0.6442640665977719,
+      "gesture_features": {
+        "average_duration": 0.3068181872367859,
+        "note_density": 0.36666666666666664,
+        "onset_dispersion": 1.072765827178955,
+        "register_spread": 29.0,
+        "rest_ratio": 0.17083333432674408
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 22,
+      "pcset": [
+        0,
+        1,
+        2,
+        5,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.42500001192092896,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_009.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_009.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022009",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.5,
+      "density_curve": [
+        17.0,
+        15.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 8.666666984558105,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        3,
+        0,
+        3,
+        6,
+        3,
+        0
+      ],
+      "gesture_consistency_score": 0.2578125,
+      "gesture_features": {
+        "average_duration": 2.046875,
+        "note_density": 0.8888888888888888,
+        "onset_dispersion": 0.9687184691429138,
+        "register_spread": 9.0,
+        "rest_ratio": 0.8611111044883728
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 32,
+      "pcset": [
+        0,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.7878788113594055,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_010.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_010.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022010",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        6.0,
+        4.0,
+        3.0,
+        7.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 9.538461685180664,
+      "expected_row_form": [
+        8,
+        6,
+        2,
+        3,
+        9,
+        5,
+        10,
+        1,
+        11,
+        4,
+        0,
+        7
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.46538461538461534,
+      "gesture_features": {
+        "average_duration": 0.30000001192092896,
+        "note_density": 0.38461538461538464,
+        "onset_dispersion": 1.2881066799163818,
+        "register_spread": 33.0,
+        "rest_ratio": 0.19711539149284363
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 60.0,
+      "note_count": 20,
+      "pcset": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.6813187003135681,
+      "row_order_accuracy": 0.3,
+      "serial_transformation_accuracy": 0.3
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_011.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_011.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022011",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        5.0,
+        2.0,
+        3.0,
+        3.0,
+        0.0,
+        7.0
+      ],
+      "density_curve_error": 2.8333332538604736,
+      "expected_row_form": [
+        11,
+        1,
+        10,
+        4,
+        5,
+        3,
+        0,
+        2,
+        8,
+        6,
+        7,
+        9
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.6249999933772616,
+      "gesture_features": {
+        "average_duration": 0.4000000059604645,
+        "note_density": 0.8333333333333334,
+        "onset_dispersion": 1.1377060413360596,
+        "register_spread": 40.0,
+        "rest_ratio": 0.3229166567325592
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 60.0,
+      "note_count": 20,
+      "pcset": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.9444444179534912,
+      "row_order_accuracy": 0.2,
+      "serial_transformation_accuracy": 0.2
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_012.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_012.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022012",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.25,
+      "density_curve": [
+        19.0,
+        11.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 5.818181991577148,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "gesture_consistency_score": 0.6987311944128974,
+      "gesture_features": {
+        "average_duration": 0.8333333134651184,
+        "note_density": 0.6818181818181818,
+        "onset_dispersion": 1.186995506286621,
+        "register_spread": 36.0,
+        "rest_ratio": 0.33522728085517883
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 30,
+      "pcset": [
+        0,
+        1,
+        4
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.8311688303947449,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_013.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_013.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022013",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.5,
+      "density_curve": [
+        30.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 11.5,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        3,
+        0,
+        3,
+        6,
+        3,
+        0
+      ],
+      "gesture_consistency_score": 0.25390625,
+      "gesture_features": {
+        "average_duration": 0.34285715222358704,
+        "note_density": 1.09375,
+        "onset_dispersion": 1.19936203956604,
+        "register_spread": 9.0,
+        "rest_ratio": 0.1171875
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 35,
+      "pcset": [
+        0,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.8846153616905212,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_014.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_014.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022014",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        22.0,
+        15.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 5.8125,
+      "expected_row_form": [
+        8,
+        5,
+        1,
+        2,
+        11,
+        9,
+        4,
+        3,
+        0,
+        7,
+        10,
+        6
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.5577022433280945,
+      "gesture_features": {
+        "average_duration": 0.36486485600471497,
+        "note_density": 0.578125,
+        "onset_dispersion": 1.0137836933135986,
+        "register_spread": 35.0,
+        "rest_ratio": 0.0546875
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 51.0,
+      "note_count": 37,
+      "pcset": [
+        0,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.8303571343421936,
+      "row_order_accuracy": 0.10810810810810811,
+      "serial_transformation_accuracy": 0.10810810810810811
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_015.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_015.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022015",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        9.0,
+        11.0,
+        1.0,
+        0.0
+      ],
+      "density_curve_error": 5.5,
+      "expected_row_form": [
+        1,
+        0,
+        9,
+        2,
+        7,
+        3,
+        6,
+        4,
+        8,
+        5,
+        10,
+        11
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.835234800974528,
+      "gesture_features": {
+        "average_duration": 0.3095238208770752,
+        "note_density": 1.3125,
+        "onset_dispersion": 1.103488564491272,
+        "register_spread": 38.0,
+        "rest_ratio": 0.6875
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 63.0,
+      "note_count": 21,
+      "pcset": [
+        0,
+        1,
+        4
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 2.75,
+      "row_order_accuracy": 0.23809523809523808,
+      "serial_transformation_accuracy": 0.23809523809523808
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_016.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_016.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022016",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.3333333333333333,
+      "density_curve": [
+        6.0,
+        3.0,
+        5.0,
+        4.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 2.0,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        1,
+        2,
+        2,
+        0,
+        1,
+        0
+      ],
+      "gesture_consistency_score": 0.3089225733721697,
+      "gesture_features": {
+        "average_duration": 2.159090995788574,
+        "note_density": 0.6111111111111112,
+        "onset_dispersion": 1.2719154357910156,
+        "register_spread": 5.0,
+        "rest_ratio": 1.7083333730697632
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 22,
+      "pcset": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.6666666865348816,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_017.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_017.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022017",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        12.0,
+        7.0,
+        8.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 7.538461685180664,
+      "expected_row_form": [
+        11,
+        6,
+        8,
+        1,
+        2,
+        7,
+        10,
+        5,
+        3,
+        0,
+        4,
+        9
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.408357085325779,
+      "gesture_features": {
+        "average_duration": 2.2962963581085205,
+        "note_density": 0.5192307692307693,
+        "onset_dispersion": 1.020452618598938,
+        "register_spread": 11.0,
+        "rest_ratio": 0.807692289352417
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 56.0,
+      "note_count": 27,
+      "pcset": [
+        0,
+        1,
+        5,
+        6,
+        8
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.6282051205635071,
+      "row_order_accuracy": 0.25925925925925924,
+      "serial_transformation_accuracy": 0.25925925925925924
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_018.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_018.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022018",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        7.0,
+        5.0,
+        7.0,
+        3.0,
+        10.0
+      ],
+      "density_curve_error": 5.199999809265137,
+      "expected_row_form": [
+        7,
+        11,
+        4,
+        9,
+        5,
+        0,
+        10,
+        3,
+        2,
+        8,
+        1,
+        6
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.5012488403017558,
+      "gesture_features": {
+        "average_duration": 1.0,
+        "note_density": 1.6,
+        "onset_dispersion": 1.1153011322021484,
+        "register_spread": 40.0,
+        "rest_ratio": 0.699999988079071
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 51.0,
+      "note_count": 32,
+      "pcset": [
+        0,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 2.5999999046325684,
+      "row_order_accuracy": 0.15625,
+      "serial_transformation_accuracy": 0.15625
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_019.json",
+    "experiment": "controlled_single_candidate",
+    "musicxml": "results\\eval_musicxml\\controlled_single_candidate\\controlled_single_candidate_test_019.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022019",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.5,
+      "density_curve": [
+        10.0,
+        10.0,
+        2.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 2.4666666984558105,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        3,
+        0,
+        3,
+        6,
+        3,
+        0
+      ],
+      "gesture_consistency_score": 0.48484847280714244,
+      "gesture_features": {
+        "average_duration": 0.3636363744735718,
+        "note_density": 0.36666666666666664,
+        "onset_dispersion": 1.1546260118484497,
+        "register_spread": 44.0,
+        "rest_ratio": 0.17499999701976776
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 22,
+      "pcset": [
+        0,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.8222222328186035,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_000.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_000.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022000",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.4166666666666667,
+      "density_curve": [
+        9.0,
+        7.0,
+        7.0,
+        4.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 2.8333332538604736,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        2,
+        1,
+        1,
+        2,
+        3,
+        1
+      ],
+      "gesture_consistency_score": 0.8383928599811735,
+      "gesture_features": {
+        "average_duration": 0.3333333432674408,
+        "note_density": 1.125,
+        "onset_dispersion": 1.1772010326385498,
+        "register_spread": 36.0,
+        "rest_ratio": 0.3541666567325592
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 27,
+      "pcset": [
+        0,
+        1,
+        5,
+        6,
+        8
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.3541666567325592,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_001.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_001.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022001",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.6666666666666666,
+      "density_curve": [
+        2.0,
+        1.0,
+        3.0,
+        2.0,
+        0.0
+      ],
+      "density_curve_error": 1.2000000476837158,
+      "expected_row_form": [
+        10,
+        3,
+        0,
+        1,
+        7,
+        4,
+        8,
+        9,
+        6,
+        2,
+        5,
+        11
+      ],
+      "generated_interval_vector": [
+        5,
+        4,
+        6,
+        6,
+        5,
+        2
+      ],
+      "gesture_consistency_score": 0.625,
+      "gesture_features": {
+        "average_duration": 1.75,
+        "note_density": 0.4,
+        "onset_dispersion": 0.7261843681335449,
+        "register_spread": 27.0,
+        "rest_ratio": 0.7749999761581421
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 18.0,
+      "note_count": 8,
+      "pcset": [
+        0,
+        1,
+        2,
+        5,
+        6
+      ],
+      "pcset_coverage": 0.6,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.4000000059604645,
+      "row_order_accuracy": 0.125,
+      "serial_transformation_accuracy": 0.125
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_002.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_002.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022002",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        19.0,
+        10.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 8.833333015441895,
+      "expected_row_form": [
+        1,
+        9,
+        11,
+        7,
+        6,
+        3,
+        0,
+        4,
+        2,
+        5,
+        10,
+        8
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.33417144086625844,
+      "gesture_features": {
+        "average_duration": 2.275861978530884,
+        "note_density": 0.6041666666666666,
+        "onset_dispersion": 1.156072735786438,
+        "register_spread": 11.0,
+        "rest_ratio": 0.9270833134651184
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 56.0,
+      "note_count": 29,
+      "pcset": [
+        0,
+        2,
+        4,
+        7,
+        9
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.7361111044883728,
+      "row_order_accuracy": 0.27586206896551724,
+      "serial_transformation_accuracy": 0.27586206896551724
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_003.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_003.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022003",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.3333333333333333,
+      "density_curve": [
+        28.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 6.833333492279053,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "gesture_consistency_score": 0.633035709555187,
+      "gesture_features": {
+        "average_duration": 0.359375,
+        "note_density": 1.3333333333333333,
+        "onset_dispersion": 1.1755151748657227,
+        "register_spread": 38.0,
+        "rest_ratio": 0.2395833283662796
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 32,
+      "pcset": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 1.3666666746139526,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_004.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_004.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022004",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.75,
+      "density_curve": [
+        3.0,
+        2.0,
+        2.0,
+        0.0,
+        2.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 1.3571428060531616,
+      "expected_row_form": [
+        7,
+        9,
+        10,
+        5,
+        3,
+        11,
+        4,
+        2,
+        0,
+        8,
+        1,
+        6
+      ],
+      "generated_interval_vector": [
+        7,
+        6,
+        6,
+        7,
+        7,
+        3
+      ],
+      "gesture_consistency_score": 0.3744898080825806,
+      "gesture_features": {
+        "average_duration": 1.9444444179534912,
+        "note_density": 0.16071428571428573,
+        "onset_dispersion": 1.154700517654419,
+        "register_spread": 41.0,
+        "rest_ratio": 0.2946428656578064
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 30.0,
+      "note_count": 9,
+      "pcset": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "pcset_coverage": 0.75,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.4523809254169464,
+      "row_order_accuracy": 0.0,
+      "serial_transformation_accuracy": 0.0
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_005.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_005.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022005",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.4166666666666667,
+      "density_curve": [
+        21.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 8.166666984558105,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        2,
+        1,
+        1,
+        2,
+        3,
+        1
+      ],
+      "gesture_consistency_score": 0.2604166666666667,
+      "gesture_features": {
+        "average_duration": 0.3076923191547394,
+        "note_density": 1.0833333333333333,
+        "onset_dispersion": 1.1121056079864502,
+        "register_spread": 8.0,
+        "rest_ratio": 0.3229166567325592
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 26,
+      "pcset": [
+        0,
+        1,
+        5,
+        6,
+        8
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.7424242496490479,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_006.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_006.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022006",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.3333333333333333,
+      "density_curve": [
+        17.0,
+        8.0,
+        7.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 5.0,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "gesture_consistency_score": 0.785218253968254,
+      "gesture_features": {
+        "average_duration": 0.328125,
+        "note_density": 1.1428571428571428,
+        "onset_dispersion": 1.2277064323425293,
+        "register_spread": 36.0,
+        "rest_ratio": 0.2053571492433548
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 32,
+      "pcset": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.625,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_007.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_007.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022007",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        12.0,
+        7.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 4.142857074737549,
+      "expected_row_form": [
+        1,
+        7,
+        5,
+        9,
+        10,
+        3,
+        2,
+        4,
+        6,
+        11,
+        0,
+        8
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.4132653304508754,
+      "gesture_features": {
+        "average_duration": 0.4791666567325592,
+        "note_density": 0.8571428571428571,
+        "onset_dispersion": 1.2493053674697876,
+        "register_spread": 49.0,
+        "rest_ratio": 0.6607142686843872
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 60.0,
+      "note_count": 24,
+      "pcset": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.6904761791229248,
+      "row_order_accuracy": 0.25,
+      "serial_transformation_accuracy": 0.25
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_008.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_008.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022008",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.4166666666666667,
+      "density_curve": [
+        11.0,
+        6.0,
+        4.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 3.4000000953674316,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        3,
+        1,
+        1,
+        2,
+        2,
+        1
+      ],
+      "gesture_consistency_score": 0.6442640665977719,
+      "gesture_features": {
+        "average_duration": 0.3068181872367859,
+        "note_density": 0.36666666666666664,
+        "onset_dispersion": 1.072765827178955,
+        "register_spread": 29.0,
+        "rest_ratio": 0.17083333432674408
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 22,
+      "pcset": [
+        0,
+        1,
+        2,
+        5,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.42500001192092896,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_009.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_009.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022009",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.5,
+      "density_curve": [
+        17.0,
+        9.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 8.0,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        3,
+        0,
+        3,
+        6,
+        3,
+        0
+      ],
+      "gesture_consistency_score": 0.2660256226857503,
+      "gesture_features": {
+        "average_duration": 2.096153736114502,
+        "note_density": 0.7222222222222222,
+        "onset_dispersion": 0.9756654500961304,
+        "register_spread": 9.0,
+        "rest_ratio": 1.2638888359069824
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 26,
+      "pcset": [
+        0,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.7272727489471436,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_010.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_010.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022010",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        6.0,
+        4.0,
+        3.0,
+        7.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 9.538461685180664,
+      "expected_row_form": [
+        8,
+        6,
+        2,
+        3,
+        9,
+        5,
+        10,
+        1,
+        11,
+        4,
+        0,
+        7
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.46538461538461534,
+      "gesture_features": {
+        "average_duration": 0.30000001192092896,
+        "note_density": 0.38461538461538464,
+        "onset_dispersion": 1.2881066799163818,
+        "register_spread": 33.0,
+        "rest_ratio": 0.19711539149284363
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 60.0,
+      "note_count": 20,
+      "pcset": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.6813187003135681,
+      "row_order_accuracy": 0.3,
+      "serial_transformation_accuracy": 0.3
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_011.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_011.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022011",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        3.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        3.0
+      ],
+      "density_curve_error": 1.1666666269302368,
+      "expected_row_form": [
+        11,
+        1,
+        10,
+        4,
+        5,
+        3,
+        0,
+        2,
+        8,
+        6,
+        7,
+        9
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.5089285572369893,
+      "gesture_features": {
+        "average_duration": 0.4107142984867096,
+        "note_density": 0.5833333333333334,
+        "onset_dispersion": 1.1480072736740112,
+        "register_spread": 38.0,
+        "rest_ratio": 0.2604166567325592
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 60.0,
+      "note_count": 14,
+      "pcset": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.3888888657093048,
+      "row_order_accuracy": 0.21428571428571427,
+      "serial_transformation_accuracy": 0.21428571428571427
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_012.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_012.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022012",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.25,
+      "density_curve": [
+        23.0,
+        7.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 5.818181991577148,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "gesture_consistency_score": 0.7927749024497137,
+      "gesture_features": {
+        "average_duration": 0.7333333492279053,
+        "note_density": 0.6818181818181818,
+        "onset_dispersion": 1.0228296518325806,
+        "register_spread": 36.0,
+        "rest_ratio": 0.3181818127632141
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 30,
+      "pcset": [
+        0,
+        1,
+        4
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.8311688303947449,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_013.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_013.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022013",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.5,
+      "density_curve": [
+        30.0,
+        5.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 11.5,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        3,
+        0,
+        3,
+        6,
+        3,
+        0
+      ],
+      "gesture_consistency_score": 0.25390625,
+      "gesture_features": {
+        "average_duration": 0.34285715222358704,
+        "note_density": 1.09375,
+        "onset_dispersion": 1.19936203956604,
+        "register_spread": 9.0,
+        "rest_ratio": 0.1171875
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 35,
+      "pcset": [
+        0,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.8846153616905212,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_014.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_014.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022014",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        18.0,
+        16.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 5.625,
+      "expected_row_form": [
+        8,
+        5,
+        1,
+        2,
+        11,
+        9,
+        4,
+        3,
+        0,
+        7,
+        10,
+        6
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.5350796646542019,
+      "gesture_features": {
+        "average_duration": 0.36764705181121826,
+        "note_density": 0.53125,
+        "onset_dispersion": 1.0409282445907593,
+        "register_spread": 35.0,
+        "rest_ratio": 0.06640625
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 51.0,
+      "note_count": 34,
+      "pcset": [
+        0,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.8035714030265808,
+      "row_order_accuracy": 0.2647058823529412,
+      "serial_transformation_accuracy": 0.2647058823529412
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_015.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_015.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022015",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        12.0,
+        7.0,
+        1.0,
+        0.0
+      ],
+      "density_curve_error": 5.25,
+      "expected_row_form": [
+        1,
+        0,
+        9,
+        2,
+        7,
+        3,
+        6,
+        4,
+        8,
+        5,
+        10,
+        11
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.7986111044883728,
+      "gesture_features": {
+        "average_duration": 0.4000000059604645,
+        "note_density": 1.25,
+        "onset_dispersion": 1.1332337856292725,
+        "register_spread": 36.0,
+        "rest_ratio": 0.671875
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 63.0,
+      "note_count": 20,
+      "pcset": [
+        0,
+        1,
+        4
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 2.625,
+      "row_order_accuracy": 0.2,
+      "serial_transformation_accuracy": 0.2
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_016.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_016.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022016",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 0.3333333333333333,
+      "density_curve": [
+        5.0,
+        3.0,
+        4.0,
+        3.0,
+        3.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 1.5555555820465088,
+      "expected_row_form": null,
+      "generated_interval_vector": [
+        1,
+        2,
+        2,
+        0,
+        1,
+        0
+      ],
+      "gesture_consistency_score": 0.41203705469767254,
+      "gesture_features": {
+        "average_duration": 2.222222328186035,
+        "note_density": 0.5,
+        "onset_dispersion": 1.0570164918899536,
+        "register_spread": 5.0,
+        "rest_ratio": 2.0416667461395264
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 0.0,
+      "note_count": 18,
+      "pcset": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.5185185074806213,
+      "row_order_accuracy": null,
+      "serial_transformation_accuracy": null
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_017.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_017.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022017",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        2.0,
+        12.0,
+        8.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "density_curve_error": 7.769230842590332,
+      "expected_row_form": [
+        11,
+        6,
+        8,
+        1,
+        2,
+        7,
+        10,
+        5,
+        3,
+        0,
+        4,
+        9
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.49970860664661115,
+      "gesture_features": {
+        "average_duration": 2.3636362552642822,
+        "note_density": 0.4230769230769231,
+        "onset_dispersion": 0.942907989025116,
+        "register_spread": 11.0,
+        "rest_ratio": 1.0865384340286255
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 56.0,
+      "note_count": 22,
+      "pcset": [
+        0,
+        1,
+        5,
+        6,
+        8
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 0.6474359035491943,
+      "row_order_accuracy": 0.2727272727272727,
+      "serial_transformation_accuracy": 0.2727272727272727
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_018.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_018.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022018",
+    "split": "test"
+  },
+  {
+    "analysis": {
+      "aggregate_completion_rate": 1.0,
+      "density_curve": [
+        6.0,
+        5.0,
+        4.0,
+        5.0,
+        2.0
+      ],
+      "density_curve_error": 3.200000047683716,
+      "expected_row_form": [
+        7,
+        11,
+        4,
+        9,
+        5,
+        0,
+        10,
+        3,
+        2,
+        8,
+        1,
+        6
+      ],
+      "generated_interval_vector": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        6
+      ],
+      "gesture_consistency_score": 0.38860204484727645,
+      "gesture_features": {
+        "average_duration": 1.0,
+        "note_density": 1.1,
+        "onset_dispersion": 1.167527198791504,
+        "register_spread": 38.0,
+        "rest_ratio": 0.8500000238418579
+      },
+      "instrument_range_violation_rate": 0.0,
+      "interval_vector_distance": 51.0,
+      "note_count": 22,
+      "pcset": [
+        0,
+        3,
+        4,
+        7,
+        8,
+        11
+      ],
+      "pcset_coverage": 1.0,
+      "range_violation_rate": 0.0,
+      "rhythmic_profile_distance": 1.600000023841858,
+      "row_order_accuracy": 0.22727272727272727,
+      "serial_transformation_accuracy": 0.22727272727272727
+    },
+    "analysis_report": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_019.json",
+    "experiment": "controlled_constraint_reranked",
+    "musicxml": "results\\eval_musicxml\\controlled_constraint_reranked\\controlled_constraint_reranked_test_019.musicxml",
+    "musicxml_structurally_valid": true,
+    "sample_id": "synthetic_022019",
+    "split": "test"
+  }
+]

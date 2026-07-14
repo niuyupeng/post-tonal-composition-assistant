@@ -23,7 +23,8 @@ The neural architecture is a standard six-layer causal Transformer with conditio
 
 - Full training and archived evaluations: complete.
 - Controlled K=1 evaluation: complete.
-- Controlled K=4 evaluation and paired bootstrap analysis: in progress.
+- Controlled K=4 evaluation and paired bootstrap analysis: complete for 2,000 aligned conditions.
+- Evidence-bound Abstract, Results, and Discussion: complete; numerical audit and warning-free 20-page compilation passed.
 - Primary target: Journal of New Music Research; Applied Sciences is the faster SCIE fallback.
 - Author and affiliation metadata: pending.
 - Expert ratings and multi-seed training: pending real experiments.

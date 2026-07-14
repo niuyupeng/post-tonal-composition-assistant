@@ -94,3 +94,17 @@ Run label: formal_retrain_2026_06_17_plus_full_2000_eval
 - Expert human ratings have not been collected.
 - Manuscript claims should be updated only from `results/project2_metrics.csv`, `results/project2_constraints.csv`, and the JSON reports produced by this run.
 - Optional LaTeX compilation may require local CJK/TeX setup.
+
+## Controlled Manuscript Evaluation (2026-07-14)
+
+- Loaded `runs/proposed_constraint_guided_transformer/checkpoint.pt` for both decoding conditions; no retraining or checkpoint change was performed.
+- Evaluated the complete 2,000-item test split with evaluation seed 42042 and per-item seeds 42042--44041.
+- `controlled_single_candidate` used one sampled continuation per request.
+- `controlled_constraint_reranked` used four continuations per request and selected the minimum weighted symbolic penalty.
+- All 2,000 sample IDs and condition bundles align exactly between the two per-sample files; 914 requests are serial and 1,086 are non-serial.
+- Paired percentile-bootstrap intervals use 10,000 resamples. No multiple-endpoint adjustment is applied.
+- The controlled aggregate rows are stored in `results/project2_controlled_metrics.csv` and `results/project2_controlled_constraints.csv`.
+- Per-sample evidence is stored in `results/controlled_single_candidate_per_sample.json` and `results/controlled_constraint_reranked_per_sample.json`.
+- Paired statistics are stored in `results/project2_controlled_statistics.json` and `results/project2_controlled_statistics.csv`.
+- The generated main table is `paper/tables/project2_controlled_results.tex`; the effect figure is `paper/figures/controlled_effects.pdf`.
+- The evidence-bound manuscript compiled with XeLaTeX to `paper/main.pdf` without layout or reference warnings, and the post-change test run completed with 16 passing tests.

@@ -238,6 +238,7 @@ def analyze_controlled_results(
         "\\begin{table*}[t]",
         "\\centering",
         "\\small",
+        "\\resizebox{\\textwidth}{!}{%",
         "\\begin{tabular}{llrrrrr}",
         "\\toprule",
         "Metric & Subset & $K=1$ & Reranked $K=4$ & Favorable $\\Delta$ & 95\\% CI & $n$ \\\\",
@@ -258,6 +259,7 @@ def analyze_controlled_results(
         [
             "\\bottomrule",
             "\\end{tabular}",
+            "}",
             "\\caption{Controlled same-checkpoint decoding comparison. Favorable differences are oriented so that positive values favor four-candidate constraint reranking. Confidence intervals are paired percentile bootstrap intervals over test conditions and are not adjusted for multiple endpoints. $^{\\dagger}$The non-serial aggregate row is a raw diagnostic change because no aggregate target is present for that subset.}",
             "\\label{tab:controlled-decoding}",
             "\\end{table*}",

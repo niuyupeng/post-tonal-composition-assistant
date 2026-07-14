@@ -1,0 +1,20 @@
+{
+  "aggregate_completion_rate": 0.6597083333333333,
+  "density_curve_error": 5.656331068336963,
+  "experiment": "controlled_constraint_reranked",
+  "gesture_consistency_score": 0.553546085279046,
+  "instrument_range_violation_rate": 8.54296066252588e-05,
+  "interval_vector_distance": 25.7355,
+  "model_loss": 0.8158271789550782,
+  "musicxml_export_success_rate": 1.0,
+  "num_samples": 2000,
+  "pcset_coverage": 0.9951916666666667,
+  "range_violation_rate": 8.54296066252588e-05,
+  "rhythmic_profile_distance": 0.8159203469306231,
+  "row_order_accuracy": 0.23496711298206938,
+  "serial_row_order_accuracy": 0.23496711298206938,
+  "serial_transformation_accuracy": 0.23496711298206938,
+  "split": "test",
+  "target_pcset_coverage": 0.9951916666666667,
+  "token_accuracy": 0.6253677487373352
+}

@@ -9,8 +9,8 @@
 | Primary run stopped after 25 epochs; best validation loss 0.8111 at epoch 15 | `runs/proposed_constraint_guided_transformer/train_summary.json` | Exact factual statement |
 | Thirteen archived aggregate rows exist and use 2,000 test samples | `results/project2_metrics.csv` | Exploratory cross-configuration description |
 | Twenty expert-package MusicXML files parse structurally | `expert_eval/project2/manifest.json` and structural check | Structural-export statement only |
-| Controlled K=1 and K=4 decoder metrics | `results/project2_controlled_metrics.csv` | Use only after the controlled run completes |
-| Paired uncertainty/effect estimates | `results/project2_controlled_statistics.json` | Use only after statistics are computed |
+| Controlled K=1 and K=4 decoder metrics over 2,000 aligned conditions | `results/project2_controlled_metrics.csv` | Report exact aggregate means; checkpoint and conditions are fixed |
+| Paired uncertainty/effect estimates for 14 prespecified endpoints | `results/project2_controlled_statistics.json`, `results/project2_controlled_statistics.csv` | Report paired percentile-bootstrap intervals and disclose no multiplicity adjustment |
 
 ## Implementation facts
 
@@ -29,7 +29,7 @@
 ## Interpretation allowed with caveats
 
 - Automatic metrics quantify consistency with implemented symbolic targets on a synthetic corpus.
-- Constraint reranking can be described as improving a metric only after a controlled same-checkpoint comparison supports it.
+- Constraint reranking improves row-order, interval-vector, rhythm, density, gesture, and range diagnostics in the controlled comparison, while serial aggregate completion and serial pc-set coverage decrease.
 - Archived independent configurations may reveal trade-offs but cannot isolate causal effects because their seeds and generated datasets differ.
 - Structural MusicXML validity supports editability at the file-format level, not engraving or compositional quality.
 - Structural validity does not imply that the requested number of measures was realized.

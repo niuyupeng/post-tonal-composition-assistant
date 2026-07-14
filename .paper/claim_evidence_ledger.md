@@ -7,7 +7,7 @@
 | C3 | The primary run stopped after 25 epochs and reached its lowest validation loss at epoch 15. | `runs/proposed_constraint_guided_transformer/train_summary.json` | supported | Report exact loss only from JSON |
 | C4 | Conditions are serialized as prefix tokens for a six-layer causal Transformer. | `src/post_tonal/data/score_tokenizer.py`; `src/post_tonal/models/transformer.py` | supported | Implementation description |
 | C5 | Guidance is non-differentiable K-candidate symbolic reranking at inference. | `src/post_tonal/generate.py`; `src/post_tonal/evaluate.py` | supported | Method description |
-| C6 | K=4 changes constraint metrics relative to K=1 under paired conditions. | `results/project2_controlled_statistics.json` | draft | No directional claim until paired analysis completes |
+| C6 | Under 2,000 paired conditions, K=4 reranking improves row-order, interval-vector, rhythm, density, gesture, and range metrics but reduces serial aggregate completion and serial pc-set coverage. | `results/project2_controlled_statistics.json`; `results/project2_controlled_statistics.csv` | supported with qualifications | Report endpoint-specific means and paired CIs; no blanket superiority claim |
 | C7 | All evaluated outputs are structurally parseable MusicXML. | Controlled metrics and `expert_eval/project2/manifest.json` | supported | Structural validity only; not requested-length adherence |
 | C8 | The system is useful to contemporary composers. | Blind expert ratings | gap | `PENDING_REAL_EXPERIMENT`; do not infer from automatic metrics |
 | C9 | Findings are stable across training seeds. | Multi-seed runs | gap | `PENDING_REAL_EXPERIMENT`; disclose single-seed limitation |

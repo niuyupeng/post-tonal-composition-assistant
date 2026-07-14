@@ -1,10 +1,41 @@
 \section{Results}
+\label{sec:results}
 
-Tables~\ref{tab:project2-main-results} and~\ref{tab:project2-ablation-results} are generated from \texttt{results/project2\_metrics.csv} and \texttt{results/project2\_constraints.csv}. The full corpus size is 20,000 / 2,000 / 2,000 for train / validation / test, respectively. The run used an RTX 4060 Ti 16GB system with Python 3.11.9, PyTorch 2.5.1+cu121, and CUDA availability true.
+\subsection{Controlled same-checkpoint decoding}
 
-The full experiment evaluated 13 rows: the rule-only baseline, 12 trained neural configurations, and the required ablations. The proposed constraint-guided Transformer row reports token accuracy 0.6263, target pc-set coverage 0.9950, row-order accuracy 0.2319, rhythmic-profile distance 0.8084, gesture consistency 0.5660, and MusicXML export success 1.0000. The rule-only baseline has no token accuracy because it does not use a trained sequence model.
+The controlled analysis paired all 2,000 test conditions, comprising 914 row-conditioned and 1,086 non-serial fragments. The fixed checkpoint had full-sequence token accuracy 0.6254 and cross-entropy 0.8158; these next-token diagnostics are identical across the decoding conditions because no retraining is involved. Table~\ref{tab:controlled-decoding} reports per-condition differences between the first sampled candidate ($K=1$) and four-candidate symbolic reranking ($K=4$).
 
-The final result files are stored in \texttt{results/project2\_metrics.csv}, \texttt{results/project2\_constraints.csv}, \texttt{results/project2\_generation\_examples.json}, and \texttt{results/project2\_full\_split\_summary.json}. Final MusicXML examples and analysis reports are stored in \texttt{expert\_eval/project2/}. Missing entries in the tables are marked as \texttt{PENDING\_REAL\_EXPERIMENT} only when a metric is not applicable to that configuration.
+Reranking raised cyclic row-order accuracy on serial conditions from 0.1580 to 0.2350, a favorable mean difference of 0.0769 (paired bootstrap 95\% CI [0.0705, 0.0833]). It selected a better row-order candidate for 65.4\% of serial requests, tied for 25.4\%, and selected a worse candidate for 9.2\%. Across all conditions, rhythmic-profile distance decreased from 0.8712 to 0.8159 (favorable difference 0.0553; [0.0493, 0.0618]), density-curve error decreased by 0.2332 ([0.2082, 0.2584]), and gesture consistency increased from 0.5246 to 0.5535 (0.0289; [0.0249, 0.0330]). Instrument-range violations were already rare but decreased from 0.00055 to 0.00009.
+
+Interval-vector distance decreased by 0.5075 overall ([0.3640, 0.6655]). The subgroup means expose the different scales of the task: non-serial distance decreased from 0.2716 to 0.0166, whereas serial distance decreased from 57.1018 to 56.2943 because row-conditioned fragments traverse the aggregate while retaining a smaller pc-set interval-vector target.
+
+The pitch and aggregate results show a trade-off rather than uniform improvement. Overall pc-set coverage remained near ceiling and changed from 0.9954 to 0.9952; its interval included zero (favorable difference $-0.0003$; [$-0.0021$, 0.0014]). Coverage increased by 0.0047 in the non-serial subset but decreased by 0.0062 in the serial subset. Serial aggregate completion decreased from 0.9963 to 0.9892 (favorable difference $-0.0071$; [$-0.0101$, $-0.0044$]). The non-serial aggregate value is reported only as a diagnostic because those conditions have no twelve-tone aggregate target. No multiplicity correction was applied to the endpoint-wise bootstrap intervals; they are therefore descriptive uncertainty intervals rather than a family-wise inferential claim.
+
+\input{tables/project2_controlled_results}
+
+Figure~\ref{fig:controlled-effects} summarizes prespecified favorable relative changes. The near-ceiling pc-set endpoint and rare range violations produced high tie rates, while row, rhythm, and gesture selection altered a larger proportion of candidates. The large relative change in non-serial interval-vector distance reflects its small $K=1$ baseline and should be read together with the absolute values in Table~\ref{tab:controlled-decoding}.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/controlled_effects.pdf}
+  \caption{Controlled effects of four-candidate reranking relative to single-candidate decoding. Points are favorable mean changes as a percentage of the $K=1$ mean; bars are paired bootstrap 95\% intervals. Positive values favor reranking. Aggregate completion is negative because serial completion decreased. Intervals are not adjusted for multiple endpoints.}
+  \label{fig:controlled-effects}
+\end{figure}
+
+\subsection{Exploratory configuration archive}
+
+Tables~\ref{tab:project2-main-results} and~\ref{tab:project2-ablation-results} retain the completed procedural reference and independently trained neural configurations. They document that all intended configurations ran on the full 20,000/2,000/2,000 corpus regime and produced 2,000-sample evaluation rows. These rows use different generated corpora and seeds, however, so their aggregate differences are descriptive and are not used to estimate the causal effect of reranking. Missing cells denote an absent or fixed target, not perfect adherence.
 
 \input{tables/project2_main_results}
 \input{tables/project2_ablation_results}
+
+\subsection{MusicXML output and representative fragment}
+
+All 20 controlled reranked examples written for inspection parsed as \texttt{score-partwise} MusicXML. This is a structural check, not an assessment of engraving or compositional quality. Figure~\ref{fig:controlled-score} shows controlled example 019, selected because every part contains the requested five measures. The request specifies five clarinet voices, pc-set $\{0,3,4,7,8,11\}$, row form $RI_6$, a sustained rhythmic profile, and a fragmented gesture. Its automatic report gives pc-set coverage 1.0000, interval-vector distance 51.0000, row-order accuracy 0.2273, aggregate completion 1.0000, rhythmic-profile distance 1.6000, gesture consistency 0.3886, and range-violation rate 0.0000. These values illustrate the coexistence of satisfied and weak constraints in one editable output rather than a best-case musical claim.
+
+\begin{figure*}[p]
+  \centering
+  \includegraphics[width=0.98\textwidth,height=0.82\textheight,keepaspectratio]{figures/score_example_controlled_019-1.png}
+  \caption{Representative constraint-reranked MusicXML fragment (controlled example 019). Requested and written span: 5/5 measures; instrumentation: five clarinet parts; conditions: pc-set $\{0,3,4,7,8,11\}$, $RI_6$, sustained rhythm, and fragmented gesture. The rendered notation is included for inspectability; no expert quality rating has yet been collected.}
+  \label{fig:controlled-score}
+\end{figure*}
