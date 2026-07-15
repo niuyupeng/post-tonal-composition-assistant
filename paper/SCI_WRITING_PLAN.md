@@ -83,7 +83,7 @@ Deliverable: submission-ready manuscript and supplementary package.
 | Multi-seed training replication | complete with a stated scope limit | seeds 42--44 completed; each checkpoint has a 2,000-item teacher-forced test row | per-seed CSV, aggregate JSON, and LaTeX table; cross-seed K=1/K=4 remains pending |
 | Submission package | prepared with explicit gates | no author identity, policy, or declaration inferred | anonymous wrapper, checklist, cover letter, metadata form, declarations |
 | Final manuscript QA | complete for the post-replication draft | all numbers traced to artifacts; both LaTeX variants compile without warnings; 21 tests pass | two inspected 21-page PDFs and claim audit |
-| GitHub synchronization | blocked by repeated HTTPS connection resets | local branch and commit history are intact | retry push after the final evidence-bound commit |
+| GitHub synchronization | complete through verified Git Database API transport | remote tree and commit hashes match the local branch; direct HTTPS transport remained unavailable | use ordinary `git push` again when the host route recovers |
 
 The critical dependency chain is $K=4$ evaluation $\rightarrow$ paired statistics $\rightarrow$ controlled table and figure $\rightarrow$ Abstract/Results/Discussion $\rightarrow$ final numerical audit. Literature, method prose, figure preparation, testing, and repository commits proceed in parallel. No manuscript sentence may bypass this chain by substituting archived cross-configuration values for the controlled comparison.
 

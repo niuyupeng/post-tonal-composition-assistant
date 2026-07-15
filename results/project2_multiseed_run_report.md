@@ -76,7 +76,7 @@ The three-seed aggregate covers validation loss, teacher-forced test loss, and f
 - Blind expert ratings have not been collected.
 - Controlled K=1/K=4 generation has not been repeated across all three training seeds.
 - Author metadata, current JNMR portal requirements, and an archival release DOI require user or publisher input.
-- GitHub push attempts failed with HTTPS connection resets; the local branch and commits remain intact.
+- Direct HTTPS `git push` was blocked by connection resets, but authenticated GitHub Git Database API transport subsequently synchronized the exact local trees and commit hashes to the project branch without rewriting history.
 
 ## Final Verification
 
