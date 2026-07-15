@@ -1,6 +1,8 @@
 import json
 
 import numpy as np
+import pytest
+import torch
 
 from post_tonal.analyze_controlled_results import analyze_controlled_results, paired_bootstrap_ci
 from post_tonal.make_tables import _format
@@ -47,6 +49,50 @@ def test_seeded_transformer_sampling_is_reproducible():
     assert first == second
 
 
+def test_batched_sampling_is_reproducible_and_preserves_first_candidate():
+    set_seed(23)
+    model = PostTonalTransformer(vocab_size=32, hidden_size=24, layers=1, heads=3, max_seq_len=16, dropout=0.0)
+    prefixes = [[1, 4, 7], [1, 5], [1, 9, 3, 6]]
+    seeds = [101, 102, 103]
+
+    single_generators = [torch.Generator().manual_seed(seed) for seed in seeds]
+    single = model.sample_batch(
+        prefixes,
+        eos_id=2,
+        max_new_tokens=8,
+        top_k=8,
+        generators=single_generators,
+    )
+    reranked_generators = [torch.Generator().manual_seed(seed) for seed in seeds]
+    reranked_first = model.sample_batch(
+        prefixes,
+        eos_id=2,
+        max_new_tokens=8,
+        top_k=8,
+        generators=reranked_generators,
+    )
+    model.sample_batch(
+        prefixes,
+        eos_id=2,
+        max_new_tokens=8,
+        top_k=8,
+        generators=reranked_generators,
+    )
+
+    assert single == reranked_first
+
+    set_seed(seeds[0])
+    legacy = model.sample(prefixes[0], eos_id=2, max_new_tokens=8, top_k=8)
+    compatible = model.sample_batch(
+        [prefixes[0]],
+        eos_id=2,
+        max_new_tokens=8,
+        top_k=8,
+        generators=[torch.Generator().manual_seed(seeds[0])],
+    )[0]
+    assert compatible == legacy
+
+
 def test_paired_bootstrap_ci_tracks_constant_improvement():
     low, high = paired_bootstrap_ci(np.full(12, 0.25), seed=5, samples=200)
     assert low == 0.25
@@ -65,9 +111,17 @@ def test_controlled_analysis_reports_serial_and_nonserial_subsets(tmp_path):
         "range_violation_rate": 0.0,
     }
     single_samples = [
-        {"sample_id": "nonserial", "metadata": {"row": None, "row_form": None}, "analysis": dict(common_analysis)},
+        {
+            "sample_id": "nonserial",
+            "evaluation_seed": 10,
+            "first_candidate_sha256": "a" * 64,
+            "metadata": {"row": None, "row_form": None},
+            "analysis": dict(common_analysis),
+        },
         {
             "sample_id": "serial",
+            "evaluation_seed": 11,
+            "first_candidate_sha256": "b" * 64,
             "metadata": {"row": list(range(12)), "row_form": "P0"},
             "analysis": {**common_analysis, "row_order_accuracy": 0.25},
         },
@@ -91,6 +145,8 @@ def test_controlled_analysis_reports_serial_and_nonserial_subsets(tmp_path):
     endpoints = {row["endpoint"]: row for row in result["metrics"]}
     assert result["bootstrap_method"] == "paired percentile bootstrap over test conditions"
     assert result["multiple_endpoint_adjustment"] == "none"
+    assert result["first_candidate_alignment"] == "verified_by_sha256"
+    assert result["first_candidate_fingerprints_verified"] == 2
     assert endpoints["pcset_coverage:all"]["n"] == 2
     assert endpoints["pcset_coverage:non-serial"]["n"] == 1
     assert endpoints["pcset_coverage:serial"]["n"] == 1
@@ -99,6 +155,18 @@ def test_controlled_analysis_reports_serial_and_nonserial_subsets(tmp_path):
     assert endpoints["aggregate_completion_rate:non-serial"]["n"] == 1
     assert endpoints["aggregate_completion_rate:non-serial"]["higher_is_better"] is None
     assert endpoints["aggregate_completion_rate:non-serial"]["favorable_improvement"] is None
+
+    reranked_samples[1]["first_candidate_sha256"] = "c" * 64
+    reranked_path.write_text(json.dumps({"samples": reranked_samples}), encoding="utf-8")
+    with pytest.raises(ValueError, match="First candidates differ"):
+        analyze_controlled_results(
+            single_path,
+            reranked_path,
+            tmp_path / "bad-stats.json",
+            tmp_path / "bad-stats.csv",
+            tmp_path / "bad-stats.tex",
+            bootstrap_samples=10,
+        )
 
 
 def test_missing_table_metric_is_not_applicable():

@@ -76,3 +76,75 @@ class PostTonalTransformer(nn.Module):
             if next_id == eos_id:
                 break
         return ids
+
+    @torch.no_grad()
+    def sample_batch(
+        self,
+        prefix_ids: list[list[int]],
+        eos_id: int,
+        max_new_tokens: int = 128,
+        temperature: float = 1.0,
+        top_k: int | None = 20,
+        generators: list[torch.Generator | None] | None = None,
+        use_amp: bool = False,
+    ) -> list[list[int]]:
+        """Sample variable-length continuations with one RNG stream per sequence."""
+        if not prefix_ids:
+            return []
+        if any(not prefix for prefix in prefix_ids):
+            raise ValueError("Every sampling prefix must contain at least one token.")
+        if generators is None:
+            generators = [None] * len(prefix_ids)
+        if len(generators) != len(prefix_ids):
+            raise ValueError("Expected one generator per sampling prefix.")
+
+        self.eval()
+        device = next(self.parameters()).device
+        sequences = [list(prefix) for prefix in prefix_ids]
+        active = list(range(len(sequences)))
+        amp_enabled = bool(use_amp and device.type == "cuda")
+
+        for _ in range(max_new_tokens):
+            if not active:
+                break
+            windows = [sequences[index][-self.max_seq_len :] for index in active]
+            lengths = torch.tensor([len(window) for window in windows], dtype=torch.long, device=device)
+            width = int(lengths.max().item())
+            input_ids = torch.zeros((len(active), width), dtype=torch.long, device=device)
+            attention = torch.zeros_like(input_ids, dtype=torch.bool)
+            for row, window in enumerate(windows):
+                length = len(window)
+                input_ids[row, :length] = torch.tensor(window, dtype=torch.long, device=device)
+                attention[row, :length] = True
+
+            with torch.autocast(
+                device_type=device.type,
+                dtype=torch.float16,
+                enabled=amp_enabled,
+            ):
+                all_logits = self(input_ids, attention)
+                logits = all_logits[
+                    torch.arange(len(active), device=device),
+                    lengths - 1,
+                ] / max(temperature, 1e-6)
+            if top_k is not None and top_k > 0:
+                values, indices = torch.topk(logits, min(top_k, logits.shape[-1]), dim=-1)
+                filtered = torch.full_like(logits, float("-inf"))
+                filtered.scatter_(1, indices, values)
+                logits = filtered
+            probabilities = torch.softmax(logits, dim=-1)
+
+            remaining: list[int] = []
+            for row, sequence_index in enumerate(active):
+                next_id = int(
+                    torch.multinomial(
+                        probabilities[row],
+                        num_samples=1,
+                        generator=generators[sequence_index],
+                    ).item()
+                )
+                sequences[sequence_index].append(next_id)
+                if next_id != eos_id:
+                    remaining.append(sequence_index)
+            active = remaining
+        return sequences

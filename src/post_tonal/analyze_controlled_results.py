@@ -153,11 +153,22 @@ def analyze_controlled_results(
     if len(single) != len(reranked):
         raise ValueError("Controlled result files have different sample counts.")
 
+    aligned_first_candidates = 0
     for left, right in zip(single, reranked):
         if left.get("sample_id") != right.get("sample_id"):
             raise ValueError("Controlled result sample IDs are not aligned.")
         if left.get("metadata") != right.get("metadata"):
             raise ValueError(f"Condition metadata differs for sample {left.get('sample_id')}.")
+        if left.get("evaluation_seed") != right.get("evaluation_seed"):
+            raise ValueError(f"Evaluation seeds differ for sample {left.get('sample_id')}.")
+        left_hash = left.get("first_candidate_sha256")
+        right_hash = right.get("first_candidate_sha256")
+        if (left_hash is None) != (right_hash is None):
+            raise ValueError(f"First-candidate fingerprints are incomplete for sample {left.get('sample_id')}.")
+        if left_hash is not None:
+            if left_hash != right_hash:
+                raise ValueError(f"First candidates differ for sample {left.get('sample_id')}.")
+            aligned_first_candidates += 1
 
     rows: list[dict[str, Any]] = []
     for metric_index, spec in enumerate(ENDPOINTS):
@@ -216,6 +227,12 @@ def analyze_controlled_results(
         "single_path": str(single_path),
         "reranked_path": str(reranked_path),
         "paired_conditions": len(single),
+        "first_candidate_alignment": (
+            "verified_by_sha256"
+            if aligned_first_candidates == len(single)
+            else "not_recorded"
+        ),
+        "first_candidate_fingerprints_verified": aligned_first_candidates,
         "bootstrap_seed": bootstrap_seed,
         "bootstrap_samples": bootstrap_samples,
         "bootstrap_method": "paired percentile bootstrap over test conditions",

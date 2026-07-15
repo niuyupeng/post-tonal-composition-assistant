@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 from pathlib import Path
 from statistics import mean
@@ -114,6 +115,85 @@ def generated_events_from_model(
     return best_events
 
 
+def _events_sha256(events: list[dict[str, Any]]) -> str:
+    payload = json.dumps(events, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def generated_events_from_model_batch(
+    model: PostTonalTransformer,
+    tokenizer: ScoreTokenizer,
+    metadatas: list[dict[str, Any]],
+    seeds: list[int],
+    attempts: int,
+    max_new_tokens: int,
+    batch_size: int,
+    use_amp: bool,
+    progress: bool = False,
+) -> tuple[list[list[dict[str, Any]]], list[str]]:
+    """Generate and rerank candidates while preserving an RNG stream per sample."""
+    if len(metadatas) != len(seeds):
+        raise ValueError("Expected one deterministic generation seed per metadata record.")
+    if not metadatas:
+        return [], []
+    batch_size = max(1, int(batch_size))
+    attempts = max(1, int(attempts))
+    device = next(model.parameters()).device
+    generators = [torch.Generator(device=device).manual_seed(int(seed)) for seed in seeds]
+    prefixes = [tokenizer.encode(tokenizer.condition_tokens(metadata)) for metadata in metadatas]
+    best_events: list[list[dict[str, Any]]] = [[] for _ in metadatas]
+    best_losses = [float("inf")] * len(metadatas)
+    first_candidate_hashes = [""] * len(metadatas)
+    weights = {
+        "pcset": 1.0,
+        "interval_vector": 0.05,
+        "row_order": 1.0,
+        "aggregate": 0.5,
+        "rhythm": 0.5,
+        "gesture": 0.5,
+        "range": 2.0,
+    }
+
+    for attempt_index in range(attempts):
+        for start in range(0, len(metadatas), batch_size):
+            end = min(start + batch_size, len(metadatas))
+            sampled = model.sample_batch(
+                prefixes[start:end],
+                tokenizer.eos_id,
+                max_new_tokens=max_new_tokens,
+                temperature=1.0,
+                top_k=20,
+                generators=generators[start:end],
+                use_amp=use_amp,
+            )
+            for local_index, ids in enumerate(sampled):
+                sample_index = start + local_index
+                metadata = metadatas[sample_index]
+                events = tokenizer.tokens_to_events(tokenizer.decode(ids))
+                for event in events:
+                    event.setdefault("instrument", metadata.get("instrument", "generic_voice"))
+                    event.setdefault("gesture", metadata.get("gesture", "fragmented"))
+                    event.setdefault("rhythm_profile", metadata.get("rhythm_profile", "medium"))
+                if attempt_index == 0:
+                    first_candidate_hashes[sample_index] = _events_sha256(events)
+                report = analyze_events(events, metadata)
+                loss = candidate_loss(report, weights)
+                if loss < best_losses[sample_index]:
+                    best_events[sample_index] = events
+                    best_losses[sample_index] = loss
+            if progress and (end == len(metadatas) or end % (batch_size * 10) == 0):
+                print(
+                    {
+                        "generation_attempt": attempt_index + 1,
+                        "generation_attempts": attempts,
+                        "processed_samples": end,
+                        "total_samples": len(metadatas),
+                    },
+                    flush=True,
+                )
+    return best_events, first_candidate_hashes
+
+
 def append_csv_row(path: str | Path, row: dict[str, Any], fields: list[str]) -> None:
     path_obj = Path(path)
     ensure_dir(path_obj.parent)
@@ -201,17 +281,49 @@ def evaluate(
     use_model_generation = bool(eval_cfg.get("model_generation", False)) and model is not None
     attempts = int(eval_cfg.get("constraint_guided_attempts", 1 if not eval_cfg.get("constraint_guided_decoding", False) else 4))
     max_new_tokens = int(eval_cfg.get("max_new_tokens", config.get("model", {}).get("max_seq_len", 256)))
+    generation_batch_size = max(1, int(eval_cfg.get("generation_batch_size", 1)))
+    generation_fp16 = bool(eval_cfg.get("generation_fp16", False))
+    sampling_protocol = (
+        "per_sample_generator_batch_v1"
+        if use_model_generation and generation_batch_size > 1
+        else "legacy_global_generator_v1"
+        if use_model_generation
+        else "target_events"
+    )
     metric_samples = eval_cfg.get("constraint_metric_samples")
     if metric_samples is None:
         metric_samples = generation_count if use_model_generation else len(dataset.samples)
     metric_samples = min(len(dataset.samples), max(1, int(metric_samples)))
     eval_samples = dataset.samples[:metric_samples]
 
+    generated_events_cache: list[list[dict[str, Any]]] | None = None
+    first_candidate_hashes: list[str] | None = None
+    if use_model_generation and generation_batch_size > 1:
+        generation_total = min(len(dataset.samples), max(metric_samples, generation_count))
+        generation_samples = dataset.samples[:generation_total]
+        generated_events_cache, first_candidate_hashes = generated_events_from_model_batch(
+            model,
+            tokenizer,
+            [sample.get("metadata", {}) for sample in generation_samples],
+            [evaluation_seed + idx for idx in range(generation_total)],
+            attempts=attempts,
+            max_new_tokens=max_new_tokens,
+            batch_size=generation_batch_size,
+            use_amp=generation_fp16,
+            progress=bool(eval_cfg.get("generation_progress", False)),
+        )
+
     for idx, sample in enumerate(eval_samples):
         metadata = sample.get("metadata", {})
-        if use_model_generation:
+        first_candidate_sha256: str | None = None
+        if generated_events_cache is not None:
+            events = generated_events_cache[idx]
+            first_candidate_sha256 = first_candidate_hashes[idx] if first_candidate_hashes else None
+        elif use_model_generation:
             set_seed(evaluation_seed + idx)
             events = generated_events_from_model(model, tokenizer, metadata, attempts=attempts, max_new_tokens=max_new_tokens)
+            if attempts == 1:
+                first_candidate_sha256 = _events_sha256(events)
         else:
             events = sample.get("events", [])
         report = analyze_events(events, metadata)
@@ -224,6 +336,9 @@ def evaluate(
                 "sample_id": sample.get("id"),
                 "evaluation_seed": evaluation_seed + idx,
                 "candidate_attempts": attempts if use_model_generation else 0,
+                "generation_batch_size": generation_batch_size if use_model_generation else 0,
+                "sampling_protocol": sampling_protocol,
+                "first_candidate_sha256": first_candidate_sha256,
                 "metadata": metadata,
                 "analysis": report,
             }
@@ -256,7 +371,9 @@ def evaluate(
     # writing additional MusicXML files if requested.
     for extra_idx, sample in enumerate(dataset.samples[export_examples:generation_count], start=export_examples):
         metadata = sample.get("metadata", {})
-        if use_model_generation:
+        if generated_events_cache is not None:
+            events = generated_events_cache[extra_idx]
+        elif use_model_generation:
             set_seed(evaluation_seed + extra_idx)
             events = generated_events_from_model(model, tokenizer, metadata, attempts=attempts, max_new_tokens=max_new_tokens)
         else:
@@ -301,6 +418,8 @@ def evaluate(
         "range_violation_rate": _mean([report["range_violation_rate"] for report in reports]),
         "instrument_range_violation_rate": _mean([report["instrument_range_violation_rate"] for report in reports]),
         "musicxml_export_success_rate": 1.0 if export_examples == 0 else xml_success / export_examples,
+        "generation_batch_size": generation_batch_size if use_model_generation else 0,
+        "sampling_protocol": sampling_protocol,
     }
     save_json(metrics, output)
     if metrics_csv is not None:
@@ -316,6 +435,8 @@ def evaluate(
                 "split": split,
                 "evaluation_seed": evaluation_seed,
                 "candidate_attempts": attempts if use_model_generation else 0,
+                "generation_batch_size": generation_batch_size if use_model_generation else 0,
+                "sampling_protocol": sampling_protocol,
                 "num_samples": len(per_sample_records),
                 "samples": per_sample_records,
             },

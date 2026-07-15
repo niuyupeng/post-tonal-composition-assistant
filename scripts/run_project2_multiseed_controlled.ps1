@@ -1,0 +1,128 @@
+[CmdletBinding()]
+param(
+    [int[]]$Seeds = @(42, 43, 44),
+    [switch]$Resume
+)
+
+$ErrorActionPreference = "Stop"
+$Root = Split-Path -Parent $PSScriptRoot
+$Python = Join-Path $Root ".venv311\Scripts\python.exe"
+$ResultDir = Join-Path $Root "results\multiseed_controlled"
+$LogPath = Join-Path $Root "logs\project2_multiseed_controlled.log"
+
+if (-not (Test-Path -LiteralPath $Python)) {
+    throw "Python 3.11 environment not found: $Python"
+}
+New-Item -ItemType Directory -Force -Path $ResultDir, (Split-Path -Parent $LogPath) | Out-Null
+$env:PYTHONPATH = Join-Path $Root "src"
+$env:PYTHONWARNINGS = "ignore"
+
+function Invoke-LoggedPython {
+    param([string[]]$Arguments)
+    $previousPreference = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    & $Python @Arguments 2>&1 | Tee-Object -FilePath $LogPath -Append
+    $exitCode = $LASTEXITCODE
+    $ErrorActionPreference = $previousPreference
+    if ($exitCode -ne 0) {
+        throw "Python stage failed with exit code ${exitCode}: $($Arguments -join ' ')"
+    }
+}
+
+function Test-CompletePerSample {
+    param([string]$Path, [int]$Attempts)
+    if (-not (Test-Path -LiteralPath $Path)) {
+        return $false
+    }
+    try {
+        $payload = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+        if ($payload.num_samples -ne 2000 -or $payload.candidate_attempts -ne $Attempts) {
+            return $false
+        }
+        if ($payload.sampling_protocol -ne "per_sample_generator_batch_v1") {
+            return $false
+        }
+        $fingerprints = @($payload.samples | Where-Object {
+            $_.first_candidate_sha256 -is [string] -and $_.first_candidate_sha256.Length -eq 64
+        })
+        return $fingerprints.Count -eq 2000
+    }
+    catch {
+        return $false
+    }
+}
+
+$cudaCheck = & $Python -c "import torch; assert torch.cuda.is_available(); print(torch.__version__); print(torch.cuda.get_device_name(0))"
+if ($LASTEXITCODE -ne 0) {
+    throw "CUDA validation failed; no controlled generation was started."
+}
+$cudaCheck | Tee-Object -FilePath $LogPath -Append
+
+foreach ($seed in $Seeds) {
+    $checkpoint = Join-Path $Root "runs\multiseed\seed_$seed\checkpoint.pt"
+    if (-not (Test-Path -LiteralPath $checkpoint)) {
+        throw "Missing checkpoint for seed $seed`: $checkpoint"
+    }
+    $singleMetrics = Join-Path $ResultDir "seed_${seed}_single_metrics.json"
+    $singleSamples = Join-Path $ResultDir "seed_${seed}_single_per_sample.json"
+    $rerankedMetrics = Join-Path $ResultDir "seed_${seed}_reranked_metrics.json"
+    $rerankedSamples = Join-Path $ResultDir "seed_${seed}_reranked_per_sample.json"
+
+    if (-not ($Resume -and (Test-CompletePerSample $singleSamples 1) -and (Test-Path -LiteralPath $singleMetrics))) {
+        "START seed $seed K=1 $(Get-Date -Format o)" | Tee-Object -FilePath $LogPath -Append
+        Invoke-LoggedPython @(
+            "-m", "post_tonal.evaluate",
+            "--config", (Join-Path $Root "configs\post_tonal_multiseed_controlled_single_candidate.yaml"),
+            "--checkpoint", $checkpoint,
+            "--split", "test",
+            "--experiment-name", "multiseed_seed${seed}_single_candidate",
+            "--output", $singleMetrics,
+            "--per-sample-output", $singleSamples
+        )
+        "END seed $seed K=1 $(Get-Date -Format o)" | Tee-Object -FilePath $LogPath -Append
+    }
+
+    if (-not ($Resume -and (Test-CompletePerSample $rerankedSamples 4) -and (Test-Path -LiteralPath $rerankedMetrics))) {
+        "START seed $seed K=4 $(Get-Date -Format o)" | Tee-Object -FilePath $LogPath -Append
+        Invoke-LoggedPython @(
+            "-m", "post_tonal.evaluate",
+            "--config", (Join-Path $Root "configs\post_tonal_multiseed_controlled_constraint_reranked.yaml"),
+            "--checkpoint", $checkpoint,
+            "--split", "test",
+            "--experiment-name", "multiseed_seed${seed}_constraint_reranked",
+            "--output", $rerankedMetrics,
+            "--per-sample-output", $rerankedSamples
+        )
+        "END seed $seed K=4 $(Get-Date -Format o)" | Tee-Object -FilePath $LogPath -Append
+    }
+
+    Invoke-LoggedPython @(
+        "-m", "post_tonal.analyze_controlled_results",
+        "--single", $singleSamples,
+        "--reranked", $rerankedSamples,
+        "--output-json", (Join-Path $ResultDir "seed_${seed}_statistics.json"),
+        "--output-csv", (Join-Path $ResultDir "seed_${seed}_statistics.csv"),
+        "--output-table", (Join-Path $ResultDir "seed_${seed}_statistics.tex"),
+        "--bootstrap-seed", (52042 + $seed),
+        "--bootstrap-samples", "10000"
+    )
+}
+
+$aggregateArguments = @("-m", "post_tonal.analyze_multiseed_controlled")
+foreach ($seed in $Seeds) {
+    $aggregateArguments += @(
+        "--seed", "$seed",
+        "--single", (Join-Path $ResultDir "seed_${seed}_single_per_sample.json"),
+        "--reranked", (Join-Path $ResultDir "seed_${seed}_reranked_per_sample.json")
+    )
+}
+$aggregateArguments += @(
+    "--output-json", (Join-Path $Root "results\project2_multiseed_controlled_statistics.json"),
+    "--output-csv", (Join-Path $Root "results\project2_multiseed_controlled_statistics.csv"),
+    "--output-table", (Join-Path $Root "paper\tables\project2_multiseed_controlled_results.tex"),
+    "--bootstrap-seed", "52042",
+    "--bootstrap-samples", "10000"
+)
+Invoke-LoggedPython $aggregateArguments
+
+Write-Output "Completed cross-seed controlled decoding for seeds: $($Seeds -join ', ')"
