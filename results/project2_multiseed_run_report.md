@@ -80,7 +80,7 @@ The three-seed aggregate covers validation loss, teacher-forced test loss, and f
 
 ## Final Verification
 
-- The full repository test suite passed: 21 tests.
+- The full repository test suite passed: 26 tests after the controlled multiseed provenance and crossed-bootstrap preflight update.
 - All three checkpoint SHA256 values were recomputed from the saved files and match the aggregate CSV.
 - The aggregate mean and sample standard deviation values were recomputed from the three per-seed rows and match the JSON summary and rounded manuscript values.
 - The fixed full split remains 20,000/2,000/2,000 with `smoke=false`, and each teacher-forced evaluation contains 2,000 test fragments.

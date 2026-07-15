@@ -57,4 +57,4 @@ The Journal of New Music Research is the best disciplinary target for this bound
 
 ## Completion gate
 
-The current draft has passed the post-replication numerical audit, the 21-test suite, and fresh page-level QA of both 21-page PDFs; both XeLaTeX builds are free of layout and reference warnings. An anonymous wrapper and submission drafts are prepared. Submission still requires author metadata, live-portal format verification, and a decision on whether to submit the bounded automatic study before expert ratings or cross-seed controlled decoding.
+The current draft has passed the post-replication numerical audit, the 26-test suite, and fresh page-level QA of both 21-page PDFs; both XeLaTeX builds are free of layout and reference warnings. An anonymous wrapper and submission drafts are prepared. Submission still requires author metadata, live-portal format verification, and a decision on whether to submit the bounded automatic study before expert ratings or cross-seed controlled decoding.

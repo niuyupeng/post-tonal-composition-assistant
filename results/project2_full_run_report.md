@@ -135,7 +135,7 @@ Run label: formal_retrain_2026_06_17_plus_full_2000_eval
 
 ## Final artifact and manuscript QA (2026-07-16)
 
-- The complete test suite passed: 21 tests.
+- The complete test suite passed: 26 tests after the controlled multiseed provenance and crossed-bootstrap preflight update.
 - `results/project2_metrics.csv` contains all 13 expected full-run experiment rows, each evaluated on 2,000 test fragments.
 - All 12 required neural checkpoints and all three independent-seed checkpoints exist; the latter hashes match `results/project2_multiseed_training_metrics.csv`.
 - The expert package contains 20 MusicXML files and 20 JSON reports. All 20 XML roots parse as `score-partwise`; both blind-rating forms exist.
