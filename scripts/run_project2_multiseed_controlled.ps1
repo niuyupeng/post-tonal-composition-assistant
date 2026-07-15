@@ -5,6 +5,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$RequiredSeeds = @(42, 43, 44)
 $Root = Split-Path -Parent $PSScriptRoot
 $Python = Join-Path $Root ".venv311\Scripts\python.exe"
 $ResultDir = Join-Path $Root "results\multiseed_controlled"
@@ -16,6 +17,11 @@ if (-not (Test-Path -LiteralPath $Python)) {
 New-Item -ItemType Directory -Force -Path $ResultDir, (Split-Path -Parent $LogPath) | Out-Null
 $env:PYTHONPATH = Join-Path $Root "src"
 $env:PYTHONWARNINGS = "ignore"
+
+$invalidSeeds = @($Seeds | Where-Object { $_ -notin $RequiredSeeds })
+if ($invalidSeeds.Count -gt 0 -or @($Seeds | Select-Object -Unique).Count -ne $Seeds.Count) {
+    throw "Seeds must be a unique subset of 42, 43, and 44."
+}
 
 function Invoke-LoggedPython {
     param([string[]]$Arguments)
@@ -146,8 +152,29 @@ foreach ($seed in $Seeds) {
     )
 }
 
+$allRequiredOutputsComplete = $true
+foreach ($seed in $RequiredSeeds) {
+    $checkpoint = Join-Path $Root "runs\multiseed\seed_$seed\checkpoint.pt"
+    if (-not (Test-Path -LiteralPath $checkpoint)) {
+        $allRequiredOutputsComplete = $false
+        continue
+    }
+    $checkpointSha256 = (Get-FileHash -LiteralPath $checkpoint -Algorithm SHA256).Hash.ToLowerInvariant()
+    $singleSamples = Join-Path $ResultDir "seed_${seed}_single_per_sample.json"
+    $rerankedSamples = Join-Path $ResultDir "seed_${seed}_reranked_per_sample.json"
+    if (-not (Test-CompletePerSample $singleSamples 1 $seed $checkpointSha256 $DataSha256 $VocabSha256) -or
+        -not (Test-CompletePerSample $rerankedSamples 4 $seed $checkpointSha256 $DataSha256 $VocabSha256)) {
+        $allRequiredOutputsComplete = $false
+    }
+}
+
+if (-not $allRequiredOutputsComplete) {
+    Write-Output "Completed selected seeds: $($Seeds -join ', '). Cross-seed aggregation is deferred until seeds 42, 43, and 44 all pass the provenance gate."
+    return
+}
+
 $aggregateArguments = @("-m", "post_tonal.analyze_multiseed_controlled")
-foreach ($seed in $Seeds) {
+foreach ($seed in $RequiredSeeds) {
     $aggregateArguments += @(
         "--seed", "$seed",
         "--single", (Join-Path $ResultDir "seed_${seed}_single_per_sample.json"),
@@ -164,4 +191,4 @@ $aggregateArguments += @(
 )
 Invoke-LoggedPython $aggregateArguments
 
-Write-Output "Completed cross-seed controlled decoding for seeds: $($Seeds -join ', ')"
+Write-Output "Completed cross-seed controlled decoding for seeds: $($RequiredSeeds -join ', ')"
