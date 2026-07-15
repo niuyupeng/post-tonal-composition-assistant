@@ -1,0 +1,16 @@
+﻿{
+    "seed":  44,
+    "target_pid":  11372,
+    "samples":  591,
+    "sample_interval_seconds":  2,
+    "started":  "2026-07-16T01:00:41.7018786+08:00",
+    "ended":  "2026-07-16T01:26:53.0947862+08:00",
+    "threshold_action":  "none",
+    "peak_process_tree_working_set_gb":  3.071,
+    "observed_lifetime_peak_process_tree_working_set_gb":  4.6,
+    "minimum_available_physical_gb":  9.63,
+    "minimum_commit_remaining_gb":  39.761,
+    "baseline_total_vram_mb":  1141,
+    "peak_total_vram_mb":  1850,
+    "peak_incremental_vram_mb":  709
+}

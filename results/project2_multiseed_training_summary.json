@@ -1,0 +1,71 @@
+{
+  "aggregate": {
+    "best_val_loss": {
+      "mean": 0.8118520602385203,
+      "sample_std": 0.001084177853227037
+    },
+    "test_model_loss": {
+      "mean": 0.8159602428277334,
+      "sample_std": 0.0011895182065944038
+    },
+    "test_token_accuracy": {
+      "mean": 0.6259455851713817,
+      "sample_std": 0.0005127663916466678
+    }
+  },
+  "n": 3,
+  "per_seed": [
+    {
+      "batch_size": 8,
+      "best_epoch": 16,
+      "best_val_loss": 0.8111003875732422,
+      "checkpoint_path": "runs/multiseed/seed_42/checkpoint.pt",
+      "checkpoint_sha256": "53bdc9028b1555d2a52f71bae8bcfe4cf0bb49f15bc0320689dfa8fe361b3213",
+      "effective_batch_size": 16,
+      "epochs_ran": 26,
+      "evaluation_path": "results/project2_multiseed_seed42_test_metrics.json",
+      "gradient_accumulation_steps": 2,
+      "seed": 42,
+      "test_model_loss": 0.8149228723049163,
+      "test_num_samples": 2000,
+      "test_token_accuracy": 0.6264778590202331
+    },
+    {
+      "batch_size": 8,
+      "best_epoch": 15,
+      "best_val_loss": 0.8130948929786682,
+      "checkpoint_path": "runs/multiseed/seed_43/checkpoint.pt",
+      "checkpoint_sha256": "71c484c2f65806a677b94b48110d5acd1162c652a21024c22b8b3e5cfa80c03a",
+      "effective_batch_size": 16,
+      "epochs_ran": 25,
+      "evaluation_path": "results/project2_multiseed_seed43_test_metrics.json",
+      "gradient_accumulation_steps": 2,
+      "seed": 43,
+      "test_model_loss": 0.8172585756778717,
+      "test_num_samples": 2000,
+      "test_token_accuracy": 0.6254548535346985
+    },
+    {
+      "batch_size": 8,
+      "best_epoch": 16,
+      "best_val_loss": 0.8113609001636505,
+      "checkpoint_path": "runs/multiseed/seed_44/checkpoint.pt",
+      "checkpoint_sha256": "c17de1a0acf640ed64fc95fd566397756a6df479dcc32147dfa32b800d4af861",
+      "effective_batch_size": 16,
+      "epochs_ran": 26,
+      "evaluation_path": "results/project2_multiseed_seed44_test_metrics.json",
+      "gradient_accumulation_steps": 2,
+      "seed": 44,
+      "test_model_loss": 0.815699280500412,
+      "test_num_samples": 2000,
+      "test_token_accuracy": 0.6259040429592132
+    }
+  ],
+  "sample_standard_deviation_ddof": 1,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "test_num_samples_per_seed": 2000
+}

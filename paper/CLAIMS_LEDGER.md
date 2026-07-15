@@ -11,6 +11,7 @@
 | Twenty expert-package MusicXML files parse structurally | `expert_eval/project2/manifest.json` and structural check | Structural-export statement only |
 | Controlled K=1 and K=4 decoder metrics over 2,000 aligned conditions | `results/project2_controlled_metrics.csv` | Report exact aggregate means; checkpoint and conditions are fixed |
 | Paired uncertainty/effect estimates for 14 prespecified endpoints | `results/project2_controlled_statistics.json`, `results/project2_controlled_statistics.csv` | Report paired percentile-bootstrap intervals and disclose no multiplicity adjustment |
+| Three proposed-model seeds completed on one fixed corpus; each has a 2,000-item teacher-forced test row | `results/project2_multiseed_training_metrics.csv`, `results/project2_multiseed_training_summary.json` | Report validation/test sequence diagnostics as mean and sample SD; do not call them multi-seed decoding effects |
 
 ## Implementation facts
 
@@ -40,7 +41,7 @@
 - The system is stylistically authentic to post-1945 repertoire.
 - The proposed architecture is novel or superior to state-of-the-art music Transformers.
 - Automatic gesture consistency proves perceptual gesture recognizability.
-- Single-seed training establishes stable superiority across random initializations.
+- Three-seed teacher-forced diagnostics establish stable constraint-reranking effects across random initializations.
 - Pc-set coverage alone proves exclusion of non-target pitch classes.
 
-Use `PENDING_REAL_EXPERIMENT` only for required results that have not been produced, chiefly expert ratings and any planned multi-seed statistics.
+Use `PENDING_REAL_EXPERIMENT` only for required results that have not been produced, chiefly expert ratings and cross-seed controlled decoding statistics.

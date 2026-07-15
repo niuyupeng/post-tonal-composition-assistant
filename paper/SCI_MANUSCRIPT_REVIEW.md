@@ -16,8 +16,8 @@ The primary quantitative evidence is the controlled comparison between single-ca
 4. Serial transformation accuracy aliases cyclic row-order accuracy and must not be presented as an independent endpoint.
 5. Token accuracy includes condition-prefix tokens and is a sequence-model diagnostic, not a compositional-quality measure.
 6. The rule generator creates the synthetic targets and is therefore a procedural reference, not an independent learned baseline.
-7. Endpoint-wise paired bootstrap intervals are available, but no multiple-endpoint adjustment or multi-seed training variance is available.
-8. The controlled comparison isolates the inference procedure within one checkpoint and test set; it does not establish stability across training runs.
+7. Endpoint-wise paired bootstrap intervals are available, but no multiple-endpoint adjustment is applied. Three training seeds quantify variation in teacher-forced sequence diagnostics only.
+8. The controlled comparison isolates the inference procedure within one checkpoint and test set; the reranking effect has not been repeated across trained checkpoints.
 
 ### Data and representation limitations
 
@@ -32,7 +32,7 @@ The primary quantitative evidence is the controlled comparison between single-ca
 ### Evidence still missing for stronger claims
 
 16. Blind ratings from composers or post-tonal analysts have not been collected. The 20-example controlled-reranking package is anonymous and condition-aware, but usefulness, gesture recognizability, engraving quality, and material coherence remain `PENDING_REAL_EXPERIMENT`.
-17. Only one completed primary training seed is available. Three replication configs are prepared, but interrupted partial runs are diagnostic only. Cross-seed robustness remains `PENDING_REAL_EXPERIMENT` until an explicit GPU slot is available.
+17. Three memory-safe proposed-model runs are complete, with 2,000-item teacher-forced test rows and sample-standard-deviation summaries. Cross-seed stability of the controlled reranking effect remains `PENDING_REAL_EXPERIMENT` because K=1/K=4 generation was not repeated for each checkpoint.
 18. Validation on legally supplied external MusicXML is not yet available. The study must not claim stylistic authenticity to post-1945 repertoire.
 19. Author, affiliation, contribution, conflict-of-interest, and data/code-release metadata still require completion before submission.
 20. The current manuscript is journal-neutral. Final Journal of New Music Research formatting and declarations must be applied against the current author instructions.
@@ -57,4 +57,4 @@ The Journal of New Music Research is the best disciplinary target for this bound
 
 ## Completion gate
 
-The current draft has passed LaTeX compilation, numerical traceability from every Abstract/Results value to the controlled JSON/CSV, figure legibility, citation resolution, and pytest. An anonymous wrapper and submission drafts are prepared. Submission still requires author metadata, live-portal format verification, and a decision on whether to submit the bounded automatic study now or wait for expert ratings and multi-seed replication.
+The current draft has passed the post-replication numerical audit, the 21-test suite, and fresh page-level QA of both 21-page PDFs; both XeLaTeX builds are free of layout and reference warnings. An anonymous wrapper and submission drafts are prepared. Submission still requires author metadata, live-portal format verification, and a decision on whether to submit the bounded automatic study before expert ratings or cross-seed controlled decoding.

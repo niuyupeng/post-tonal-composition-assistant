@@ -1,0 +1,4 @@
+seed,epochs_ran,best_epoch,best_val_loss,test_token_accuracy,test_model_loss,test_num_samples,batch_size,gradient_accumulation_steps,effective_batch_size,checkpoint_path,checkpoint_sha256,evaluation_path
+42,26,16,0.8111003875732422,0.6264778590202331,0.8149228723049163,2000,8,2,16,runs/multiseed/seed_42/checkpoint.pt,53bdc9028b1555d2a52f71bae8bcfe4cf0bb49f15bc0320689dfa8fe361b3213,results/project2_multiseed_seed42_test_metrics.json
+43,25,15,0.8130948929786682,0.6254548535346985,0.8172585756778717,2000,8,2,16,runs/multiseed/seed_43/checkpoint.pt,71c484c2f65806a677b94b48110d5acd1162c652a21024c22b8b3e5cfa80c03a,results/project2_multiseed_seed43_test_metrics.json
+44,26,16,0.8113609001636505,0.6259040429592132,0.815699280500412,2000,8,2,16,runs/multiseed/seed_44/checkpoint.pt,c17de1a0acf640ed64fc95fd566397756a6df479dcc32147dfa32b800d4af861,results/project2_multiseed_seed44_test_metrics.json

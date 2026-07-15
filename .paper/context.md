@@ -25,8 +25,8 @@ The neural architecture is a standard six-layer causal Transformer with conditio
 - Controlled K=1 evaluation: complete.
 - Controlled K=4 evaluation and paired bootstrap analysis: complete for 2,000 aligned conditions.
 - Expert package: rebuilt from `controlled_constraint_reranked`; 20/20 files parse as `score-partwise`, creator metadata are anonymous, and encoding dates are removed.
-- Multi-seed replication: configs are prepared; one batch-16 run encountered OOM and one batch-8/accumulation-2 run was paused during unrelated GPU contention. Partial artifacts are diagnostic only. Resumption awaits an explicit GPU slot.
-- Evidence-bound Abstract, Results, and Discussion: complete; numerical audit and warning-free 20-page compilation passed.
+- Multi-seed training replication: seeds 42, 43, and 44 completed with batch 8 and two accumulation steps. All three checkpoints were evaluated teacher-forced on the complete 2,000-item test split and aggregated with sample standard deviations. Earlier OOM and contention directories remain diagnostic only. The controlled K=1/K=4 generation comparison remains single-checkpoint evidence.
+- Evidence-bound Abstract, Results, and Discussion: complete; numerical audit and warning-free 21-page identified and anonymous compilations passed.
 - Primary target: Journal of New Music Research; Applied Sciences is the faster SCIE fallback.
 - Author and affiliation metadata: pending.
-- Expert ratings and multi-seed training: pending real experiments.
+- Expert ratings and cross-seed controlled generation: pending real experiments.

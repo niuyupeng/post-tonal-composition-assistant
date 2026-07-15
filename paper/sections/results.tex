@@ -22,6 +22,12 @@ Figure~\ref{fig:controlled-effects} summarizes prespecified favorable relative c
   \label{fig:controlled-effects}
 \end{figure}
 
+\subsection{Independent-seed sequence diagnostics}
+
+The three memory-safe replications stopped after 25--26 epochs, with their selected checkpoints at epochs 15--16. Mean best validation loss was $0.8119 \pm 0.0011$. On the common 2,000-fragment test split, teacher-forced token accuracy was $0.6259 \pm 0.0005$ and cross-entropy was $0.8160 \pm 0.0012$ (mean $\pm$ sample SD, $n=3$; Table~\ref{tab:multiseed-training}). These values show similar sequence-prediction diagnostics under the three initialization and shuffle seeds. They do not estimate cross-seed variation in constraint-guided generation because the full paired $K=1$ versus $K=4$ decoding experiment was run only with the primary checkpoint.
+
+\input{tables/project2_multiseed_training}
+
 \subsection{Exploratory configuration archive}
 
 Tables~\ref{tab:project2-main-results} and~\ref{tab:project2-ablation-results} retain the completed procedural reference and independently trained neural configurations. They document that all intended configurations ran on the full 20,000/2,000/2,000 corpus regime and produced 2,000-sample evaluation rows. These rows use different generated corpora and seeds, however, so their aggregate differences are descriptive and are not used to estimate the causal effect of reranking. Missing cells denote an absent or fixed target, not perfect adherence.

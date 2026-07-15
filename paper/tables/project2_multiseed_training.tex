@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrrrrr}
+\toprule
+Seed & Epochs & Best epoch & Val. loss & Test token acc. & Test model loss & Eff. batch \\
+\midrule
+42 & 26 & 16 & 0.8111 & 0.6265 & 0.8149 & 16 \\
+43 & 25 & 15 & 0.8131 & 0.6255 & 0.8173 & 16 \\
+44 & 26 & 16 & 0.8114 & 0.6259 & 0.8157 & 16 \\
+\midrule
+Mean $\pm$ SD & -- & -- & 0.8119 $\pm$ 0.0011 & 0.6259 $\pm$ 0.0005 & 0.8160 $\pm$ 0.0012 & -- \\
+\bottomrule
+\end{tabular}
+\caption{Independent-seed training replication on a fixed synthetic corpus. Test metrics are teacher-forced; constraint-guided decoding is evaluated separately in the controlled seed-42 experiment.}
+\label{tab:multiseed-training}
+\end{table}

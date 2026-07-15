@@ -93,7 +93,7 @@ Run label: formal_retrain_2026_06_17_plus_full_2000_eval
 ## Remaining TODOs
 - Expert human ratings have not been collected.
 - Manuscript claims should be updated only from `results/project2_metrics.csv`, `results/project2_constraints.csv`, and the JSON reports produced by this run.
-- Optional LaTeX compilation may require local CJK/TeX setup.
+- Cross-seed controlled `K=1` versus `K=4` decoding has not been run; the completed three-seed replication covers teacher-forced sequence diagnostics only.
 
 ## Controlled Manuscript Evaluation (2026-07-14)
 
@@ -115,7 +115,29 @@ Run label: formal_retrain_2026_06_17_plus_full_2000_eval
 - Added tested gradient accumulation support. Replication configs use physical batch size 8 and two accumulation steps, preserving an effective batch size of 16.
 - A seed-43 batch-16 replication reached 26 complete epochs before CUDA OOM; its partial artifacts are preserved under `runs/multiseed/seed_43_batch16_oom_20260714_2254/` and are not reported as results.
 - A seed-42 batch-8/accumulation-2 replication reached 17 complete epochs before it was stopped during concurrent GPU use by unrelated projects. Its partial artifacts are preserved under `runs/multiseed/seed_42_concurrent_gpu_contention_20260715_0007/` and are not reported as results.
-- Resource coordination now requires an explicit GPU slot before replication resumes. No automatic continuation is active, and no partial multi-seed value has been inserted into the manuscript.
+- Those two interrupted directories remain diagnostic only and are excluded from every aggregate result.
 - Rebuilt `expert_eval/project2/` from 20 structurally valid `controlled_constraint_reranked` outputs. The MusicXML creator is anonymous, encoding dates are removed, target conditions are included in the rating forms, and automatic reports are identified as material to withhold from raters.
 - Added `paper/main_anonymous.tex` and the gated submission drafts under `paper/submission/`. Author identity, affiliations, funding, conflicts, originality confirmation, archive DOI, and exact live-portal formatting remain author or journal inputs.
 - The post-change test run completed with 17 passing tests.
+
+## Completed independent-seed replication (2026-07-15 to 2026-07-16)
+
+- An explicit GPU slot was used to complete fresh runs for seeds 42, 43, and 44 on the fixed full corpus. No smoke data or interrupted checkpoint entered the analysis.
+- All runs used physical batch size 8, two accumulation steps, effective batch size 16, fp16, gradient clipping, and early-stopping patience 10.
+- Seed 42 ran 26 epochs and selected epoch 16 with validation loss 0.8111003876.
+- Seed 43 ran 25 epochs and selected epoch 15 with validation loss 0.8130948930.
+- Seed 44 ran 26 epochs and selected epoch 16 with validation loss 0.8113609002.
+- Every saved checkpoint loaded on CPU with 78 finite tensors and 11,091,137 parameter values. SHA256 hashes are recorded in `results/project2_multiseed_training_metrics.csv`.
+- Each checkpoint was evaluated teacher-forced on all 2,000 test fragments. The aggregate token accuracy is 0.6259456 with sample SD 0.0005128; test loss is 0.8159602 with sample SD 0.0011895.
+- These replication values are sequence-model diagnostics. They are not substituted for the controlled seed-42 K=1/K=4 generation results.
+- Resource traces are stored in `results/project2_multiseed_seed42_resources.json` through `project2_multiseed_seed44_resources.json`. No run crossed the 6GB available-memory or 12GB commit-headroom stop line, and no CUDA OOM occurred.
+- Per-seed metrics, aggregate statistics, and the generated table are stored in `results/project2_multiseed_training_metrics.csv`, `results/project2_multiseed_training_summary.json`, and `paper/tables/project2_multiseed_training.tex`.
+
+## Final artifact and manuscript QA (2026-07-16)
+
+- The complete test suite passed: 21 tests.
+- `results/project2_metrics.csv` contains all 13 expected full-run experiment rows, each evaluated on 2,000 test fragments.
+- All 12 required neural checkpoints and all three independent-seed checkpoints exist; the latter hashes match `results/project2_multiseed_training_metrics.csv`.
+- The expert package contains 20 MusicXML files and 20 JSON reports. All 20 XML roots parse as `score-partwise`; both blind-rating forms exist.
+- `paper/main.pdf` and `paper/main_anonymous.pdf` each compile to 21 non-empty pages. Fresh page renders were inspected throughout; no clipping, overlap, or table overflow was observed.
+- Both final XeLaTeX logs contain no overfull/underfull box, undefined reference, undefined citation, or rerun warning.

@@ -18,6 +18,10 @@ All full training ran locally with Python 3.11.9 and PyTorch 2.5.1+cu121 on an N
   \label{fig:training-diagnostics}
 \end{figure}
 
+\subsection{Independent-seed training replication}
+
+Three memory-safe replication runs used seeds 42, 43, and 44 on the same saved split of 20,000 training, 2,000 validation, and 2,000 test fragments. The processed corpus was held fixed, so the seeds changed model initialization and minibatch order rather than corpus membership. Each run used physical batch size 8 with two gradient-accumulation steps, preserving an effective batch size of 16. Architecture, optimizer, fp16 use, gradient clipping, and early-stopping patience matched the primary protocol. The best checkpoint from each run was evaluated teacher-forced on all 2,000 test fragments. We report the mean and sample standard deviation across the three runs. This replication measures variation in sequence-model optimization and does not repeat the $K=1$ versus $K=4$ generation comparison across training seeds.
+
 \subsection{Controlled decoding comparison}
 
 The primary comparison focuses on the inference procedure. Both conditions load the same seed-42 checkpoint and the same 2,000-item test split. The single-candidate condition samples $K=1$ continuation. The proposed condition samples $K=4$ continuations and selects the minimum-penalty candidate using Eq.~\eqref{eq:reranking}. Sampling uses temperature 1.0, top-$k=20$, and at most 224 new tokens. Evaluation seed 42042 is expanded deterministically as seed $42042+i$ for test item $i$. Thus, the $K=1$ candidate is also the first member of the corresponding $K=4$ set. Per-item reports are saved for paired differences, win--tie--loss rates, and bootstrap confidence intervals.

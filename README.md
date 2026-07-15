@@ -73,7 +73,9 @@ python -m post_tonal.generate `
 .\scripts\run_project2_full_local.ps1
 ```
 
-Metrics are computed from generated or model-produced symbolic events. The paper skeleton uses `PENDING_REAL_EXPERIMENT` wherever full experimental values are not yet available.
+Metrics are computed from generated or model-produced symbolic events. The manuscript reserves `PENDING_REAL_EXPERIMENT` for evidence that has not been produced, chiefly blind expert ratings and cross-seed controlled decoding.
+
+The completed independent-seed replication uses configs `post_tonal_multiseed_seed42.yaml` through `post_tonal_multiseed_seed44.yaml`. Its per-seed test rows, aggregate mean/sample SD, checkpoint hashes, resource audit, and exact commands are recorded in `results/project2_multiseed_run_report.md`. These values are teacher-forced sequence diagnostics; the controlled constraint-reranking comparison remains the aligned seed-42 K=1/K=4 experiment.
 
 Main outputs:
 
@@ -81,8 +83,11 @@ Main outputs:
 - `results/project2_constraints.csv`
 - `results/project2_generation_examples.json`
 - `results/project2_constraint_summary.svg`
+- `results/project2_multiseed_training_metrics.csv`
+- `results/project2_multiseed_training_summary.json`
 - `paper/tables/project2_main_results.tex`
 - `paper/tables/project2_ablation_results.tex`
+- `paper/tables/project2_multiseed_training.tex`
 - `expert_eval/project2/`
 
 ## Scope

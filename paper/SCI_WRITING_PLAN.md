@@ -39,8 +39,8 @@ Priority A:
 
 Priority B:
 
-- Add at least three independent seeds for the proposed and vanilla systems if compute time permits.
-- Save per-example metric rows so paired confidence intervals and effect sizes can be computed.
+- Retain the completed three-seed proposed-model training diagnostics and add comparable vanilla seeds if compute time permits.
+- Repeat aligned K=1/K=4 generation for each trained seed before claiming cross-seed reranking stability.
 
 Priority C:
 
@@ -64,7 +64,7 @@ Deliverable: submission-ready manuscript and supplementary package.
 2. Rewrite all core sections with the current verified evidence.
 3. Verify and expand the bibliography with primary sources.
 4. Build figures and compile the PDF.
-5. Decide whether to submit a bounded proof-of-concept now or wait for expert ratings and multi-seed evidence.
+5. Decide whether to submit a bounded proof of concept now or wait for expert ratings and cross-seed controlled decoding.
 
 ## Fast-track execution board
 
@@ -80,13 +80,13 @@ Deliverable: submission-ready manuscript and supplementary package.
 | Controlled effect figure | complete | selected endpoints have prespecified favorable directions | PDF/SVG/PNG and source CSV |
 | Representative score figure | integrated | controlled example 019 is structurally valid, spans the requested 5/5 measures, and has a matching JSON report | rendered score and self-contained caption |
 | Expert package preparation | complete; ratings pending | 20 controlled $K=4$ MusicXML files parse structurally and are anonymized | condition-aware forms, manifest, withheld reports |
-| Multi-seed replication | waiting for explicit GPU slot | batch-16 OOM and concurrent-workload interruption preserved as diagnostics | three configs; no aggregate claim until all runs complete |
+| Multi-seed training replication | complete with a stated scope limit | seeds 42--44 completed; each checkpoint has a 2,000-item teacher-forced test row | per-seed CSV, aggregate JSON, and LaTeX table; cross-seed K=1/K=4 remains pending |
 | Submission package | prepared with explicit gates | no author identity, policy, or declaration inferred | anonymous wrapper, checklist, cover letter, metadata form, declarations |
-| Final manuscript QA | complete for the current draft | all numbers traced to artifacts; LaTeX compiles without warnings; 17 tests pass | 20-page PDF and claim audit |
-| GitHub synchronization | current manuscript-preparation commits synchronized | remote branch matches local commit | final evidence-bound manuscript commit after controlled analysis |
+| Final manuscript QA | complete for the post-replication draft | all numbers traced to artifacts; both LaTeX variants compile without warnings; 21 tests pass | two inspected 21-page PDFs and claim audit |
+| GitHub synchronization | blocked by repeated HTTPS connection resets | local branch and commit history are intact | retry push after the final evidence-bound commit |
 
 The critical dependency chain is $K=4$ evaluation $\rightarrow$ paired statistics $\rightarrow$ controlled table and figure $\rightarrow$ Abstract/Results/Discussion $\rightarrow$ final numerical audit. Literature, method prose, figure preparation, testing, and repository commits proceed in parallel. No manuscript sentence may bypass this chain by substituting archived cross-configuration values for the controlled comparison.
 
 ## Submission decision gate
 
-The fastest defensible submission is a bounded proof-of-concept centered on automatic constraint adherence, reproducible synthetic data, and structurally valid score export. Composer preference, perceptual gesture recognition, and practical usefulness remain outside that claim set until blind ratings are collected. Multi-seed training and expert evaluation would strengthen the paper, but their absence must be stated as a limitation rather than hidden behind the controlled single-checkpoint analysis.
+The fastest defensible submission is a bounded proof of concept centered on automatic constraint adherence, reproducible synthetic data, and structurally valid score export. Composer preference, perceptual gesture recognition, and practical usefulness remain outside that claim set until blind ratings are collected. The completed training replications support only sequence-level diagnostics; cross-seed controlled decoding remains a stated limitation.

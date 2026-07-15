@@ -32,7 +32,7 @@ where $z=[c; x]$. Consequently, reported token accuracy is a full-sequence next-
 
 \subsection{Conditional Transformer}
 
-The neural generator is a causal Transformer \cite{vaswani2017attention} with six layers, hidden dimension 384, six attention heads, GELU feed-forward blocks of width $4d$, learned positional embeddings, pre-normalization, and dropout 0.1. A triangular attention mask prevents access to future tokens. The model contains no audio encoder, pretrained language model, or external score corpus.
+The neural generator is a causal Transformer \cite{vaswani2017attention} with six layers, hidden dimension 384, and six attention heads. Each layer uses a GELU feed-forward block of width $4d$, learned positional embeddings, pre-normalization, and dropout 0.1. A triangular attention mask prevents access to future tokens. The model contains no audio encoder, pretrained language model, or external score corpus.
 
 At inference, top-$k$ sampling with $k=20$ produces one or more event-token continuations from the condition prefix. Tokens after \texttt{SEP} are parsed back into timestamped notes and rests. Instrument, gesture, and rhythmic metadata are retained for analysis and MusicXML export.
 

@@ -10,10 +10,10 @@
 | C6 | Under 2,000 paired conditions, K=4 reranking improves row-order, interval-vector, rhythm, density, gesture, and range metrics but reduces serial aggregate completion and serial pc-set coverage. | `results/project2_controlled_statistics.json`; `results/project2_controlled_statistics.csv` | supported with qualifications | Report endpoint-specific means and paired CIs; no blanket superiority claim |
 | C7 | All evaluated outputs are structurally parseable MusicXML. | Controlled metrics and `expert_eval/project2/manifest.json` | supported | Structural validity only; not requested-length adherence |
 | C8 | The system is useful to contemporary composers. | Blind expert ratings | gap | `PENDING_REAL_EXPERIMENT`; do not infer from automatic metrics |
-| C9 | Findings are stable across training seeds. | Multi-seed runs | gap | `PENDING_REAL_EXPERIMENT`; disclose single-seed limitation |
+| C9 | Controlled reranking effects are stable across training seeds. | Per-seed controlled K=1/K=4 evaluations | gap | `PENDING_REAL_EXPERIMENT`; training-level replication does not establish this claim |
 | C10 | The model reproduces authentic post-1945 style. | Copyright-safe external validation | rejected | Outside the present study and not claimed |
 | C11 | The expert package contains 20 anonymous controlled-reranking MusicXML examples with paired condition metadata and withheld automatic reports. | `expert_eval/project2/manifest.json`; package structural audit | supported | Package-preparation statement only; no human-evaluation claim |
-| C12 | Findings are robust across three independent training seeds. | `runs/multiseed/` | gap | `PENDING_REAL_EXPERIMENT`; partial interrupted runs are diagnostic and must not be aggregated |
+| C12 | Three memory-safe proposed-model runs completed and produced aligned 2,000-item teacher-forced test diagnostics. | `results/project2_multiseed_training_metrics.csv`; `results/project2_multiseed_training_summary.json` | supported with qualifications | Report loss and token-accuracy mean/SD only; do not generalize to constraint decoding |
 
 ## Metric Qualifications
 
