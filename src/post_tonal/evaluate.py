@@ -120,6 +120,14 @@ def _events_sha256(events: list[dict[str, Any]]) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+def _file_sha256(path: str | Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
 def generated_events_from_model_batch(
     model: PostTonalTransformer,
     tokenizer: ScoreTokenizer,
@@ -237,15 +245,32 @@ def evaluate(
     evaluation_seed = int(eval_cfg.get("seed", config.get("seed", 0)))
     set_seed(evaluation_seed)
     maybe_generate_data(config)
-    tokenizer = ScoreTokenizer.load(config["vocab_path"])
-    dataset = PostTonalDataset(config["data_path"], max_seq_len=int(config.get("model", {}).get("max_seq_len", 256)), split=split)
+    data_path = Path(config["data_path"])
+    vocab_path = Path(config["vocab_path"])
+    tokenizer = ScoreTokenizer.load(vocab_path)
+    dataset = PostTonalDataset(data_path, max_seq_len=int(config.get("model", {}).get("max_seq_len", 256)), split=split)
+    required_split_samples = eval_cfg.get("required_split_samples")
+    if required_split_samples is not None and len(dataset.samples) != int(required_split_samples):
+        raise ValueError(
+            f"Split {split!r} contains {len(dataset.samples)} samples; "
+            f"the evaluation contract requires exactly {int(required_split_samples)}."
+        )
     experiment_name = experiment_name or str(config.get("experiment_name", Path(config_path).stem))
 
     model_metrics: dict[str, float | None] = {"token_accuracy": None, "loss": None}
     model: PostTonalTransformer | None = None
-    if checkpoint is not None and Path(checkpoint).exists():
+    checkpoint_path: Path | None = None
+    checkpoint_sha256: str | None = None
+    checkpoint_training_seed: int | None = None
+    if checkpoint is not None:
+        checkpoint_path = Path(checkpoint)
+        if not checkpoint_path.is_file():
+            raise FileNotFoundError(f"Checkpoint does not exist: {checkpoint_path}")
+        checkpoint_sha256 = _file_sha256(checkpoint_path)
         device = get_device(config.get("device"))
-        model, _ = load_model(checkpoint, tokenizer)
+        model, checkpoint_config = load_model(checkpoint_path, tokenizer)
+        if checkpoint_config.get("seed") is not None:
+            checkpoint_training_seed = int(checkpoint_config["seed"])
         model.to(device)
         model.eval()
         loader = DataLoader(
@@ -279,6 +304,8 @@ def evaluate(
     generation_count = int(eval_cfg.get("generation_examples", export_examples) or export_examples)
     export_dir = ensure_dir(Path(output).parent / "eval_musicxml" / experiment_name)
     use_model_generation = bool(eval_cfg.get("model_generation", False)) and model is not None
+    if bool(eval_cfg.get("model_generation", False)) and model is None:
+        raise ValueError("Model generation was requested, but no checkpoint was loaded.")
     attempts = int(eval_cfg.get("constraint_guided_attempts", 1 if not eval_cfg.get("constraint_guided_decoding", False) else 4))
     max_new_tokens = int(eval_cfg.get("max_new_tokens", config.get("model", {}).get("max_seq_len", 256)))
     generation_batch_size = max(1, int(eval_cfg.get("generation_batch_size", 1)))
@@ -293,7 +320,12 @@ def evaluate(
     metric_samples = eval_cfg.get("constraint_metric_samples")
     if metric_samples is None:
         metric_samples = generation_count if use_model_generation else len(dataset.samples)
-    metric_samples = min(len(dataset.samples), max(1, int(metric_samples)))
+    metric_samples = max(1, int(metric_samples))
+    if metric_samples > len(dataset.samples):
+        raise ValueError(
+            f"Requested {metric_samples} constraint-metric samples from split {split!r}, "
+            f"but only {len(dataset.samples)} are available."
+        )
     eval_samples = dataset.samples[:metric_samples]
 
     generated_events_cache: list[list[dict[str, Any]]] | None = None
@@ -421,7 +453,20 @@ def evaluate(
         "generation_batch_size": generation_batch_size if use_model_generation else 0,
         "sampling_protocol": sampling_protocol,
     }
-    save_json(metrics, output)
+    provenance = {
+        "config_path": Path(config_path).resolve().as_posix(),
+        "config_sha256": _file_sha256(config_path),
+        "data_path": data_path.resolve().as_posix(),
+        "data_sha256": _file_sha256(data_path),
+        "vocab_path": vocab_path.resolve().as_posix(),
+        "vocab_sha256": _file_sha256(vocab_path),
+        "dataset_split": split,
+        "dataset_split_size": len(dataset.samples),
+        "checkpoint_path": None if checkpoint_path is None else checkpoint_path.resolve().as_posix(),
+        "checkpoint_sha256": checkpoint_sha256,
+        "checkpoint_training_seed": checkpoint_training_seed,
+    }
+    save_json({**metrics, "provenance": provenance}, output)
     if metrics_csv is not None:
         append_csv_row(metrics_csv, metrics, METRIC_FIELDS)
     if constraints_csv is not None:
@@ -438,6 +483,7 @@ def evaluate(
                 "generation_batch_size": generation_batch_size if use_model_generation else 0,
                 "sampling_protocol": sampling_protocol,
                 "num_samples": len(per_sample_records),
+                "provenance": provenance,
                 "samples": per_sample_records,
             },
             per_sample_output,

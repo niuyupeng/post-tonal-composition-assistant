@@ -39,9 +39,21 @@ def _write_pair(tmp_path, seed: int):
         single_samples.append({**common, "analysis": _analysis(serial, False)})
         reranked_samples.append({**common, "analysis": _analysis(serial, True)})
     common_payload = {
+        "evaluation_seed": 42042,
         "sampling_protocol": "per_sample_generator_batch_v1",
         "generation_batch_size": 32,
         "num_samples": 2,
+        "provenance": {
+            "checkpoint_path": f"runs/multiseed/seed_{seed}/checkpoint.pt",
+            "checkpoint_sha256": f"{seed:064x}",
+            "checkpoint_training_seed": seed,
+            "data_path": "data/processed/project2_main.pt",
+            "data_sha256": "d" * 64,
+            "vocab_path": "data/processed/project2_main.vocab.json",
+            "vocab_sha256": "e" * 64,
+            "dataset_split": "test",
+            "dataset_split_size": 2,
+        },
     }
     single_path = tmp_path / f"seed_{seed}_single.json"
     reranked_path = tmp_path / f"seed_{seed}_reranked.json"
@@ -66,6 +78,7 @@ def test_multiseed_controlled_analysis_validates_alignment_and_aggregates(tmp_pa
         tmp_path / "summary.csv",
         tmp_path / "summary.tex",
         bootstrap_samples=100,
+        expected_conditions=2,
     )
 
     assert result["seeds"] == [42, 43, 44]
@@ -75,12 +88,12 @@ def test_multiseed_controlled_analysis_validates_alignment_and_aggregates(tmp_pa
     pcset = rows["pcset_coverage:all"]
     assert pcset["mean_effect"] == pytest.approx(0.1)
     assert pcset["sample_sd_across_seed_means"] == pytest.approx(0.0)
-    assert pcset["hierarchical_ci95_low"] == pytest.approx(0.1)
-    assert pcset["hierarchical_ci95_high"] == pytest.approx(0.1)
+    assert pcset["crossed_bootstrap_ci95_low"] == pytest.approx(0.1)
+    assert pcset["crossed_bootstrap_ci95_high"] == pytest.approx(0.1)
     assert pcset["positive_seed_count"] == 3
     assert rows["aggregate_completion_rate:non-serial"]["positive_seed_count"] is None
     assert (tmp_path / "summary.csv").is_file()
-    assert "Hierarchical 95\\% CI" in (tmp_path / "summary.tex").read_text(encoding="utf-8")
+    assert "Crossed 95\\% CI" in (tmp_path / "summary.tex").read_text(encoding="utf-8")
 
 
 def test_multiseed_controlled_analysis_rejects_unaligned_first_candidate(tmp_path):
@@ -98,4 +111,28 @@ def test_multiseed_controlled_analysis_rejects_unaligned_first_candidate(tmp_pat
             tmp_path / "summary.csv",
             tmp_path / "summary.tex",
             bootstrap_samples=10,
+            expected_conditions=2,
+        )
+
+
+def test_multiseed_controlled_analysis_rejects_duplicate_checkpoint(tmp_path):
+    pairs = [_write_pair(tmp_path, seed) for seed in (42, 43)]
+    second_single = json.loads(pairs[1][0].read_text(encoding="utf-8"))
+    second_reranked = json.loads(pairs[1][1].read_text(encoding="utf-8"))
+    duplicate = f"{42:064x}"
+    second_single["provenance"]["checkpoint_sha256"] = duplicate
+    second_reranked["provenance"]["checkpoint_sha256"] = duplicate
+    pairs[1][0].write_text(json.dumps(second_single), encoding="utf-8")
+    pairs[1][1].write_text(json.dumps(second_reranked), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="distinct checkpoint"):
+        analyze_multiseed_controlled(
+            [42, 43],
+            [pair[0] for pair in pairs],
+            [pair[1] for pair in pairs],
+            tmp_path / "summary.json",
+            tmp_path / "summary.csv",
+            tmp_path / "summary.tex",
+            bootstrap_samples=10,
+            expected_conditions=2,
         )

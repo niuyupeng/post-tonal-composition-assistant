@@ -20,17 +20,31 @@ $env:PYTHONWARNINGS = "ignore"
 function Invoke-LoggedPython {
     param([string[]]$Arguments)
     $previousPreference = $ErrorActionPreference
-    $ErrorActionPreference = "Continue"
-    & $Python @Arguments 2>&1 | Tee-Object -FilePath $LogPath -Append
-    $exitCode = $LASTEXITCODE
-    $ErrorActionPreference = $previousPreference
+    $exitCode = 1
+    Push-Location -LiteralPath $Root
+    try {
+        $ErrorActionPreference = "Continue"
+        & $Python @Arguments 2>&1 | Tee-Object -FilePath $LogPath -Append
+        $exitCode = $LASTEXITCODE
+    }
+    finally {
+        $ErrorActionPreference = $previousPreference
+        Pop-Location
+    }
     if ($exitCode -ne 0) {
         throw "Python stage failed with exit code ${exitCode}: $($Arguments -join ' ')"
     }
 }
 
 function Test-CompletePerSample {
-    param([string]$Path, [int]$Attempts)
+    param(
+        [string]$Path,
+        [int]$Attempts,
+        [int]$TrainingSeed,
+        [string]$CheckpointSha256,
+        [string]$DataSha256,
+        [string]$VocabSha256
+    )
     if (-not (Test-Path -LiteralPath $Path)) {
         return $false
     }
@@ -40,6 +54,17 @@ function Test-CompletePerSample {
             return $false
         }
         if ($payload.sampling_protocol -ne "per_sample_generator_batch_v1") {
+            return $false
+        }
+        if (@($payload.samples).Count -ne 2000) {
+            return $false
+        }
+        if ($payload.provenance.checkpoint_sha256 -ne $CheckpointSha256 -or
+            $payload.provenance.checkpoint_training_seed -ne $TrainingSeed -or
+            $payload.provenance.data_sha256 -ne $DataSha256 -or
+            $payload.provenance.vocab_sha256 -ne $VocabSha256 -or
+            $payload.provenance.dataset_split -ne "test" -or
+            $payload.provenance.dataset_split_size -ne 2000) {
             return $false
         }
         $fingerprints = @($payload.samples | Where-Object {
@@ -57,18 +82,23 @@ if ($LASTEXITCODE -ne 0) {
     throw "CUDA validation failed; no controlled generation was started."
 }
 $cudaCheck | Tee-Object -FilePath $LogPath -Append
+$DataSha256 = (Get-FileHash -LiteralPath (Join-Path $Root "data\processed\project2_main.pt") -Algorithm SHA256).Hash.ToLowerInvariant()
+$VocabSha256 = (Get-FileHash -LiteralPath (Join-Path $Root "data\processed\project2_main.vocab.json") -Algorithm SHA256).Hash.ToLowerInvariant()
 
 foreach ($seed in $Seeds) {
     $checkpoint = Join-Path $Root "runs\multiseed\seed_$seed\checkpoint.pt"
     if (-not (Test-Path -LiteralPath $checkpoint)) {
         throw "Missing checkpoint for seed $seed`: $checkpoint"
     }
+    $checkpointSha256 = (Get-FileHash -LiteralPath $checkpoint -Algorithm SHA256).Hash.ToLowerInvariant()
     $singleMetrics = Join-Path $ResultDir "seed_${seed}_single_metrics.json"
     $singleSamples = Join-Path $ResultDir "seed_${seed}_single_per_sample.json"
     $rerankedMetrics = Join-Path $ResultDir "seed_${seed}_reranked_metrics.json"
     $rerankedSamples = Join-Path $ResultDir "seed_${seed}_reranked_per_sample.json"
 
-    if (-not ($Resume -and (Test-CompletePerSample $singleSamples 1) -and (Test-Path -LiteralPath $singleMetrics))) {
+    if (-not ($Resume -and
+        (Test-CompletePerSample $singleSamples 1 $seed $checkpointSha256 $DataSha256 $VocabSha256) -and
+        (Test-Path -LiteralPath $singleMetrics))) {
         "START seed $seed K=1 $(Get-Date -Format o)" | Tee-Object -FilePath $LogPath -Append
         Invoke-LoggedPython @(
             "-m", "post_tonal.evaluate",
@@ -79,10 +109,15 @@ foreach ($seed in $Seeds) {
             "--output", $singleMetrics,
             "--per-sample-output", $singleSamples
         )
+        if (-not (Test-CompletePerSample $singleSamples 1 $seed $checkpointSha256 $DataSha256 $VocabSha256)) {
+            throw "Seed $seed K=1 output failed the 2,000-condition provenance gate."
+        }
         "END seed $seed K=1 $(Get-Date -Format o)" | Tee-Object -FilePath $LogPath -Append
     }
 
-    if (-not ($Resume -and (Test-CompletePerSample $rerankedSamples 4) -and (Test-Path -LiteralPath $rerankedMetrics))) {
+    if (-not ($Resume -and
+        (Test-CompletePerSample $rerankedSamples 4 $seed $checkpointSha256 $DataSha256 $VocabSha256) -and
+        (Test-Path -LiteralPath $rerankedMetrics))) {
         "START seed $seed K=4 $(Get-Date -Format o)" | Tee-Object -FilePath $LogPath -Append
         Invoke-LoggedPython @(
             "-m", "post_tonal.evaluate",
@@ -93,6 +128,9 @@ foreach ($seed in $Seeds) {
             "--output", $rerankedMetrics,
             "--per-sample-output", $rerankedSamples
         )
+        if (-not (Test-CompletePerSample $rerankedSamples 4 $seed $checkpointSha256 $DataSha256 $VocabSha256)) {
+            throw "Seed $seed K=4 output failed the 2,000-condition provenance gate."
+        }
         "END seed $seed K=4 $(Get-Date -Format o)" | Tee-Object -FilePath $LogPath -Append
     }
 
@@ -121,7 +159,8 @@ $aggregateArguments += @(
     "--output-csv", (Join-Path $Root "results\project2_multiseed_controlled_statistics.csv"),
     "--output-table", (Join-Path $Root "paper\tables\project2_multiseed_controlled_results.tex"),
     "--bootstrap-seed", "52042",
-    "--bootstrap-samples", "10000"
+    "--bootstrap-samples", "10000",
+    "--expected-conditions", "2000"
 )
 Invoke-LoggedPython $aggregateArguments
 

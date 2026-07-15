@@ -132,7 +132,7 @@ def _write_table(path: Path, rows: list[dict[str, Any]], caption: str, label: st
         "\\resizebox{\\textwidth}{!}{%",
         "\\begin{tabular}{lrrrrrr}",
         "\\toprule",
-        "Experiment & Token acc. & PC cov. & Row acc. & Rhythm dist. & Gesture & XML \\\\",
+        "Experiment & Token acc. & PC cov. & Row acc. & Rhythm dist. & Gesture & XML (20) \\\\",
         "\\midrule",
     ]
     for row in rows:
@@ -173,13 +173,13 @@ def make_tables(
     _write_table(
         Path(main_table),
         main_rows,
-        "Archived aggregate results. Independent neural rows use different generated corpora and are descriptive rather than paired comparisons. Row accuracy is averaged only over row-conditioned samples, so its denominator differs from the 2,000-item test-set total and can vary by configuration.",
+        "Archived aggregate results. Independent neural rows use different generated corpora and are descriptive rather than paired comparisons. Row accuracy is averaged only over row-conditioned samples, so its denominator differs from the 2,000-item test-set total and can vary by configuration. XML success is measured over 20 attempted exports per configuration.",
         "tab:project2-main-results",
     )
     _write_table(
         Path(ablation_table),
         ablation_rows,
-        "Exploratory condition and fixed-default configurations. Dashes denote metrics that are not applicable because the corresponding target is absent or fixed. Row accuracy is averaged only over row-conditioned samples.",
+        "Exploratory condition and fixed-default configurations. Dashes denote metrics that are not applicable because the corresponding target is absent or fixed. Row accuracy is averaged only over row-conditioned samples. XML success is measured over 20 attempted exports per configuration.",
         "tab:project2-ablation-results",
     )
     return {"rows": len(rows), "main_rows": len(main_rows), "ablation_rows": len(ablation_rows)}

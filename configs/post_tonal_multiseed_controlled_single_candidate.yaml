@@ -17,6 +17,7 @@ training:
 evaluation:
   seed: 42042
   split: test
+  required_split_samples: 2000
   max_batches: null
   export_examples: 0
   generation_examples: 0

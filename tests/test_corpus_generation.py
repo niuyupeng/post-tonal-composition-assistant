@@ -1,9 +1,11 @@
 from pathlib import Path
 
+import pytest
 import torch
 
 from post_tonal.data.generate_corpus import generate_samples
 from post_tonal.data.post_tonal_dataset import PostTonalDataset, describe_splits
+from post_tonal.train import maybe_generate_data
 
 
 def test_corpus_generation(tmp_path: Path):
@@ -48,3 +50,14 @@ def test_explicit_train_val_test_splits(tmp_path: Path):
     assert len(PostTonalDataset(data_path, split="train")) == 3
     assert len(PostTonalDataset(data_path, split="val")) == 2
     assert len(PostTonalDataset(data_path, split="test")) == 1
+
+
+def test_disabled_generation_fails_when_inputs_are_missing(tmp_path: Path):
+    with pytest.raises(FileNotFoundError, match="generation is disabled"):
+        maybe_generate_data(
+            {
+                "data_path": str(tmp_path / "missing.pt"),
+                "vocab_path": str(tmp_path / "missing.vocab.json"),
+                "generate_data": False,
+            }
+        )

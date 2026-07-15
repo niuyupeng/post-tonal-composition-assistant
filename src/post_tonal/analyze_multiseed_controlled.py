@@ -45,22 +45,64 @@ def _validate_pair(
     seed: int,
     single_payload: dict[str, Any],
     reranked_payload: dict[str, Any],
-) -> list[dict[str, Any]]:
+    expected_conditions: int | None,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     single = single_payload["samples"]
     reranked = reranked_payload["samples"]
     if len(single) != len(reranked):
         raise ValueError(f"Seed {seed} has different K=1 and K=4 sample counts.")
+    if single_payload.get("num_samples") != len(single) or reranked_payload.get("num_samples") != len(reranked):
+        raise ValueError(f"Seed {seed} payload sample counts do not match their records.")
+    if expected_conditions is not None and len(single) != expected_conditions:
+        raise ValueError(
+            f"Seed {seed} contains {len(single)} conditions; expected exactly {expected_conditions}."
+        )
     if single_payload.get("candidate_attempts") != 1:
         raise ValueError(f"Seed {seed} K=1 payload must report one candidate attempt.")
     if reranked_payload.get("candidate_attempts") != 4:
         raise ValueError(f"Seed {seed} K=4 payload must report four candidate attempts.")
+    if single_payload.get("sampling_protocol") != "per_sample_generator_batch_v1":
+        raise ValueError(f"Seed {seed} does not use the required batched per-sample RNG protocol.")
     if single_payload.get("sampling_protocol") != reranked_payload.get("sampling_protocol"):
         raise ValueError(f"Seed {seed} uses different sampling protocols across conditions.")
     if single_payload.get("generation_batch_size") != reranked_payload.get("generation_batch_size"):
         raise ValueError(f"Seed {seed} uses different generation batch sizes across conditions.")
+    if single_payload.get("evaluation_seed") != reranked_payload.get("evaluation_seed"):
+        raise ValueError(f"Seed {seed} uses different top-level evaluation seeds across conditions.")
 
+    single_provenance = single_payload.get("provenance")
+    reranked_provenance = reranked_payload.get("provenance")
+    if not isinstance(single_provenance, dict) or not isinstance(reranked_provenance, dict):
+        raise ValueError(f"Seed {seed} lacks evaluation provenance.")
+    identity_fields = (
+        "checkpoint_path",
+        "checkpoint_sha256",
+        "checkpoint_training_seed",
+        "data_path",
+        "data_sha256",
+        "vocab_path",
+        "vocab_sha256",
+        "dataset_split",
+        "dataset_split_size",
+    )
+    for field in identity_fields:
+        if single_provenance.get(field) != reranked_provenance.get(field):
+            raise ValueError(f"Seed {seed} provenance differs across K=1 and K=4 for {field}.")
+    for field in ("checkpoint_sha256", "data_sha256", "vocab_sha256"):
+        value = single_provenance.get(field)
+        if not isinstance(value, str) or len(value) != 64:
+            raise ValueError(f"Seed {seed} lacks a valid {field} provenance digest.")
+    if single_provenance.get("checkpoint_training_seed") != seed:
+        raise ValueError(f"Seed {seed} does not match the seed embedded in its checkpoint.")
+    if single_provenance.get("dataset_split") != "test":
+        raise ValueError(f"Seed {seed} was not evaluated on the test split.")
+    if single_provenance.get("dataset_split_size") != len(single):
+        raise ValueError(f"Seed {seed} provenance reports the wrong test-split size.")
+
+    sample_ids: list[Any] = []
     for left, right in zip(single, reranked):
         sample_id = left.get("sample_id")
+        sample_ids.append(sample_id)
         if sample_id != right.get("sample_id"):
             raise ValueError(f"Seed {seed} sample IDs are not aligned.")
         if left.get("metadata") != right.get("metadata"):
@@ -73,7 +115,9 @@ def _validate_pair(
             raise ValueError(f"Seed {seed} lacks a K=1 first-candidate fingerprint for {sample_id}.")
         if left_hash != right_hash:
             raise ValueError(f"Seed {seed} first candidates differ for sample {sample_id}.")
-    return single
+    if any(sample_id is None for sample_id in sample_ids) or len(set(sample_ids)) != len(sample_ids):
+        raise ValueError(f"Seed {seed} sample IDs must be non-null and unique.")
+    return single, single_provenance
 
 
 def _effect_array(
@@ -101,15 +145,15 @@ def _effect_array(
     return result
 
 
-def hierarchical_bootstrap_ci(
+def crossed_bootstrap_ci(
     effects_by_seed: Sequence[np.ndarray],
     seed: int,
     samples: int = 10_000,
     confidence: float = 0.95,
 ) -> tuple[float, float]:
-    """Resample training seeds and conditions within each sampled seed."""
+    """Resample seed rows and shared condition columns as crossed factors."""
     if len(effects_by_seed) < 2:
-        raise ValueError("Hierarchical bootstrap requires at least two training seeds.")
+        raise ValueError("Crossed bootstrap requires at least two training seeds.")
     sizes = {int(values.size) for values in effects_by_seed}
     if len(sizes) != 1 or 0 in sizes:
         raise ValueError("Aligned seed effects must have one common non-zero condition count.")
@@ -121,13 +165,9 @@ def hierarchical_bootstrap_ci(
     while remaining > 0:
         chunk = min(100, remaining)
         selected_seeds = rng.integers(0, seed_count, size=(chunk, seed_count))
-        replicate_means = np.zeros(chunk, dtype=np.float64)
-        for draw_position in range(seed_count):
-            condition_indices = rng.integers(0, condition_count, size=(chunk, condition_count))
-            seed_indices = selected_seeds[:, draw_position, None]
-            sampled = matrix[seed_indices, condition_indices]
-            replicate_means += sampled.mean(axis=1)
-        bootstrap_means.append(replicate_means / seed_count)
+        selected_conditions = rng.integers(0, condition_count, size=(chunk, condition_count))
+        sampled = matrix[selected_seeds[:, :, None], selected_conditions[:, None, :]]
+        bootstrap_means.append(sampled.mean(axis=(1, 2)))
         remaining -= chunk
     values = np.concatenate(bootstrap_means)
     alpha = (1.0 - confidence) / 2.0
@@ -149,8 +189,8 @@ def _write_csv(path: Path, rows: Sequence[dict[str, Any]], seeds: Sequence[int])
         *seed_fields,
         "mean_effect",
         "sample_sd_across_seed_means",
-        "hierarchical_ci95_low",
-        "hierarchical_ci95_high",
+        "crossed_bootstrap_ci95_low",
+        "crossed_bootstrap_ci95_high",
         "positive_seed_count",
     ]
     with path.open("w", newline="", encoding="utf-8") as handle:
@@ -168,7 +208,7 @@ def _write_table(path: Path, rows: Sequence[dict[str, Any]]) -> None:
         "\\resizebox{\\textwidth}{!}{%",
         "\\begin{tabular}{llrrrr}",
         "\\toprule",
-        "Metric & Subset & Mean effect & Seed SD & Hierarchical 95\\% CI & Positive seeds \\\\",
+        "Metric & Subset & Mean effect & Seed SD & Crossed 95\\% CI & Positive seeds \\\\",
         "\\midrule",
     ]
     for row in rows:
@@ -176,7 +216,7 @@ def _write_table(path: Path, rows: Sequence[dict[str, Any]]) -> None:
         lines.append(
             f"{row['label']} & {row['subset']} & {row['mean_effect']:+.4f} & "
             f"{row['sample_sd_across_seed_means']:.4f} & "
-            f"[{row['hierarchical_ci95_low']:+.4f}, {row['hierarchical_ci95_high']:+.4f}] & "
+            f"[{row['crossed_bootstrap_ci95_low']:+.4f}, {row['crossed_bootstrap_ci95_high']:+.4f}] & "
             f"{positive} \\\\"
         )
     lines.extend(
@@ -184,7 +224,7 @@ def _write_table(path: Path, rows: Sequence[dict[str, Any]]) -> None:
             "\\bottomrule",
             "\\end{tabular}",
             "}",
-            "\\caption{Cross-seed controlled decoding effects. Except for the non-serial aggregate diagnostic, effects are oriented so that positive values favor four-candidate constraint reranking. Seed SD is computed across the three seed-level means; intervals use a hierarchical bootstrap over training seeds and aligned test conditions and are not adjusted for multiple endpoints.}",
+            "\\caption{Cross-seed controlled decoding effects. Except for the non-serial aggregate diagnostic, effects are oriented so that positive values favor four-candidate constraint reranking. Seed SD is computed across the three seed-level means; intervals use a crossed bootstrap over training seeds and shared aligned test conditions and are not adjusted for multiple endpoints.}",
             "\\label{tab:multiseed-controlled}",
             "\\end{table*}",
             "",
@@ -202,6 +242,7 @@ def analyze_multiseed_controlled(
     output_table: str | Path,
     bootstrap_seed: int = 52042,
     bootstrap_samples: int = 10_000,
+    expected_conditions: int | None = None,
 ) -> dict[str, Any]:
     if len(seeds) < 2 or len(seeds) != len(single_paths) or len(seeds) != len(reranked_paths):
         raise ValueError("Provide aligned --seed, --single, and --reranked values for at least two seeds.")
@@ -215,7 +256,12 @@ def analyze_multiseed_controlled(
     for seed, single_path, reranked_path in zip(seeds, single_paths, reranked_paths):
         single_payload = _load_payload(single_path)
         reranked_payload = _load_payload(reranked_path)
-        single = _validate_pair(seed, single_payload, reranked_payload)
+        single, provenance = _validate_pair(
+            seed,
+            single_payload,
+            reranked_payload,
+            expected_conditions,
+        )
         reranked = reranked_payload["samples"]
         ids = [sample.get("sample_id") for sample in single]
         metadata = [sample.get("metadata") for sample in single]
@@ -235,8 +281,16 @@ def analyze_multiseed_controlled(
                 "reranked": reranked,
                 "sampling_protocol": single_payload.get("sampling_protocol"),
                 "generation_batch_size": single_payload.get("generation_batch_size"),
+                "provenance": provenance,
             }
         )
+
+    checkpoint_hashes = [run["provenance"]["checkpoint_sha256"] for run in runs]
+    if len(set(checkpoint_hashes)) != len(checkpoint_hashes):
+        raise ValueError("Training seeds must use distinct checkpoint SHA256 digests.")
+    for field in ("data_sha256", "vocab_sha256"):
+        if len({run["provenance"][field] for run in runs}) != 1:
+            raise ValueError(f"Training seeds do not share the same {field}.")
 
     rows: list[dict[str, Any]] = []
     for metric_index, spec in enumerate(ENDPOINTS):
@@ -253,7 +307,7 @@ def analyze_multiseed_controlled(
         seed_means = [float(values.mean()) for values in effects]
         mean_effect = statistics.fmean(seed_means)
         seed_sd = statistics.stdev(seed_means)
-        ci_low, ci_high = hierarchical_bootstrap_ci(
+        ci_low, ci_high = crossed_bootstrap_ci(
             effects,
             seed=bootstrap_seed + metric_index,
             samples=bootstrap_samples,
@@ -272,13 +326,21 @@ def analyze_multiseed_controlled(
             "n_conditions_per_seed": next(iter(counts)),
             "mean_effect": mean_effect,
             "sample_sd_across_seed_means": seed_sd,
-            "hierarchical_ci95_low": ci_low,
-            "hierarchical_ci95_high": ci_high,
+            "crossed_bootstrap_ci95_low": ci_low,
+            "crossed_bootstrap_ci95_high": ci_high,
             "positive_seed_count": None if higher_is_better is None else sum(value > 0.0 for value in seed_means),
         }
         for run, value in zip(runs, seed_means):
             row[f"seed_{run['seed']}_mean"] = value
-        if not all(math.isfinite(float(row[field])) for field in ("mean_effect", "sample_sd_across_seed_means", "hierarchical_ci95_low", "hierarchical_ci95_high")):
+        if not all(
+            math.isfinite(float(row[field]))
+            for field in (
+                "mean_effect",
+                "sample_sd_across_seed_means",
+                "crossed_bootstrap_ci95_low",
+                "crossed_bootstrap_ci95_high",
+            )
+        ):
             raise ValueError(f"Non-finite aggregate for endpoint {row['endpoint']}")
         rows.append(row)
 
@@ -291,7 +353,7 @@ def analyze_multiseed_controlled(
         "first_candidate_alignment": "verified_by_sha256_for_every_seed_condition",
         "bootstrap_seed": int(bootstrap_seed),
         "bootstrap_samples": int(bootstrap_samples),
-        "bootstrap_method": "hierarchical percentile bootstrap over training seeds and aligned test conditions",
+        "bootstrap_method": "crossed percentile bootstrap over training seeds and shared aligned test conditions",
         "multiple_endpoint_adjustment": "none",
         "runs": public_runs,
         "metrics": rows,
@@ -312,6 +374,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--output-table", default="paper/tables/project2_multiseed_controlled_results.tex")
     parser.add_argument("--bootstrap-seed", type=int, default=52042)
     parser.add_argument("--bootstrap-samples", type=int, default=10_000)
+    parser.add_argument("--expected-conditions", type=int, default=2000)
     args = parser.parse_args(argv)
     result = analyze_multiseed_controlled(
         args.seed,
@@ -322,6 +385,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         args.output_table,
         bootstrap_seed=args.bootstrap_seed,
         bootstrap_samples=args.bootstrap_samples,
+        expected_conditions=args.expected_conditions,
     )
     print({"seeds": result["seeds"], "paired_conditions_per_seed": result["paired_conditions_per_seed"], "metrics": len(result["metrics"])})
     return 0

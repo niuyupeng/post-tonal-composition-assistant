@@ -4,7 +4,7 @@
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lrrrrrr}
 \toprule
-Experiment & Token acc. & PC cov. & Row acc. & Rhythm dist. & Gesture & XML \\
+Experiment & Token acc. & PC cov. & Row acc. & Rhythm dist. & Gesture & XML (20) \\
 \midrule
 No constraints (seed 44) & 0.6242 & -- & -- & -- & -- & 1.0000 \\
 No pc-set token & 0.6176 & -- & 0.1588 & 0.8726 & 0.5218 & 1.0000 \\
@@ -19,6 +19,6 @@ No constraints (seed 53) & 0.6239 & -- & -- & -- & -- & 1.0000 \\
 \bottomrule
 \end{tabular}
 }
-\caption{Exploratory condition and fixed-default configurations. Dashes denote metrics that are not applicable because the corresponding target is absent or fixed. Row accuracy is averaged only over row-conditioned samples.}
+\caption{Exploratory condition and fixed-default configurations. Dashes denote metrics that are not applicable because the corresponding target is absent or fixed. Row accuracy is averaged only over row-conditioned samples. XML success is measured over 20 attempted exports per configuration.}
 \label{tab:project2-ablation-results}
 \end{table}

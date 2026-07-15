@@ -24,6 +24,12 @@ def maybe_generate_data(config: dict[str, Any]) -> None:
     vocab_path = Path(config["vocab_path"])
     if data_path.exists() and vocab_path.exists() and not config.get("force_generate_data", False):
         return
+    if not config.get("generate_data", True) and not config.get("force_generate_data", False):
+        missing = [str(path) for path in (data_path, vocab_path) if not path.exists()]
+        raise FileNotFoundError(
+            "Synthetic-data generation is disabled and required inputs are missing: "
+            + ", ".join(missing)
+        )
     corpus = config.get("corpus", {})
     generate_samples(
         num_samples=int(corpus.get("num_samples", 128)),
