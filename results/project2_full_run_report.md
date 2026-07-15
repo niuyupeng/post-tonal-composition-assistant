@@ -92,7 +92,7 @@ Run label: formal_retrain_2026_06_17_plus_full_2000_eval
 
 ## Remaining TODOs
 - Expert human ratings have not been collected.
-- Manuscript claims should be updated only from `results/project2_metrics.csv`, `results/project2_constraints.csv`, and the JSON reports produced by this run.
+- Manuscript claims must be traced to the matching evidence family: archived configuration rows in `project2_metrics.csv`/`project2_constraints.csv`, paired decoding effects in `project2_controlled_statistics.*`, and independent-seed diagnostics in `project2_multiseed_training_*`. Future cross-seed decoding claims require the dedicated `project2_multiseed_controlled_statistics.*` outputs.
 - Cross-seed controlled `K=1` versus `K=4` decoding has not been run; the completed three-seed replication covers teacher-forced sequence diagnostics only.
 
 ## Controlled Manuscript Evaluation (2026-07-14)
