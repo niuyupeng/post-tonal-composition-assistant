@@ -29,8 +29,12 @@ data/processed/*.json
 !data/processed/.gitkeep
 
 generated_scores/*.musicxml
+generated_scores/*/
 results/*.json
 !results/project2_multiseed_controlled_statistics.json
+!results/project2_v3_full_split_summary.json
+!results/project2_v3_rule_baseline_metrics.json
+results/smoke_v3/
 results/*before_2000_eval_*
 results/eval_musicxml/
 paper/tables/*.tex

@@ -1,28 +1,23 @@
 \section{Evaluation Metrics}
 \label{sec:metrics}
 
-Metrics are divided into sequence-model diagnostics, condition-adherence measures, and score-output checks. Arrows in the result tables indicate whether larger ($\uparrow$) or smaller ($\downarrow$) values are preferred.
-
-\paragraph{Next-token diagnostics.}
-Token accuracy is the fraction of non-padding targets whose next token is predicted by the maximum-logit class. Cross-entropy is averaged over the same concatenated condition--score sequence. Because condition-prefix positions are included, these values diagnose language-model fit but are not musical-quality scores.
+\paragraph{Body-token diagnostics.}
+Token accuracy is the fraction of unmasked score-body targets assigned the maximum logit. Cross-entropy is accumulated over the same target tokens across all explicit windows. Condition-prefix and overlap-context positions are masked.
 
 \paragraph{Pitch-class-set measures.}
-For generated pitch-class support $P(x)$ and nonempty target set $S$, coverage is
-\begin{equation}
-  \mathrm{Cov}_{\mathrm{pc}}(x,S)=\frac{|P(x)\cap S|}{|S|}.
-\end{equation}
-This is recall-like and does not penalize pitch classes outside $S$. Interval-vector distance is the $L_1$ distance between the generated and target six-entry interval-class vectors. The metric is not applicable when no target set or interval vector is supplied.
+For generated support $P(x)$ and nonempty target set $S$, coverage is $|P(x)\cap S|/|S|$, precision is $|P(x)\cap S|/|P(x)|$, and Jaccard similarity is $|P(x)\cap S|/|P(x)\cup S|$. Interval-vector distance is the $L_1$ distance between generated and target six-entry interval-class vectors. These metrics are not applicable when no pc-set target exists.
 
 \paragraph{Serial measures.}
-Cyclic row-order accuracy compares every generated note in global decoded event order with the corresponding position of the requested row form, wrapping after 12 positions. Simultaneous notes are ordered by their token sequence rather than treated as unordered verticalities. Aggregate completion is $|P(x)|/12$. The implementation's serial-transformation accuracy is numerically identical to cyclic row-order accuracy; to avoid double-counting, the manuscript reports only row-order accuracy. Row-conditioned metrics are not applicable when no row and form label are supplied.
+Cyclic row-order accuracy compares generated pitch classes with repeated positions of the requested transformed row. Strict serial-transformation accuracy counts complete non-overlapping twelve-note blocks that exactly equal the requested form. Aggregate completion is the proportion of the twelve pitch classes present and is averaged only over row-conditioned samples.
 
 \paragraph{Rhythmic measures.}
-Each fragment is converted to a per-measure note-onset density curve. Density-curve error is the mean absolute difference from a deterministic reference realization generated with seed 1234. This reference is a profile template, not the exact stochastic rhythm realization used when constructing a corpus target. Rhythmic-profile distance normalizes that error by the maximum reference density, allowing comparisons across profile types and lengths. Lower values indicate closer agreement with the fixed template.
+The density curve counts note onsets per measure. Rhythmic-profile distance compares the generated curve, normalized by requested voice count, with a deterministic profile template available to decoding. Density-curve error compares the generated curve with the stochastic target curve saved during corpus generation. The latter is held out from model conditions and reranking.
 
 \paragraph{Gesture measures.}
-Each gesture label is associated with expected ranges of within-measure onset dispersion, register spread, note density, mean duration, and rest-duration mass normalized by fragment span. The last quantity can exceed one in polyphonic passages because overlapping voices contribute separately. Feature-wise closeness values are averaged to produce a score in $[0,1]$. This is an explainable heuristic consistency measure rather than a perceptual judgment.
+Gesture features include onset dispersion, register spread, note density normalized by requested voices, mean duration, and per-voice rest coverage. Rest coverage is computed from interval unions and is bounded in $[0,1]$. Feature closeness is averaged into a heuristic gesture consistency score. This score is explainable but is not a perceptual rating.
 
-\paragraph{Notation and range checks.}
-Range-violation rate is the proportion of pitched events outside the configured instrument range. MusicXML export success is the proportion of requested exports that are written and parsed structurally as MusicXML scores. Structural success does not imply engraving quality; that question is reserved for expert evaluation.
+\paragraph{Range, span, voice, and notation checks.}
+Range-violation rate is the proportion of pitched events outside the requested instrument range. Content-span adherence is the realized event end time divided by the requested duration, capped at one. Voice adherence is the fraction of requested voice indices containing generated material. MusicXML evaluation separately reports structural parse success, requested measure-count adherence, and requested part-count adherence.
 
-For the primary controlled comparison, aggregate values are computed over all 2,000 test conditions and paired per-item records are retained for mean differences, win--tie--loss rates, and paired percentile-bootstrap confidence intervals. For the three-checkpoint replication, favorable per-condition effects are first computed within each checkpoint. We report the mean of the three checkpoint-level means, their sample standard deviation, the number of positive checkpoint-level effects, and a crossed percentile-bootstrap interval that resamples both the three checkpoints and the shared aligned test conditions. Both analyses use 10,000 bootstrap draws. Endpoint intervals are reported without a multiple-comparison adjustment.
+\paragraph{Applicability and aggregation.}
+Every aggregate is computed only over samples for which the corresponding target exists. Missing-target values are written as not applicable rather than zero or one. Formal CSV rows must contain all required metric columns and exactly 2,000 evaluated conditions. No corrected numerical comparison is reported until all required configuration rows pass the provenance and completion gates.

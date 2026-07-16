@@ -96,12 +96,30 @@ def rhythmic_profile_distance(
     target_profile: str,
     measures: int,
     seed: int = 1234,
+    voice_count: int = 1,
 ) -> float:
     generated = np.array(density_curve(generated_events, measures), dtype=np.float32)
+    generated /= max(1, int(voice_count))
     target_events = generate_rhythmic_profile(target_profile, measures=measures, seed=seed)
     target = np.array(density_curve(target_events, measures), dtype=np.float32)
     scale = max(1.0, float(target.max(initial=0.0)))
     return float(np.mean(np.abs(generated - target)) / scale)
+
+
+def density_curve_distance(
+    generated_events: Iterable[dict],
+    target_curve: Iterable[float],
+    measures: int,
+    normalize: bool = False,
+) -> float:
+    generated = np.array(density_curve(generated_events, measures), dtype=np.float32)
+    target = np.array(list(target_curve), dtype=np.float32)
+    if target.shape[0] != measures:
+        raise ValueError(f"Expected a {measures}-measure target density curve, got {target.shape[0]}.")
+    error = float(np.mean(np.abs(generated - target)))
+    if not normalize:
+        return error
+    return error / max(1.0, float(target.max(initial=0.0)))
 
 
 def density_curve_error(generated_events: Iterable[dict], reference_events: Iterable[dict], measures: int) -> float:

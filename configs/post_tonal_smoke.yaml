@@ -1,8 +1,8 @@
 seed: 7
 device: cpu
-run_dir: runs/smoke
-data_path: data/processed/post_tonal_smoke.pt
-vocab_path: data/processed/post_tonal_smoke.vocab.json
+run_dir: runs/smoke_v3
+data_path: data/processed/post_tonal_smoke_v3.pt
+vocab_path: data/processed/post_tonal_smoke_v3.vocab.json
 generate_data: true
 corpus:
   train_samples: 24
@@ -29,8 +29,20 @@ training:
   early_stopping_patience: 3
   fast_dev_run: false
   num_workers: 0
+  sequence_mode: rotating
+  validation_sequence_mode: all
+  target_tokens_per_window: 96
+  gradient_clipping: true
+  gradient_clip_norm: 1.0
 evaluation:
   max_batches: 4
   export_examples: 3
   generation_examples: 3
   constraint_metric_samples: 4
+  model_generation: true
+  constraint_guided_decoding: true
+  constraint_guided_attempts: 2
+  max_new_tokens: 128
+  max_new_tokens_per_measure: 24
+  max_new_tokens_cap: 256
+  grammar_constrained_decoding: true

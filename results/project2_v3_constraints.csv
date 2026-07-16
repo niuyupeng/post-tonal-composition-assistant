@@ -1,0 +1,2 @@
+experiment,split,target_pcset_coverage,pcset_precision,pcset_jaccard,interval_vector_distance,row_order_accuracy,aggregate_completion_rate,serial_transformation_accuracy,rhythmic_profile_distance,density_curve_error,gesture_consistency_score,range_violation_rate,content_span_ratio,voice_count_adherence
+rule_baseline,test,0.9987764846314533,1.0,0.9987764846314533,0.025962399283795883,1.0,0.9957531143827859,0.9818799546998868,0.30207275854051113,2.926311562359333,0.5683297296839196,0.0,0.9986311738608613,1.0

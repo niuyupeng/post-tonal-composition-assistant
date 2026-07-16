@@ -1,8 +1,6 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-This study develops a reproducible neural-symbolic workflow for post-tonal composition assistance at the score level. Explicit pc-set, serial, rhythmic, gestural, register, and instrumentation conditions are serialized as prefix tokens for a locally trainable causal Transformer. Candidate continuations are inspected with post-tonal theory utilities and reranked before MusicXML and an explainable JSON report are exported.
+This work defines a reproducible score-level workflow for neural-symbolic post-tonal composition assistance. A legal procedural corpus, condition-preserving Transformer training, explicit pitch-class-set and serial analysis, grammar-constrained candidate generation, MusicXML export, and per-fragment reports are integrated in one local pipeline.
 
-The work is best understood as a controlled proof of concept rather than a model of contemporary style. Its technical value lies in making symbolic constraints measurable and editable while avoiding dependence on copyrighted repertoire. The controlled same-checkpoint experiment tests the contribution of inference-time reranking directly, and the three-checkpoint replication shows which endpoint directions recur under independent initialization and minibatch order. The wider configuration archive documents behavior under removed or fixed-default conditions.
-
-The next scientific steps are human evaluation by composers and analysts, broader replication across corpora and decoding settings, and validation on legally provided MusicXML. Those additions are necessary before drawing conclusions about artistic usefulness, but the present system establishes the computational and evaluative substrate for that study.
+The corrected protocol is designed to distinguish sequence modeling, inference-time reranking, condition ablation, held-out rhythmic evaluation, and notation adherence. Its scientific claims will remain limited to automatic controllability on the synthetic testbed until the full v3 experiment completes. Human evaluation and independent legal MusicXML validation are required before drawing conclusions about artistic usefulness.

@@ -33,6 +33,8 @@ def test_model_expert_package_is_anonymized_and_conditioned(tmp_path):
                     "musicxml": str(source_xml),
                     "analysis_report": str(source_report),
                     "musicxml_structurally_valid": True,
+                    "musicxml_measure_count_adherent": True,
+                    "musicxml_voice_count_adherent": True,
                 }
             ]
         ),

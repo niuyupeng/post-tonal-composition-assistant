@@ -13,3 +13,15 @@ def test_rhythm_profiles_generate_inside_duration():
 def test_rhythm_profile_distance_is_nonnegative():
     events = generate_rhythmic_profile("pointillistic", measures=4, seed=3)
     assert rhythmic_profile_distance(events, "pointillistic", measures=4) >= 0.0
+
+
+def test_rhythm_profile_distance_is_voice_count_normalized():
+    voice = generate_rhythmic_profile("medium", measures=4, seed=3)
+    doubled = [
+        {**event, "voice": voice_index}
+        for voice_index in range(2)
+        for event in voice
+    ]
+    single_distance = rhythmic_profile_distance(voice, "medium", measures=4, voice_count=1)
+    doubled_distance = rhythmic_profile_distance(doubled, "medium", measures=4, voice_count=2)
+    assert doubled_distance == single_distance

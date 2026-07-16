@@ -1,57 +1,24 @@
 \section{Results}
 \label{sec:results}
 
-\subsection{Controlled same-checkpoint decoding}
+\subsection{Corrected full-run status}
 
-The controlled analysis paired all 2,000 test conditions, comprising 914 row-conditioned and 1,086 non-serial fragments. The fixed checkpoint had full-sequence token accuracy 0.6254 and cross-entropy 0.8158; these next-token diagnostics are identical across the decoding conditions because no retraining is involved. Table~\ref{tab:controlled-decoding} reports per-condition differences between the first sampled candidate ($K=1$) and four-candidate symbolic reranking ($K=4$).
+The corrected v3 corpus split is available with 20,000 training, 2,000 validation, and 2,000 test fragments and \texttt{smoke=false}. The code-level verification suite and CPU smoke workflow pass, and the independent rule reference has been exercised on the full test split. These checks establish pipeline integrity but do not replace neural training.
 
-Reranking raised cyclic row-order accuracy on serial conditions from 0.1580 to 0.2350, a favorable mean difference of 0.0769 (paired bootstrap 95\% CI [0.0705, 0.0833]). It selected a better row-order candidate for 65.4\% of serial requests, tied for 25.4\%, and selected a worse candidate for 9.2\%. Across all conditions, rhythmic-profile distance decreased from 0.8712 to 0.8159 (favorable difference 0.0553; [0.0493, 0.0618]), density-curve error decreased by 0.2332 ([0.2082, 0.2584]), and gesture consistency increased from 0.5246 to 0.5535 (0.0289; [0.0249, 0.0330]). Instrument-range violations were already rare but decreased from 0.00055 to 0.00009.
+The corrected neural experiment matrix is not yet complete. Token accuracy, constraint metrics, ablation comparisons, and proposed-versus-vanilla differences therefore remain \texttt{PENDING\_REAL\_}\allowbreak\texttt{EXPERIMENT}. Legacy v2 numerical tables, figures, and controlled-decoding statistics are not used as evidence for the corrected protocol.
 
-Interval-vector distance decreased by 0.5075 overall ([0.3640, 0.6655]). The subgroup means expose the different scales of the task: non-serial distance decreased from 0.2716 to 0.0166, whereas serial distance decreased from 57.1018 to 56.2943 because row-conditioned fragments traverse the aggregate while retaining a smaller pc-set interval-vector target.
+\subsection{Formal result tables}
 
-The pitch and aggregate results show a trade-off rather than uniform improvement. Overall pc-set coverage remained near ceiling and changed from 0.9954 to 0.9952; its interval included zero (favorable difference $-0.0003$; [$-0.0021$, 0.0014]). Coverage increased by 0.0047 in the non-serial subset but decreased by 0.0062 in the serial subset. Serial aggregate completion decreased from 0.9963 to 0.9892 (favorable difference $-0.0071$; [$-0.0101$, $-0.0044$]). The non-serial aggregate value is reported only as a diagnostic because those conditions have no twelve-tone aggregate target. No multiplicity correction was applied to the endpoint-wise bootstrap intervals; they are therefore descriptive uncertainty intervals rather than a family-wise inferential claim.
+\IfFileExists{tables/project2_v3_main_results.tex}
+  {The full runner populated Table~\ref{tab:project2-main-results} directly from the corrected CSV file after all checkpoint and provenance gates passed.
+   \input{tables/project2_v3_main_results}}
+  {\noindent\texttt{PENDING\_REAL\_EXPERIMENT}: the corrected main-result table has not yet been generated.}
 
-\input{tables/project2_controlled_results}
+\IfFileExists{tables/project2_v3_ablation_results.tex}
+  {The full runner populated Table~\ref{tab:project2-ablation-results} directly from the corrected CSV file after all checkpoint and provenance gates passed.
+   \input{tables/project2_v3_ablation_results}}
+  {\noindent\texttt{PENDING\_REAL\_EXPERIMENT}: the corrected ablation table has not yet been generated.}
 
-Figure~\ref{fig:controlled-effects} summarizes prespecified favorable relative changes. The near-ceiling pc-set endpoint and rare range violations produced high tie rates, while row, rhythm, and gesture selection altered a larger proportion of candidates. The large relative change in non-serial interval-vector distance reflects its small $K=1$ baseline and should be read together with the absolute values in Table~\ref{tab:controlled-decoding}.
+\subsection{MusicXML examples}
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\linewidth]{figures/controlled_effects.pdf}
-  \caption{Controlled effects of four-candidate reranking relative to single-candidate decoding. Points are favorable mean changes as a percentage of the $K=1$ mean; bars are paired bootstrap 95\% intervals. Positive values favor reranking. Aggregate completion is negative because serial completion decreased. Intervals are not adjusted for multiple endpoints.}
-  \label{fig:controlled-effects}
-\end{figure}
-
-\subsection{Independent-seed sequence diagnostics}
-
-The three memory-safe replications stopped after 25--26 epochs, with their selected checkpoints at epochs 15--16. Mean best validation loss was $0.8119 \pm 0.0011$. On the common 2,000-fragment test split, teacher-forced token accuracy was $0.6259 \pm 0.0005$ and cross-entropy was $0.8160 \pm 0.0012$ (mean $\pm$ sample SD, $n=3$; Table~\ref{tab:multiseed-training}). These values show similar sequence-prediction diagnostics under the three initialization and shuffle seeds. They remain distinct from the controlled generation effects reported next; the aligned decoding replication uses the same three checkpoints.
-
-\input{tables/project2_multiseed_training}
-
-\subsection{Three-checkpoint controlled-decoding replication}
-
-The aligned $K=1$ versus $K=4$ protocol was repeated with the seed-42, seed-43, and seed-44 checkpoints. Each checkpoint contributed the same 2,000 test conditions, including 914 serial and 1,086 non-serial requests, and all 6,000 within-checkpoint first-candidate pairs matched by SHA-256. Table~\ref{tab:multiseed-controlled} reports favorable effects, so positive values indicate better adherence under reranking except for the explicitly directionless non-serial aggregate diagnostic.
-
-The row-order effect was favorable for all three checkpoints: mean improvement 0.0815, seed-level SD 0.0023, and crossed-bootstrap 95\% interval [0.0756, 0.0875]. Rhythmic-profile distance decreased by 0.0507 (SD 0.0056; [0.0439, 0.0583]), density-curve error decreased by 0.2278 (SD 0.0165; [0.2021, 0.2545]), and gesture consistency increased by 0.0318 (SD 0.0009; [0.0283, 0.0353]); each direction occurred in 3/3 checkpoints. Interval-vector distance also improved in 3/3 checkpoints, with an overall favorable effect of 0.4177 ([0.2950, 0.5612]).
-
-The replicated trade-offs were endpoint specific. Overall pc-set coverage changed by $-0.0007$ ([$-0.0027$, 0.0012]) and was favorable in only 1/3 checkpoints. Non-serial coverage increased by 0.0043 in 3/3 checkpoints, whereas serial coverage decreased by 0.0066 in 3/3 checkpoints. Serial aggregate completion decreased by 0.0066 ([$-0.0097$, $-0.0040$]) in all three checkpoints. The non-serial aggregate diagnostic crossed zero. These 14 endpoint intervals are descriptive and unadjusted for multiplicity.
-
-\input{tables/project2_multiseed_controlled_results}
-
-\subsection{Exploratory configuration archive}
-
-Tables~\ref{tab:project2-main-results} and~\ref{tab:project2-ablation-results} retain the completed procedural reference and independently trained neural configurations. They document that all intended configurations ran on the full 20,000/2,000/2,000 corpus regime and produced 2,000-sample evaluation rows. These rows use different generated corpora and seeds, however, so their aggregate differences are descriptive and are not used to estimate the causal effect of reranking. Missing cells denote an absent or fixed target, not perfect adherence.
-
-\input{tables/project2_main_results}
-\input{tables/project2_ablation_results}
-
-\subsection{MusicXML output and representative fragment}
-
-All 20 controlled reranked examples written for inspection parsed as \texttt{score-partwise} MusicXML. This is a structural check, not an assessment of engraving or compositional quality. Figure~\ref{fig:controlled-score} shows controlled example 019, selected because every part contains the requested five measures. The request specifies five clarinet voices, pc-set $\{0,3,4,7,8,11\}$, row form $RI_6$, a sustained rhythmic profile, and a fragmented gesture. Its automatic report gives pc-set coverage 1.0000, interval-vector distance 51.0000, row-order accuracy 0.2273, aggregate completion 1.0000, rhythmic-profile distance 1.6000, gesture consistency 0.3886, and range-violation rate 0.0000. These values illustrate the coexistence of satisfied and weak constraints in one editable output rather than a best-case musical claim.
-
-\begin{figure*}[p]
-  \centering
-  \includegraphics[width=0.98\textwidth,height=0.82\textheight,keepaspectratio]{figures/score_example_controlled_019-1.png}
-  \caption{Representative constraint-reranked MusicXML fragment (controlled example 019). Requested and written span: 5/5 measures; instrumentation: five clarinet parts; conditions: pc-set $\{0,3,4,7,8,11\}$, $RI_6$, sustained rhythm, and fragmented gesture. The rendered notation is included for inspectability; no expert quality rating has yet been collected.}
-  \label{fig:controlled-score}
-\end{figure*}
+Twenty corrected full-model examples and paired analysis reports will be admitted to the expert package only if each file parses as MusicXML and matches the requested measure and voice counts. The final count and automatic metrics remain \texttt{PENDING\_REAL\_EXPERIMENT} until the proposed checkpoint evaluation completes.

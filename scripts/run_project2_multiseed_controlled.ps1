@@ -8,8 +8,8 @@ $ErrorActionPreference = "Stop"
 $RequiredSeeds = @(42, 43, 44)
 $Root = Split-Path -Parent $PSScriptRoot
 $Python = Join-Path $Root ".venv311\Scripts\python.exe"
-$ResultDir = Join-Path $Root "results\multiseed_controlled"
-$LogPath = Join-Path $Root "logs\project2_multiseed_controlled.log"
+$ResultDir = Join-Path $Root "results\multiseed_controlled_v3"
+$LogPath = Join-Path $Root "logs\project2_multiseed_controlled_v3.log"
 
 if (-not (Test-Path -LiteralPath $Python)) {
     throw "Python 3.11 environment not found: $Python"
@@ -92,13 +92,12 @@ function Test-CompletePerSample {
             return $false
         }
         $requiredMetrics = @(
-            "pcset_coverage",
-            "interval_vector_distance",
-            "aggregate_completion_rate",
             "rhythmic_profile_distance",
             "density_curve_error",
             "gesture_consistency_score",
-            "range_violation_rate"
+            "range_violation_rate",
+            "content_span_ratio",
+            "voice_count_adherence"
         )
         for ($index = 0; $index -lt 2000; $index++) {
             $sample = $payload.samples[$index]
@@ -117,9 +116,21 @@ function Test-CompletePerSample {
                     return $false
                 }
             }
+            $hasPcset = @($sample.metadata.pcset).Count -gt 0
+            if ($hasPcset -and (
+                -not (Test-FiniteNumber $sample.analysis.pcset_coverage) -or
+                -not (Test-FiniteNumber $sample.analysis.pcset_precision) -or
+                -not (Test-FiniteNumber $sample.analysis.interval_vector_distance)
+            )) {
+                return $false
+            }
             $isSerial = @($sample.metadata.row).Count -gt 0 -and
                 -not [string]::IsNullOrWhiteSpace([string]$sample.metadata.row_form)
-            if ($isSerial -and -not (Test-FiniteNumber $sample.analysis.row_order_accuracy)) {
+            if ($isSerial -and (
+                -not (Test-FiniteNumber $sample.analysis.row_order_accuracy) -or
+                -not (Test-FiniteNumber $sample.analysis.serial_transformation_accuracy) -or
+                -not (Test-FiniteNumber $sample.analysis.aggregate_completion_rate)
+            )) {
                 return $false
             }
         }
@@ -135,11 +146,11 @@ if ($LASTEXITCODE -ne 0) {
     throw "CUDA validation failed; no controlled generation was started."
 }
 $cudaCheck | Tee-Object -FilePath $LogPath -Append
-$DataSha256 = (Get-FileHash -LiteralPath (Join-Path $Root "data\processed\project2_main.pt") -Algorithm SHA256).Hash.ToLowerInvariant()
-$VocabSha256 = (Get-FileHash -LiteralPath (Join-Path $Root "data\processed\project2_main.vocab.json") -Algorithm SHA256).Hash.ToLowerInvariant()
+$DataSha256 = (Get-FileHash -LiteralPath (Join-Path $Root "data\processed\project2_v3_main.pt") -Algorithm SHA256).Hash.ToLowerInvariant()
+$VocabSha256 = (Get-FileHash -LiteralPath (Join-Path $Root "data\processed\project2_v3_main.vocab.json") -Algorithm SHA256).Hash.ToLowerInvariant()
 
 foreach ($seed in $Seeds) {
-    $checkpoint = Join-Path $Root "runs\multiseed\seed_$seed\checkpoint.pt"
+    $checkpoint = Join-Path $Root "runs\v3\multiseed\seed_$seed\checkpoint.pt"
     if (-not (Test-Path -LiteralPath $checkpoint)) {
         throw "Missing checkpoint for seed $seed`: $checkpoint"
     }
@@ -201,7 +212,7 @@ foreach ($seed in $Seeds) {
 
 $allRequiredOutputsComplete = $true
 foreach ($seed in $RequiredSeeds) {
-    $checkpoint = Join-Path $Root "runs\multiseed\seed_$seed\checkpoint.pt"
+    $checkpoint = Join-Path $Root "runs\v3\multiseed\seed_$seed\checkpoint.pt"
     if (-not (Test-Path -LiteralPath $checkpoint)) {
         $allRequiredOutputsComplete = $false
         continue
@@ -217,9 +228,9 @@ foreach ($seed in $RequiredSeeds) {
 
 if (-not $allRequiredOutputsComplete) {
     foreach ($stalePath in @(
-        (Join-Path $Root "results\project2_multiseed_controlled_statistics.json"),
-        (Join-Path $Root "results\project2_multiseed_controlled_statistics.csv"),
-        (Join-Path $Root "paper\tables\project2_multiseed_controlled_results.tex")
+        (Join-Path $Root "results\project2_v3_multiseed_controlled_statistics.json"),
+        (Join-Path $Root "results\project2_v3_multiseed_controlled_statistics.csv"),
+        (Join-Path $Root "paper\tables\project2_v3_multiseed_controlled_results.tex")
     )) {
         if (Test-Path -LiteralPath $stalePath) {
             Remove-Item -LiteralPath $stalePath -Force
@@ -238,9 +249,9 @@ foreach ($seed in $RequiredSeeds) {
     )
 }
 $aggregateArguments += @(
-    "--output-json", (Join-Path $Root "results\project2_multiseed_controlled_statistics.json"),
-    "--output-csv", (Join-Path $Root "results\project2_multiseed_controlled_statistics.csv"),
-    "--output-table", (Join-Path $Root "paper\tables\project2_multiseed_controlled_results.tex"),
+    "--output-json", (Join-Path $Root "results\project2_v3_multiseed_controlled_statistics.json"),
+    "--output-csv", (Join-Path $Root "results\project2_v3_multiseed_controlled_statistics.csv"),
+    "--output-table", (Join-Path $Root "paper\tables\project2_v3_multiseed_controlled_results.tex"),
     "--bootstrap-seed", "52042",
     "--bootstrap-samples", "10000",
     "--expected-conditions", "2000"

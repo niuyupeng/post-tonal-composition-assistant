@@ -1,10 +1,11 @@
 experiment_name: without_pcset_constraints
-seed: 49
+seed: 42
 device: auto
-run_dir: runs/without_pcset_constraints
-data_path: data/processed/project2_without_pcset.pt
-vocab_path: data/processed/project2_without_pcset.vocab.json
-generate_data: true
+condition_ablation: no_pcset
+run_dir: runs/v3/without_pcset_constraints
+data_path: data/processed/project2_v3_main.pt
+vocab_path: data/processed/project2_v3_main.vocab.json
+generate_data: false
 corpus:
   train_samples: 20000
   val_samples: 2000
@@ -15,7 +16,6 @@ corpus:
   max_voices: 8
   export_musicxml: false
   musicxml_dir: data/generated/without_pcset_musicxml
-  ablation: no_pcset
 model:
   hidden_size: 384
   layers: 6
@@ -32,13 +32,22 @@ training:
   fast_dev_run: false
   fp16: true
   num_workers: 0
+  sequence_mode: coverage_cycle
+  validation_sequence_mode: all
+  target_tokens_per_window: 128
+  coverage_cycle_epochs: 10
+  gradient_clipping: true
+  gradient_clip_norm: 1.0
 evaluation:
   split: test
   max_batches: null
   export_examples: 20
   generation_examples: 20
-  constraint_metric_samples: 100
+  constraint_metric_samples: 2000
   model_generation: true
   constraint_guided_decoding: false
   constraint_guided_attempts: 1
   max_new_tokens: 224
+  max_new_tokens_per_measure: 32
+  max_new_tokens_cap: 768
+  grammar_constrained_decoding: true

@@ -7,25 +7,16 @@
   output/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=25mm, fill=orange!8},
   arrow/.style={-{Latex[length=2mm]}, thick}
 ]
-  \node[theory] (rules) {Legal rule generator\\pc sets, rows, rhythm, gesture};
-  \node[block, right=5mm of rules] (targets) {Condition prefix +\\event-token target};
-  \node[block, right=5mm of targets] (trainmodel) {Causal Transformer\\next-token loss};
-  \draw[arrow] (rules) -- (targets);
-  \draw[arrow] (targets) -- (trainmodel);
-  \node[font=\small\bfseries, anchor=south west] at ([yshift=2mm]rules.north west) {Training};
-
-  \node[theory, below=19mm of rules] (conditions) {User conditions\\pc set/IV, row form, rhythm, gesture};
-  \node[block, right=5mm of conditions] (prefix) {Prefix tokens\\\texttt{BOS ... SEP}};
-  \node[block, right=5mm of prefix] (sampler) {Transformer sampling\\$K$ candidates};
-  \node[theory, right=5mm of sampler] (rerank) {Symbolic analysis\\weighted reranking};
-  \node[output, right=5mm of rerank] (outputs) {Selected sketch\\MusicXML + JSON};
-  \draw[arrow] (conditions) -- (prefix);
-  \draw[arrow] (prefix) -- (sampler);
-  \draw[arrow] (sampler) -- (rerank);
-  \draw[arrow] (rerank) -- (outputs);
-  \draw[arrow, dashed] (trainmodel.south) -- ++(0,-6mm) -| (sampler.north);
-  \node[font=\small\bfseries, anchor=south west] at ([yshift=2mm]conditions.north west) {Inference};
+  \node[theory] (conditions) {Post-tonal conditions\\pc set/IV, row form, rhythm, gesture};
+  \node[block, right=5mm of conditions] (encoders) {Condition encoders\\prefix tokens};
+  \node[block, right=5mm of encoders] (generator) {Score generator\\causal Transformer};
+  \node[theory, right=5mm of generator] (decoder) {Constraint-guided decoder\\$K$ candidates};
+  \node[output, right=5mm of decoder] (outputs) {MusicXML score\\+ analysis report};
+  \draw[arrow] (conditions) -- (encoders);
+  \draw[arrow] (encoders) -- (generator);
+  \draw[arrow] (generator) -- (decoder);
+  \draw[arrow] (decoder) -- (outputs);
 \end{tikzpicture}
-\caption{System overview. A legal procedural generator supplies condition--score pairs for causal language-model training. At inference, the same condition prefix produces $K$ candidate event sequences. Non-differentiable post-tonal and notational diagnostics rerank candidates before MusicXML and an analysis report are exported.}
+\caption{Corrected inference path. Post-tonal conditions are serialized by condition encoders, consumed by the causal score generator, and evaluated by a constraint-guided decoder before MusicXML and an analysis report are exported. A legal procedural generator supplies the condition--score pairs used for training.}
 \label{fig:method-pipeline}
 \end{figure}

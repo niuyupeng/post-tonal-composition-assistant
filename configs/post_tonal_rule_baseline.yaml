@@ -1,9 +1,9 @@
 experiment_name: rule_baseline
 seed: 42
 device: cpu
-run_dir: runs/rule_baseline
-data_path: data/processed/project2_rule_baseline.pt
-vocab_path: data/processed/project2_rule_baseline.vocab.json
+run_dir: runs/v3/rule_baseline
+data_path: data/processed/project2_v3_main.pt
+vocab_path: data/processed/project2_v3_main.vocab.json
 generate_data: true
 corpus:
   train_samples: 20000
@@ -31,10 +31,19 @@ training:
   fast_dev_run: false
   fp16: false
   num_workers: 0
+  sequence_mode: coverage_cycle
+  validation_sequence_mode: all
+  target_tokens_per_window: 128
+  coverage_cycle_epochs: 10
+  gradient_clipping: true
+  gradient_clip_norm: 1.0
 evaluation:
+  seed: 42042
   split: test
+  required_split_samples: 2000
   max_batches: null
   export_examples: 20
   generation_examples: 20
   constraint_metric_samples: 2000
   model_generation: false
+  rule_generation: true

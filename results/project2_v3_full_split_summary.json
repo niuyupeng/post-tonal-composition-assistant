@@ -1,0 +1,20 @@
+{
+  "corpus_format": "post_tonal_synthetic_v3_windowed",
+  "data_sha256": "857fd6eb77df2163a7383c615da7678ea8769f26b99d417362e37d404290bc42",
+  "generation_config_path": "configs/post_tonal_main.yaml",
+  "processed_data_path": "data/processed/project2_v3_main.pt",
+  "random_seed": 42,
+  "raw_sequence_length_max": 5872,
+  "raw_sequence_length_median": 821.0,
+  "raw_sequence_tokens_discarded_by_training": 0,
+  "raw_sequences_over_model_context": 21539,
+  "sequence_training_strategy": "coverage_cycle",
+  "smoke": false,
+  "split_source": "explicit corpus train_samples/val_samples/test_samples saved by generate_corpus.py",
+  "target_tokens_per_window": 128,
+  "test_count": 2000,
+  "timestamp": "2026-07-16T13:14:38.969266+00:00",
+  "train_count": 20000,
+  "val_count": 2000,
+  "vocab_sha256": "c6b9343e67b3a4e0bc3f1342ff0070d175cedf5544e379152b35e0f96a0fcc4d"
+}

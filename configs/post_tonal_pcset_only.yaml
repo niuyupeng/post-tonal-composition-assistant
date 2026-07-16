@@ -1,10 +1,11 @@
 experiment_name: pcset_only
-seed: 46
+seed: 42
 device: auto
-run_dir: runs/pcset_only
-data_path: data/processed/project2_pcset_only.pt
-vocab_path: data/processed/project2_pcset_only.vocab.json
-generate_data: true
+condition_ablation: pcset_only
+run_dir: runs/v3/pcset_only
+data_path: data/processed/project2_v3_main.pt
+vocab_path: data/processed/project2_v3_main.vocab.json
+generate_data: false
 corpus:
   train_samples: 20000
   val_samples: 2000
@@ -15,7 +16,6 @@ corpus:
   max_voices: 8
   export_musicxml: false
   musicxml_dir: data/generated/pcset_only_musicxml
-  ablation: pcset_only
 model:
   hidden_size: 384
   layers: 6
@@ -25,6 +25,7 @@ model:
 training:
   epochs: 60
   batch_size: 16
+  validation_batch_size: 64
   lr: 0.0003
   weight_decay: 0.01
   val_fraction: 0.1
@@ -32,8 +33,15 @@ training:
   fast_dev_run: false
   fp16: true
   num_workers: 0
+  sequence_mode: coverage_cycle
+  validation_sequence_mode: all
+  target_tokens_per_window: 128
+  coverage_cycle_epochs: 10
+  gradient_clipping: true
+  gradient_clip_norm: 1.0
 evaluation:
   split: test
+  required_split_samples: 2000
   max_batches: null
   export_examples: 20
   generation_examples: 20
@@ -42,3 +50,9 @@ evaluation:
   constraint_guided_decoding: false
   constraint_guided_attempts: 1
   max_new_tokens: 224
+  max_new_tokens_per_measure: 32
+  max_new_tokens_cap: 768
+  grammar_constrained_decoding: true
+  generation_batch_size: 16
+  generation_fp16: true
+  generation_progress: true

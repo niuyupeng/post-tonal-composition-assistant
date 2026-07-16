@@ -3,18 +3,20 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import random
 from pathlib import Path
 from typing import Any
 
 import torch
 
+from post_tonal.data.conditions import apply_condition_ablation
 from post_tonal.data.score_tokenizer import ScoreTokenizer
 from post_tonal.export_musicxml import export_musicxml
 from post_tonal.models.rule_generator import DEFAULT_PCSETS, RuleGenerator
 from post_tonal.theory.gesture import GESTURE_LABELS
 from post_tonal.theory.pcset import interval_vector
-from post_tonal.theory.rhythm_profile import RHYTHM_PROFILES
+from post_tonal.theory.rhythm_profile import RHYTHM_PROFILES, density_curve
 from post_tonal.theory.serial import generate_twelve_tone_row
 from post_tonal.utils import INSTRUMENTS, ensure_dir
 
@@ -26,10 +28,9 @@ def make_metadata(
     min_voices: int,
     max_voices: int,
     focus: str | None = None,
-    ablation: str | None = None,
 ) -> dict[str, Any]:
-    pcset = rng.choice(DEFAULT_PCSETS)
-    use_row = focus == "serial" or ablation == "serial_only" or rng.random() < 0.45
+    use_row = focus == "serial" or rng.random() < 0.45
+    pcset = [] if use_row else rng.choice(DEFAULT_PCSETS)
     row = generate_twelve_tone_row(rng=rng) if use_row else None
     form = rng.choice(["P", "R", "I", "RI"])
     row_form = f"{form}{rng.randrange(12)}" if use_row else None
@@ -37,22 +38,58 @@ def make_metadata(
     gesture = rng.choice(GESTURE_LABELS)
     if focus == "gesture":
         gesture = rng.choice(GESTURE_LABELS)
-    strip_pcset = ablation in {"no_constraints", "serial_only", "rhythm_only", "gesture_only", "no_pcset"}
-    strip_serial = ablation in {"no_constraints", "pcset_only", "rhythm_only", "gesture_only", "no_serial"}
-    strip_rhythm = ablation in {"no_constraints", "pcset_only", "serial_only", "gesture_only", "no_rhythm"}
-    strip_gesture = ablation in {"no_constraints", "pcset_only", "serial_only", "rhythm_only", "no_gesture"}
     metadata: dict[str, Any] = {
-        "pcset": [] if strip_pcset else pcset,
-        "interval_vector": None if strip_pcset else interval_vector(pcset),
-        "row": None if strip_serial else row,
-        "row_form": None if strip_serial else row_form,
-        "rhythm_profile": "medium" if strip_rhythm else rhythm_profile,
-        "gesture": "fragmented" if strip_gesture else gesture,
+        "pcset": pcset,
+        "interval_vector": interval_vector(pcset) if pcset else None,
+        "row": row,
+        "row_form": row_form,
+        "rhythm_profile": rhythm_profile,
+        "gesture": gesture,
         "voices": rng.randint(min_voices, max_voices),
         "measures": rng.randint(min_measures, max_measures),
         "instrument": rng.choice(INSTRUMENTS),
     }
     return metadata
+
+
+def derive_corpus(
+    source: str | Path,
+    output: str | Path,
+    vocab_output: str | Path,
+    ablation: str,
+) -> list[dict[str, Any]]:
+    source_payload = torch.load(source, map_location="cpu", weights_only=False)
+    tokenizer = ScoreTokenizer()
+    samples: list[dict[str, Any]] = []
+    for source_sample in source_payload["samples"]:
+        metadata = apply_condition_ablation(source_sample.get("metadata", {}), ablation)
+        events = copy.deepcopy(source_sample.get("events", []))
+        tokens = tokenizer.events_to_tokens(events, metadata)
+        samples.append(
+            {
+                **source_sample,
+                "token_ids": tokenizer.encode(tokens),
+                "eos_id": tokenizer.eos_id,
+                "metadata": metadata,
+                "target_metadata": copy.deepcopy(
+                    source_sample.get("target_metadata", source_sample.get("metadata", {}))
+                ),
+                "events": events,
+            }
+        )
+    payload = {
+        "format": "post_tonal_synthetic_v3_windowed",
+        "samples": samples,
+        "vocab_size": tokenizer.vocab_size,
+        "split_counts": source_payload.get("split_counts", {}),
+        "seed": source_payload.get("seed"),
+        "derived_from": str(source),
+        "condition_ablation": ablation,
+    }
+    ensure_dir(Path(output).parent)
+    torch.save(payload, output)
+    tokenizer.save(vocab_output)
+    return samples
 
 
 def generate_samples(
@@ -97,8 +134,10 @@ def generate_samples(
             split_plan.append("train" if idx < train_cut else "val" if idx < val_cut else "test")
 
     for idx in range(num_samples):
-        metadata = make_metadata(rng, min_measures, max_measures, min_voices, max_voices, focus=focus, ablation=ablation)
-        events = generator.generate(metadata)
+        target_metadata = make_metadata(rng, min_measures, max_measures, min_voices, max_voices, focus=focus)
+        events = generator.generate(target_metadata)
+        target_metadata["target_density_curve"] = density_curve(events, int(target_metadata["measures"]))
+        metadata = apply_condition_ablation(target_metadata, ablation)
         tokens = tokenizer.events_to_tokens(events, metadata)
         token_ids = tokenizer.encode(tokens)
         sample = {
@@ -106,6 +145,7 @@ def generate_samples(
             "token_ids": token_ids,
             "eos_id": tokenizer.eos_id,
             "metadata": metadata,
+            "target_metadata": copy.deepcopy(target_metadata),
             "events": events,
             "split": split_plan[idx],
         }
@@ -116,7 +156,7 @@ def generate_samples(
     split_counts = {split: sum(1 for sample in samples if sample["split"] == split) for split in ("train", "val", "test")}
     torch.save(
         {
-            "format": "post_tonal_synthetic_v2",
+            "format": "post_tonal_synthetic_v3_windowed",
             "samples": samples,
             "vocab_size": tokenizer.vocab_size,
             "split_counts": split_counts,
@@ -160,29 +200,35 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--train-samples", type=int, default=None)
     parser.add_argument("--val-samples", type=int, default=None)
     parser.add_argument("--test-samples", type=int, default=None)
+    parser.add_argument("--derive-from", type=str, default=None)
     return parser
 
 
 def main() -> None:
     args = build_arg_parser().parse_args()
-    generate_samples(
-        num_samples=args.num_samples,
-        output=args.output,
-        vocab_output=args.vocab_output,
-        seed=args.seed,
-        min_measures=args.min_measures,
-        max_measures=args.max_measures,
-        min_voices=args.min_voices,
-        max_voices=args.max_voices,
-        export_musicxml_flag=args.export_musicxml,
-        musicxml_dir=args.musicxml_dir,
-        musicxml_limit=args.musicxml_limit,
-        focus=args.focus,
-        ablation=args.ablation,
-        train_samples=args.train_samples,
-        val_samples=args.val_samples,
-        test_samples=args.test_samples,
-    )
+    if args.derive_from:
+        if not args.ablation:
+            raise SystemExit("--derive-from requires --ablation.")
+        derive_corpus(args.derive_from, args.output, args.vocab_output, args.ablation)
+    else:
+        generate_samples(
+            num_samples=args.num_samples,
+            output=args.output,
+            vocab_output=args.vocab_output,
+            seed=args.seed,
+            min_measures=args.min_measures,
+            max_measures=args.max_measures,
+            min_voices=args.min_voices,
+            max_voices=args.max_voices,
+            export_musicxml_flag=args.export_musicxml,
+            musicxml_dir=args.musicxml_dir,
+            musicxml_limit=args.musicxml_limit,
+            focus=args.focus,
+            ablation=args.ablation,
+            train_samples=args.train_samples,
+            val_samples=args.val_samples,
+            test_samples=args.test_samples,
+        )
 
 
 if __name__ == "__main__":

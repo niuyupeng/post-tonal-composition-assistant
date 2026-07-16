@@ -1,9 +1,9 @@
 experiment_name: multiseed_controlled_constraint_reranked
 seed: 42
 device: auto
-run_dir: runs/multiseed
-data_path: data/processed/project2_main.pt
-vocab_path: data/processed/project2_main.vocab.json
+run_dir: runs/v3/multiseed
+data_path: data/processed/project2_v3_main.pt
+vocab_path: data/processed/project2_v3_main.vocab.json
 generate_data: false
 model:
   hidden_size: 384
@@ -14,6 +14,9 @@ model:
 training:
   batch_size: 16
   num_workers: 0
+  sequence_mode: coverage_cycle
+  target_tokens_per_window: 128
+  coverage_cycle_epochs: 10
 evaluation:
   seed: 42042
   split: test
@@ -26,6 +29,9 @@ evaluation:
   constraint_guided_decoding: true
   constraint_guided_attempts: 4
   max_new_tokens: 224
+  max_new_tokens_per_measure: 32
+  max_new_tokens_cap: 768
+  grammar_constrained_decoding: true
   generation_batch_size: 32
   generation_fp16: true
   generation_progress: true

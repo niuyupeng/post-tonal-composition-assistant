@@ -3,53 +3,52 @@
 
 \subsection{Task formulation}
 
-The system generates a symbolic score fragment $x$ from a user-specified condition bundle $c$. The bundle may contain a pitch-class set $S$, its six-dimensional interval vector $v(S)$, a twelve-tone row $r$, a serial form label $f\in\{P_n,R_n,I_n,RI_n\}$, a rhythmic-profile label, a gesture label, an instrument, a voice count, and a measure count. The target is a 4--16-measure event sequence that can be exported as MusicXML. No waveform or audio representation is used.
+The system generates a quantized symbolic score fragment $x$ from a condition bundle $c$. The bundle may contain a pitch-class set $S$, a six-entry interval vector $v(S)$, a twelve-tone row $r$, a serial form $f\in\{P_n,R_n,I_n,RI_n\}$, a rhythmic profile, a gesture label, an instrument, a voice count, and a measure count. The requested output contains 4--16 measures and 2--8 parts and is returned as event tokens, MusicXML, and a score-level analysis report. No waveform or audio representation is used.
 
-We represent the conditional generation problem as
+The conditional language model factorizes
 \begin{equation}
   p_\theta(x\mid c)=\prod_{t=1}^{T}p_\theta(x_t\mid c,x_{<t}),
   \label{eq:conditional-lm}
 \end{equation}
-where $x_t$ is a score-event token and $\theta$ denotes the Transformer parameters. The practical objective is not only probable token continuation but also explicit satisfaction of score-level post-tonal constraints.
+where $x_t$ is a score-event token. The research objective is to combine next-token modeling with explicit, inspectable post-tonal constraints.
 
-\subsection{Legal synthetic corpus}
+\subsection{Legal procedural corpus}
 
-Because much post-1945 art-music repertoire remains under copyright, the default corpus is generated procedurally rather than scraped from scores. Each sample draws from seven reference pitch-class sets, seven rhythmic profiles (sparse, medium, dense, additive, burst, sustained, and pointillistic), seven gesture labels, six instrument labels, 2--8 voices, and 4--16 measures. A twelve-tone row is included for all serial-focused samples and with probability 0.45 in the general corpus; its transformation label is sampled from the 48 $P/R/I/RI$ forms. Durations and onset shifts are quantized to a quarter of a quarter note.
+Because much post-1945 art-music repertoire remains copyrighted, the bundled corpus is generated procedurally rather than scraped from published scores. Each sample specifies 4--16 measures, 2--8 voices, one instrument label, one of seven rhythmic profiles, and one of seven gesture labels. Non-serial samples receive a pitch-class set and interval vector. Serial samples instead receive a valid twelve-tone row and one of 48 transposed $P/R/I/RI$ forms. This separation prevents an impossible target in which one passage is simultaneously required to remain in a small set and complete the chromatic aggregate.
 
-The rule generator first constructs a rhythmic skeleton for each voice. Gesture-specific operations alter onset offsets, note omission, rest probability, duration, and register. Pitch classes are then drawn from the target set or cycled through the requested row form. Instrument-specific MIDI ranges constrain register selection. Onsets and durations use a sixteenth-note grid, represented as 0.25 quarterLength units. This process supplies reproducible condition--target pairs; it is not presented as a model of any individual composer or historical style.
+The rule generator creates a rhythmic skeleton for each voice, applies gesture-dependent onset, duration, rest, and register operations, and selects pitches inside the requested instrument range. Time is quantized to 0.25 quarterLength. The random density curve realized in each target is saved for held-out evaluation, but it is removed from model-visible condition metadata and is not used by candidate reranking.
 
-\subsection{Condition and score tokenization}
+\subsection{Condition and event representation}
 
-Conditions are serialized as a prefix rather than encoded by separate neural subnetworks. The prefix begins with \texttt{BOS}, followed by zero or more \texttt{PC}, interval-vector, row-pitch, and row-form tokens, then rhythmic profile, gesture, voice-count, measure-count, and instrument tokens, and terminates with \texttt{SEP}. Explicit \texttt{NO\_PCSET} and \texttt{NO\_ROW} symbols represent absent pitch-set and serial conditions.
+Conditions are serialized as a prefix beginning with \texttt{BOS} and ending with \texttt{SEP}. The prefix can include pitch-class, interval-vector, row-pitch, row-form, rhythmic-profile, gesture, voice-count, measure-count, and instrument tokens. Explicit \texttt{NO\_PCSET}, \texttt{NO\_ROW}, \texttt{NO\_PROFILE}, and \texttt{NO\_GESTURE} symbols identify absent conditions.
 
-The score body uses \texttt{BAR}, \texttt{TIME\_SHIFT}, \texttt{VOICE}, \texttt{PITCH}, \texttt{OCTAVE}, \texttt{DUR}, and \texttt{REST} events, followed by \texttt{EOS}. This compact representation preserves the information needed for quantized polyphonic MusicXML reconstruction while keeping sequences within a 256-token context. The training loss is standard teacher-forced negative log likelihood over the concatenated condition and score sequence:
-\begin{equation}
-  \mathcal{L}_{\mathrm{NLL}}(\theta)
-  =-\sum_{t=1}^{T}\log p_\theta(z_t\mid z_{<t}),
-  \label{eq:nll}
-\end{equation}
-where $z=[c; x]$. Consequently, reported token accuracy is a full-sequence next-token diagnostic and should not be interpreted as a direct measure of musical quality.
+The score body contains \texttt{BAR}, \texttt{TIME\_SHIFT}, \texttt{VOICE}, \texttt{PITCH}, \texttt{OCTAVE}, \texttt{DUR}, and \texttt{REST} events followed by \texttt{EOS}. A finite-state grammar constrains decoding order, requested voice indices, instrument range, and requested bar count. The parser clamps decoded events to the requested span.
+
+Many complete fragments exceed the 256-token model context. Training therefore uses windows that preserve the conditions instead of silently truncating the sequence. Every window repeats the complete condition prefix and retains preceding score context when capacity permits. Loss is applied only to the current score-body target segment. A ten-epoch coverage cycle partitions the target windows so that every saved score-body token contributes once per cycle. Validation and teacher-forced evaluation enumerate all windows. Reported token accuracy and cross-entropy are body-token diagnostics, not measures of compositional quality.
 
 \subsection{Conditional Transformer}
 
-The neural generator is a causal Transformer \cite{vaswani2017attention} with six layers, hidden dimension 384, and six attention heads. Each layer uses a GELU feed-forward block of width $4d$, learned positional embeddings, pre-normalization, and dropout 0.1. A triangular attention mask prevents access to future tokens. The model contains no audio encoder, pretrained language model, or external score corpus.
-
-At inference, top-$k$ sampling with $k=20$ produces one or more event-token continuations from the condition prefix. Tokens after \texttt{SEP} are parsed back into timestamped notes and rests. Instrument, gesture, and rhythmic metadata are retained for analysis and MusicXML export.
+The generator is a causal Transformer \cite{vaswani2017attention} with six layers, hidden dimension 384, six attention heads, GELU feed-forward blocks of width $4d$, learned positional embeddings, pre-normalization, and dropout 0.1. The training objective is teacher-forced negative log likelihood over the unmasked score-body labels:
+\begin{equation}
+  \mathcal{L}_{\mathrm{NLL}}(\theta)
+  =-\sum_{t\in\mathcal{T}}\log p_\theta(z_t\mid z_{<t}),
+  \label{eq:nll}
+\end{equation}
+where $\mathcal{T}$ denotes the current target window. No pretrained language model or external score corpus is used.
 
 \subsection{Constraint-guided candidate reranking}
 
-The proposed decoder draws $K$ candidates and applies deterministic score-level analysis to each. Let $m_j(x,c)$ denote a penalty associated with constraint $j$. Candidate selection is
+At inference, the proposed decoder samples $K$ grammar-constrained candidates and analyzes each at score level. Candidate selection is
 \begin{equation}
-  x^*=\arg\min_{x\in\mathcal{C}_K}
-  \sum_j \lambda_j m_j(x,c),
+  x^*=\arg\min_{x\in\mathcal{C}_K}\sum_j\lambda_j m_j(x,c),
   \label{eq:reranking}
 \end{equation}
-where $\mathcal{C}_K$ is the sampled candidate set. The implemented weights are 1.0 for missing pc-set coverage, 0.05 for interval-vector distance, 1.0 for row-order error, 0.5 for incomplete aggregate coverage, 0.5 for rhythmic-profile distance, 0.5 for gesture inconsistency, and 2.0 for instrument-range violations. Pc-set, interval-vector, and row-order terms are inactive when their targets are absent. Aggregate completion remains active for every sample. This design choice can oppose a small target set by rewarding additional pitch classes, so its consequences are measured rather than assumed beneficial. All terms are used only for inference-time reranking; they are not presented as differentiable training losses.
+where $m_j$ includes missing pc-set coverage, off-set pitch classes, interval-vector distance, cyclic row-order error, incomplete strict serial forms, incomplete serial aggregates, rhythmic-profile distance, gesture inconsistency, instrument-range violations, insufficient content span, and missing requested voices. Pitch-class terms are inactive without a pc-set target, and serial-form and aggregate terms are inactive without a row target. The held-out stochastic density curve is excluded from this objective. These non-differentiable terms are used only for candidate selection and are not presented as training losses.
 
-The controlled experiment uses $K=1$ as the single-candidate decoder and $K=4$ as the constraint-reranked decoder. Within each checkpoint, both conditions use the same test conditions and per-sample random seed, so the first candidate in the $K=4$ set is identical to the $K=1$ output. This identity is verified by a SHA-256 fingerprint for every condition. Candidate count and symbolic selection therefore define the within-checkpoint contrast. The same protocol is then repeated for three independently trained checkpoints that share the processed corpus and vocabulary but differ in initialization and minibatch order. This separates test-condition variation from checkpoint-level variation without pooling unrelated configuration runs.
+The primary controlled contrast uses one shared trained generator: $K=1$ is the vanilla decoder and $K=4$ is the guided decoder. A deterministic random-number stream is assigned to each test condition, making the first $K=4$ candidate identical to the corresponding $K=1$ output. Condition-removal models use the same corpus samples and target events while modifying only model-visible prefix fields. Evaluation retains the original hidden targets.
 
-\subsection{Explainable score analysis and export}
+\subsection{Analysis and MusicXML export}
 
-Each selected candidate receives a JSON report containing pc-set coverage, generated interval vector, interval-vector distance when applicable, cyclic row-order accuracy, aggregate completion, per-measure density, rhythmic-profile distance, density-curve error, gesture features, gesture consistency, register spread, and instrument-range violations. Serial transformation accuracy currently uses the same cyclic order comparison as row-order accuracy and is therefore treated as an alias rather than an independent endpoint.
+Each selected fragment receives pc-set coverage, pc-set precision and Jaccard similarity, generated interval vector, interval-vector distance, cyclic row-order accuracy, strict complete-form accuracy, serial aggregate completion, density curve, rhythmic-profile distance, held-out density-curve error, gesture features, gesture consistency, register spread, range violations, content-span adherence, and requested-voice adherence. Strict serial-form accuracy counts complete non-overlapping twelve-note blocks and is independent of cyclic row-order accuracy.
 
-MusicXML is generated with score parts, measures, voices, pitches, rests, and durations \cite{musicxml2021spec}. Export success requires both file creation and structural parsing as a \texttt{score-partwise} or \texttt{score-timewise} document. Figure~\ref{fig:method-pipeline} summarizes the training and inference paths.
+MusicXML export creates the requested number of score parts and measures, pads empty trailing measures, and removes events outside the requested span \cite{musicxml2021spec}. Success is recorded separately for structural parsing, requested measure count, and requested part count.

@@ -9,6 +9,7 @@ from post_tonal.theory.serial import (
     is_valid_row,
     row_form,
     row_order_accuracy,
+    serial_transformation_accuracy,
 )
 
 
@@ -33,4 +34,7 @@ def test_serial_metrics():
     assert row_order_accuracy(row, row) == 1.0
     assert row_order_accuracy([0, 2, 1], row) == 1 / 12
     assert cyclic_row_order_accuracy(row + row, row) == 1.0
+    assert serial_transformation_accuracy(row + row, row, "P0") == 1.0
+    assert serial_transformation_accuracy(row, row, "R0") == 0.0
+    assert serial_transformation_accuracy(row[:8], row, "P0") == 0.0
     assert aggregate_completion_rate([0, 1, 2, 3, 4, 5]) == 0.5

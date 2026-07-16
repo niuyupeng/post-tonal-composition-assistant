@@ -20,53 +20,19 @@ MAIN_EXPERIMENTS = {
 
 DISPLAY_NAMES = {
     "rule_baseline": "Rule reference",
-    "vanilla_transformer": "Independent vanilla",
-    "proposed_constraint_guided_transformer": "Original guided",
-    "transformer_no_constraints": "No constraints (seed 44)",
+    "vanilla_transformer": "Shared generator, K=1",
+    "proposed_constraint_guided_transformer": "Shared generator, K=4 guided",
+    "transformer_no_constraints": "No constraints (seed 42)",
     "without_pcset_constraints": "No pc-set token",
     "without_serial_constraints": "No row token",
-    "without_rhythm_constraints": "Fixed rhythm",
-    "without_gesture_constraints": "Fixed gesture",
+    "without_rhythm_constraints": "No rhythm token",
+    "without_gesture_constraints": "No gesture token",
     "serial_only": "Serial only",
     "pcset_only": "PC-set only",
     "rhythm_only": "Rhythm only",
     "gesture_only": "Gesture only",
     "no_constraints": "No constraints (seed 53)",
 }
-
-NO_PCSET_TARGET = {
-    "transformer_no_constraints",
-    "without_pcset_constraints",
-    "serial_only",
-    "rhythm_only",
-    "gesture_only",
-    "no_constraints",
-}
-NO_SERIAL_TARGET = {
-    "transformer_no_constraints",
-    "without_serial_constraints",
-    "pcset_only",
-    "rhythm_only",
-    "gesture_only",
-    "no_constraints",
-}
-NO_VARIABLE_RHYTHM_TARGET = {
-    "transformer_no_constraints",
-    "without_rhythm_constraints",
-    "serial_only",
-    "pcset_only",
-    "gesture_only",
-    "no_constraints",
-}
-NO_VARIABLE_GESTURE_TARGET = {
-    "transformer_no_constraints",
-    "without_gesture_constraints",
-    "serial_only",
-    "pcset_only",
-    "rhythm_only",
-    "no_constraints",
-}
-
 
 def _read_rows(metrics_csv: Path) -> list[dict[str, Any]]:
     if metrics_csv.exists():
@@ -93,18 +59,6 @@ def _format(value: Any) -> str:
         return str(value).replace("_", "\\_")
 
 
-def _applicable(experiment: str, field: str) -> bool:
-    if field == "target_pcset_coverage" and experiment in NO_PCSET_TARGET:
-        return False
-    if field == "row_order_accuracy" and experiment in NO_SERIAL_TARGET:
-        return False
-    if field == "rhythmic_profile_distance" and experiment in NO_VARIABLE_RHYTHM_TARGET:
-        return False
-    if field == "gesture_consistency_score" and experiment in NO_VARIABLE_GESTURE_TARGET:
-        return False
-    return True
-
-
 def _write_csv(path: Path, rows: list[dict[str, Any]], fields: list[str]) -> None:
     ensure_dir(path.parent)
     with path.open("w", newline="", encoding="utf-8") as handle:
@@ -120,29 +74,40 @@ def _write_table(path: Path, rows: list[dict[str, Any]], caption: str, label: st
         "experiment",
         "token_accuracy",
         "target_pcset_coverage",
+        "pcset_precision",
+        "interval_vector_distance",
         "row_order_accuracy",
+        "aggregate_completion_rate",
+        "serial_transformation_accuracy",
         "rhythmic_profile_distance",
+        "density_curve_error",
         "gesture_consistency_score",
+        "range_violation_rate",
+        "content_span_ratio",
+        "voice_count_adherence",
         "musicxml_export_success_rate",
+        "musicxml_measure_adherence_rate",
     ]
     lines = [
         "\\begin{table}[t]",
         "\\centering",
         "\\small",
         "\\resizebox{\\textwidth}{!}{%",
-        "\\begin{tabular}{lrrrrrr}",
+        "\\begin{tabular}{lrrrrrrrrrrrrrrr}",
         "\\toprule",
-        "Experiment & Token acc. & PC cov. & Row acc. & Rhythm dist. & Gesture & XML (20) \\\\",
+        "Experiment & Token acc. & PC cov. & PC prec. & IV dist. & Row acc. & Aggregate & Form acc. & Rhythm dist. & Density err. & Gesture & Range viol. & Span & Voices & XML export & XML span \\\\",
         "\\midrule",
     ]
     for row in rows:
         experiment = str(row.get("experiment", ""))
         cells = [DISPLAY_NAMES.get(experiment, experiment).replace("_", "\\_")]
         for field in fields[1:]:
-            cells.append(_format(row.get(field)) if _applicable(experiment, field) else "--")
+            cells.append(_format(row.get(field)))
         lines.append(" & ".join(cells) + " \\\\")
     if not rows:
-        lines.append("PENDING\\_REAL\\_EXPERIMENT & -- & -- & -- & -- & -- & -- \\\\")
+        lines.append(
+            "PENDING\\_REAL\\_EXPERIMENT & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\\\"
+        )
     lines.extend(
         [
             "\\bottomrule",
@@ -173,13 +138,13 @@ def make_tables(
     _write_table(
         Path(main_table),
         main_rows,
-        "Archived aggregate results. Independent neural rows use different generated corpora and are descriptive rather than paired comparisons. Row accuracy is averaged only over row-conditioned samples, so its denominator differs from the 2,000-item test-set total and can vary by configuration. XML success is measured over 20 attempted exports per configuration.",
+        "Corrected aggregate results on one shared procedural corpus. Neural condition ablations preserve sample identifiers, targets, and train/validation/test membership while changing only condition-prefix fields. Row and serial-form accuracy are averaged over row-conditioned samples. XML-span adherence is measured over 20 attempted exports per configuration.",
         "tab:project2-main-results",
     )
     _write_table(
         Path(ablation_table),
         ablation_rows,
-        "Exploratory condition and fixed-default configurations. Dashes denote metrics that are not applicable because the corresponding target is absent or fixed. Row accuracy is averaged only over row-conditioned samples. XML success is measured over 20 attempted exports per configuration.",
+        "Condition-prefix ablations and focused-condition models on the shared procedural corpus. Each model sees the ablated condition prefix, while evaluation retains the original held-out targets. Row and serial-form accuracy are averaged over row-conditioned samples. XML-span adherence is measured over 20 attempted exports per configuration.",
         "tab:project2-ablation-results",
     )
     return {"rows": len(rows), "main_rows": len(main_rows), "ablation_rows": len(ablation_rows)}

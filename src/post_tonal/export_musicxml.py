@@ -42,6 +42,8 @@ def events_to_score(events: list[dict[str, Any]], metadata: dict[str, Any] | Non
         raise RuntimeError("music21 is not installed; use export_musicxml for the built-in fallback writer.")
     metadata = metadata or {}
     voices = max(1, int(metadata.get("voices", max([int(e.get("voice", 0)) for e in events], default=0) + 1)))
+    measures = min(16, max(1, int(metadata.get("measures", 4))))
+    target_beats = measures * 4.0
     instrument_name = metadata.get("instrument", "generic_voice")
     score = stream.Score(id="post_tonal_fragment")
     score.metadata = m21metadata.Metadata()
@@ -53,16 +55,43 @@ def events_to_score(events: list[dict[str, Any]], metadata: dict[str, Any] | Non
         part.insert(0, _instrument(instrument_name))
         part.insert(0, meter.TimeSignature("4/4"))
         part.partName = f"{instrument_name}_{voice_idx + 1}"
-        voice_events = [event for event in events if int(event.get("voice", 0)) == voice_idx]
+        voice_events = [
+            event
+            for event in events
+            if int(event.get("voice", 0)) == voice_idx
+            and 0.0 <= float(event.get("onset", 0.0)) < target_beats
+        ]
+        highest_end = 0.0
         for event in voice_events:
-            ql = max(0.25, float(event.get("duration", 0.25)))
+            onset = float(event.get("onset", 0.0))
+            ql = min(
+                max(0.25, float(event.get("duration", 0.25))),
+                target_beats - onset,
+            )
             if event.get("is_rest", False) or event.get("pitch") is None:
                 obj = note.Rest()
             else:
                 obj = note.Note(int(event["pitch"]))
             obj.duration = duration.Duration(ql)
-            part.insert(float(event.get("onset", 0.0)), obj)
-        score.insert(0, part.makeMeasures(inPlace=False))
+            part.insert(onset, obj)
+            highest_end = max(highest_end, onset + ql)
+        if highest_end < target_beats:
+            padding = note.Rest()
+            padding.duration = duration.Duration(0.25)
+            padding.style.hideObjectOnPrint = True
+            part.insert(target_beats - 0.25, padding)
+        measured_part = part.makeMeasures(inPlace=False)
+        written_measures = list(measured_part.getElementsByClass(stream.Measure))
+        for extra in written_measures[measures:]:
+            measured_part.remove(extra)
+        while len(list(measured_part.getElementsByClass(stream.Measure))) < measures:
+            measure_number = len(list(measured_part.getElementsByClass(stream.Measure))) + 1
+            missing_measure = stream.Measure(number=measure_number)
+            full_rest = note.Rest()
+            full_rest.duration = duration.Duration(4.0)
+            missing_measure.append(full_rest)
+            measured_part.append(missing_measure)
+        score.insert(0, measured_part)
     return score
 
 

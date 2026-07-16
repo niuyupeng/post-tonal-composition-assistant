@@ -105,6 +105,31 @@ def cyclic_row_order_accuracy(generated_pcs: Iterable[int], expected_row: Iterab
     return correct / len(generated)
 
 
+def serial_transformation_accuracy(
+    generated_pcs: Iterable[int],
+    source_row: Iterable[int],
+    expected_label: str,
+) -> float:
+    """Exact requested-form accuracy over complete generated aggregates.
+
+    This is deliberately stricter than cyclic row-order accuracy. Each complete
+    non-overlapping 12-note block must equal the requested P/R/I/RI form.
+    Partial terminal blocks do not count as completed transformations.
+    """
+
+    generated = [int(pc) % 12 for pc in generated_pcs]
+    expected = row_form(source_row, expected_label)
+    complete_blocks = len(generated) // 12
+    if complete_blocks == 0:
+        return 0.0
+    correct = 0
+    for block_index in range(complete_blocks):
+        start = block_index * 12
+        if generated[start : start + 12] == expected:
+            correct += 1
+    return correct / complete_blocks
+
+
 def aggregate_completion_rate(generated_pcs: Iterable[int]) -> float:
     generated = {int(pc) % 12 for pc in generated_pcs}
     return len(generated) / 12.0

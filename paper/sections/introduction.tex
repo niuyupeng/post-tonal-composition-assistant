@@ -9,11 +9,11 @@ Data legality presents a second challenge. A large fraction of relevant post-194
 
 We study a condition-prefix Transformer that generates quantized event sequences and a neural-symbolic decoder that reranks sampled candidates using non-differentiable post-tonal diagnostics. The approach is deliberately modest at the neural level: it does not introduce a new attention architecture. Its contribution lies in connecting causal symbolic generation to pitch-class-set, serial, rhythmic, gestural, register, and notation-level checks, and in returning both a MusicXML sketch and a machine-readable explanation.
 
-The study addresses three research questions:
+The corrected study addresses three research questions:
 \begin{itemize}
-  \item \textbf{RQ1:} With each neural checkpoint and the test conditions fixed, does multi-candidate symbolic reranking improve explicit constraint metrics relative to single-candidate sampling, and which effects recur across independently trained checkpoints?
-  \item \textbf{RQ2:} What descriptive patterns appear across the archived condition-removal and fixed-default configurations?
-  \item \textbf{RQ3:} Can the resulting fragments be exported reliably as structurally valid MusicXML with inspectable analysis reports?
+  \item \textbf{RQ1:} With one trained generator and fixed test conditions, how does four-candidate symbolic reranking change explicit constraint metrics relative to its aligned first candidate?
+  \item \textbf{RQ2:} How does hiding pc-set, serial, rhythm, or gesture fields from the condition prefix affect adherence to the unchanged held-out targets?
+  \item \textbf{RQ3:} Can generated fragments be exported as structurally valid MusicXML with the requested measures and voices and with inspectable analysis reports?
 \end{itemize}
 
 The main contributions are:
@@ -21,7 +21,7 @@ The main contributions are:
   \item a legal and reproducible 24,000-fragment synthetic corpus protocol for score-level post-tonal conditions;
   \item a compact condition-prefix/event representation and locally trainable Transformer conditioned on requested spans of 4--16 measures and 2--8 voices;
   \item an inference-time candidate-reranking objective grounded in pc-set, serial, rhythmic, gestural, and range diagnostics; and
-  \item an aligned three-checkpoint decoding evaluation and export layer that connects aggregate metrics to MusicXML examples and per-fragment JSON reports.
+  \item a provenance-gated evaluation and export layer that connects aggregate metrics to MusicXML examples and per-fragment JSON reports.
 \end{enumerate}
 
-The resulting claims are intentionally bounded. Quantitative findings concern a synthetic constraint testbed, not stylistic authenticity. Expert judgments of compositional usefulness are planned with the supplied blind-rating package but are not inferred from automatic metrics.
+The resulting claims are intentionally bounded. Corrected quantitative findings will concern a synthetic constraint testbed, not stylistic authenticity. Expert judgments of compositional usefulness are planned with the supplied blind-rating package but are not inferred from automatic metrics. Until the formal v3 run completes, numerical neural claims are marked \texttt{PENDING\_REAL\_EXPERIMENT}.
