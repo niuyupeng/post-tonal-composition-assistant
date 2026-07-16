@@ -2,7 +2,7 @@
 
 ## Stage 1: Evidence lock
 
-- Treat `results/project2_metrics.csv`, `results/project2_constraints.csv`, `results/project2_full_split_summary.json`, run summaries, and the expert-evaluation manifest as the only quantitative evidence sources.
+- Treat `results/project2_metrics.csv`, `results/project2_constraints.csv`, `results/project2_full_split_summary.json`, `results/project2_controlled_statistics.*`, `results/project2_multiseed_training_*`, `results/project2_multiseed_controlled_statistics.*`, run summaries, and the expert-evaluation manifest as the only quantitative evidence sources.
 - Maintain a claim ledger that distinguishes measured results, implementation facts, interpretations, limitations, and pending human evidence.
 - Mark metrics as not applicable when the corresponding condition is absent; reserve `PENDING_REAL_EXPERIMENT` for genuinely required but unavailable evidence.
 
@@ -39,15 +39,16 @@ Priority A:
 
 Priority B:
 
-- Retain the completed three-seed proposed-model training diagnostics and add comparable vanilla seeds if compute time permits.
-- Repeat aligned K=1/K=4 generation for each trained seed before claiming cross-seed reranking stability.
+- Retain the completed three-seed proposed-model training diagnostics.
+- Integrate the completed aligned K=1/K=4 replication for seeds 42, 43, and 44 without pooling it with the primary-checkpoint table.
+- Add comparable vanilla-model seeds only if compute time permits and the resulting claim is needed.
 
 Priority C:
 
 - Add a pc-set precision/Jaccard or off-set contamination metric because coverage alone is recall-like.
 - Separate serial transformation identification from row-order accuracy if both are retained.
 
-Deliverable: stronger statistical and human-centered evidence. Until available, related claims remain `PENDING_REAL_EXPERIMENT` or are removed.
+Deliverable: integrate the completed replication while keeping uncollected human evidence and optional metric extensions marked `PENDING_REAL_EXPERIMENT` or outside the claim set.
 
 ## Stage 5: Submission package
 
@@ -60,33 +61,34 @@ Deliverable: submission-ready manuscript and supplementary package.
 
 ## Immediate execution order
 
-1. Correct title encoding, result numbers, model description, table semantics, and labels.
-2. Rewrite all core sections with the current verified evidence.
-3. Verify and expand the bibliography with primary sources.
-4. Build figures and compile the PDF.
-5. Decide whether to submit a bounded proof of concept now or wait for expert ratings and cross-seed controlled decoding.
+1. Integrate `paper/tables/project2_multiseed_controlled_results.tex` into the manuscript as a replication table separate from the primary-checkpoint controlled table.
+2. Update the Abstract, Results, Discussion, Limitations, Conclusion, and reproducibility text using only `results/project2_multiseed_controlled_statistics.*`.
+3. Run a numerical trace from every new value to the aggregate JSON or CSV, then rebuild and inspect both manuscript variants.
+4. Commit and publish the completed experiment artifacts and documentation.
+5. Decide whether to submit the bounded automatic study before blind expert ratings are collected.
 
 ## Fast-track execution board
 
 | Workstream | Status | Evidence gate | Output |
 |---|---|---|---|
 | Scientific and implementation review | complete | source, configs, checkpoints, and archived outputs inspected | `SCI_MANUSCRIPT_REVIEW.md`, `CLAIMS_LEDGER.md` |
-| Core method and experiment prose | complete pending final cross-check | implementation facts and full-run artifacts | Methodology, Experimental Setup, Evaluation Metrics, Limitations, Reproducibility |
+| Core method and experiment prose | complete | implementation facts, full-run artifacts, and the controlled aggregate | Methodology, Experimental Setup, Evaluation Metrics, Limitations, Reproducibility |
 | Primary literature and positioning | complete pending journal-style conversion | verified publisher or conference records | Related Work and `references.bib` |
 | Controlled $K=1$ evaluation | complete | 2,000 aligned per-sample records | single-candidate JSON and aggregate metrics |
 | Controlled $K=4$ evaluation | complete | 2,000 aligned per-sample records from the same checkpoint and conditions | reranked JSON and aggregate metrics |
 | Paired statistics | complete | 2,000 sample IDs and condition bundles match; serial $n=914$, non-serial $n=1,086$ | paired CSV/JSON, bootstrap intervals, controlled table |
-| Abstract, Results, and Discussion | complete pending final audit | all numeric claims sourced from paired CSV/JSON | evidence-bound prose |
+| Abstract, Results, and Discussion | complete | new numeric claims trace to `project2_multiseed_controlled_statistics.*` | evidence-bound prose with separate primary and replication tables |
 | Controlled effect figure | complete | selected endpoints have prespecified favorable directions | PDF/SVG/PNG and source CSV |
 | Representative score figure | integrated | controlled example 019 is structurally valid, spans the requested 5/5 measures, and has a matching JSON report | rendered score and self-contained caption |
 | Expert package preparation | complete; ratings pending | 20 controlled $K=4$ MusicXML files parse structurally and are anonymized | condition-aware forms, manifest, withheld reports |
-| Multi-seed training replication | complete with a stated scope limit | seeds 42--44 completed; each checkpoint has a 2,000-item teacher-forced test row | per-seed CSV, aggregate JSON, and LaTeX table; cross-seed K=1/K=4 remains pending |
+| Multi-seed training replication | complete with a stated scope limit | seeds 42--44 completed; each checkpoint has a 2,000-item teacher-forced test row | per-seed CSV, aggregate JSON, and LaTeX table |
+| Three-checkpoint controlled decoding | complete with endpoint-specific interpretation | seeds 42--44 each have aligned K=1/K=4 records for 2,000 shared conditions; first candidates match by SHA256 | per-seed statistics, crossed-bootstrap JSON/CSV, and a separate replication table |
 | Submission package | prepared with explicit gates | no author identity, policy, or declaration inferred | anonymous wrapper, checklist, cover letter, metadata form, declarations |
-| Final manuscript QA | complete for the post-replication draft | all numbers traced to artifacts; both LaTeX variants compile without warnings; 26 tests pass | two inspected 21-page PDFs and claim audit |
-| GitHub synchronization | complete through verified Git Database API transport | remote tree and commit hashes match the local branch; direct HTTPS transport remained unavailable | use ordinary `git push` again when the host route recovers |
+| Final manuscript QA | complete | 28 tests passed; 14-row numeric traces passed; both 23-page PDFs and all 46 rendered pages were checked after integration | final identified and anonymous PDFs plus QA records |
+| GitHub synchronization | ready for final commit | controlled-replication artifacts, manuscript, and QA are complete locally | commit and push the final evidence set |
 
-The critical dependency chain is $K=4$ evaluation $\rightarrow$ paired statistics $\rightarrow$ controlled table and figure $\rightarrow$ Abstract/Results/Discussion $\rightarrow$ final numerical audit. Literature, method prose, figure preparation, testing, and repository commits proceed in parallel. No manuscript sentence may bypass this chain by substituting archived cross-configuration values for the controlled comparison.
+The three-checkpoint aggregate, separate replication table, manuscript integration, numerical audit, and PDF page-level QA are complete. The remaining repository action is the final commit and push. No manuscript sentence may substitute archived cross-configuration values for either controlled comparison or merge the primary-checkpoint and three-checkpoint estimates.
 
 ## Submission decision gate
 
-The fastest defensible submission is a bounded proof of concept centered on automatic constraint adherence, reproducible synthetic data, and structurally valid score export. Composer preference, perceptual gesture recognition, and practical usefulness remain outside that claim set until blind ratings are collected. The completed training replications support only sequence-level diagnostics; cross-seed controlled decoding remains a stated limitation.
+The fastest defensible submission is a bounded proof of concept centered on automatic constraint adherence, reproducible synthetic data, and structurally valid score export. The three-checkpoint controlled replication supports recurring directions for selected automatic diagnostics and recurring conflicts for serial pc-set coverage and aggregate completion. It does not provide evidence of composer preference, perceptual gesture recognition, or practical usefulness. Those claims remain outside the paper until blind ratings are collected.

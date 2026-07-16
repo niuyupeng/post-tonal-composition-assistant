@@ -81,8 +81,12 @@ Run label: formal_retrain_2026_06_17_plus_full_2000_eval
 - `results/project2_full_split_summary.json`
 - `results/project2_full_run_report.md`
 - `results/project2_constraint_summary.svg`
+- `results/project2_multiseed_controlled_statistics.csv`
+- `results/project2_multiseed_controlled_statistics.json`
+- `results/multiseed_controlled/`
 - `paper/tables/project2_main_results.tex`
 - `paper/tables/project2_ablation_results.tex`
+- `paper/tables/project2_multiseed_controlled_results.tex`
 - `results/eval_musicxml/proposed_constraint_guided_transformer/`
 - `expert_eval/project2/musicxml/`
 - `expert_eval/project2/analysis_reports/`
@@ -91,11 +95,10 @@ Run label: formal_retrain_2026_06_17_plus_full_2000_eval
 - `logs/project2_full_eval_2000.log`
 
 ## Remaining TODOs
-- Expert human ratings have not been collected.
-- Manuscript claims must be traced to the matching evidence family: archived configuration rows in `project2_metrics.csv`/`project2_constraints.csv`, paired decoding effects in `project2_controlled_statistics.*`, and independent-seed diagnostics in `project2_multiseed_training_*`. Future cross-seed decoding claims require the dedicated `project2_multiseed_controlled_statistics.*` outputs.
-- Cross-seed controlled `K=1` versus `K=4` decoding has not been run; the completed three-seed replication covers teacher-forced sequence diagnostics only.
+- Manuscript claims must be traced to the matching evidence family: archived configuration rows in `project2_metrics.csv`/`project2_constraints.csv`, the primary-checkpoint paired decoding effects in `project2_controlled_statistics.*`, independent-seed teacher-forced diagnostics in `project2_multiseed_training_*`, and the three-checkpoint controlled replication in `project2_multiseed_controlled_statistics.*`.
+- Blind expert ratings, legally supplied external MusicXML validation, author metadata, an archival DOI, and current JNMR portal verification remain pending.
 
-## Controlled Manuscript Evaluation (2026-07-14)
+## Primary-Checkpoint Controlled Manuscript Evaluation (2026-07-14)
 
 - Loaded `runs/proposed_constraint_guided_transformer/checkpoint.pt` for both decoding conditions; no retraining or checkpoint change was performed.
 - Evaluated the complete 2,000-item test split with evaluation seed 42042 and per-item seeds 42042--44041.
@@ -108,6 +111,7 @@ Run label: formal_retrain_2026_06_17_plus_full_2000_eval
 - Paired statistics are stored in `results/project2_controlled_statistics.json` and `results/project2_controlled_statistics.csv`.
 - The generated main table is `paper/tables/project2_controlled_results.tex`; the effect figure is `paper/figures/controlled_effects.pdf`.
 - The evidence-bound manuscript compiled with XeLaTeX to `paper/main.pdf` without layout or reference warnings, and the post-change test run completed with 16 passing tests.
+- This table remains the primary-checkpoint analysis. It is not pooled with or replaced by the later three-checkpoint replication.
 
 ## Post-run credibility work (2026-07-15)
 
@@ -129,15 +133,61 @@ Run label: formal_retrain_2026_06_17_plus_full_2000_eval
 - Seed 44 ran 26 epochs and selected epoch 16 with validation loss 0.8113609002.
 - Every saved checkpoint loaded on CPU with 78 finite tensors and 11,091,137 parameter values. SHA256 hashes are recorded in `results/project2_multiseed_training_metrics.csv`.
 - Each checkpoint was evaluated teacher-forced on all 2,000 test fragments. The aggregate token accuracy is 0.6259456 with sample SD 0.0005128; test loss is 0.8159602 with sample SD 0.0011895.
-- These replication values are sequence-model diagnostics. They are not substituted for the controlled seed-42 K=1/K=4 generation results.
+- These replication values are sequence-model diagnostics. They are not substituted for either the primary-checkpoint or three-checkpoint K=1/K=4 generation results.
 - Resource traces are stored in `results/project2_multiseed_seed42_resources.json` through `project2_multiseed_seed44_resources.json`. No run crossed the 6GB available-memory or 12GB commit-headroom stop line, and no CUDA OOM occurred.
 - Per-seed metrics, aggregate statistics, and the generated table are stored in `results/project2_multiseed_training_metrics.csv`, `results/project2_multiseed_training_summary.json`, and `paper/tables/project2_multiseed_training.tex`.
 
+## Completed three-checkpoint controlled decoding replication (2026-07-16)
+
+The aligned K=1/K=4 decoding comparison was repeated in foreground for the independently trained seed-42, seed-43, and seed-44 checkpoints. The reproducibility command is:
+
+```powershell
+.\scripts\run_project2_multiseed_controlled.ps1 -Seeds 42,43,44 -Resume
+```
+
+- Environment lines in `logs/project2_multiseed_controlled.log` record PyTorch 2.5.1+cu121 and an NVIDIA GeForce RTX 4060 Ti.
+- Each checkpoint was evaluated on the same 2,000 test conditions. The condition partition contains 914 serial and 1,086 non-serial requests.
+- K=1 and K=4 used evaluation seed 42042 with per-condition seeds 42042 through 44041, generation batch size 32, and protocol `per_sample_generator_batch_v1`.
+- For every seed and condition, the K=4 first-candidate SHA256 matches the K=1 candidate. The aggregate provenance also binds the three checkpoint hashes, config hash, corpus hash, vocabulary hash, split name, and split size.
+- Seed 42 K=1/K=4 ran from 13:33:04 to 13:55:35, seed 43 from 13:56:28 to 14:16:45, and seed 44 from 14:22:04 to 14:41:30 Asia/Shanghai. All six generation stages and all three paired analyses completed without a logged CUDA OOM.
+- Each seed-level analysis used 10,000 paired percentile-bootstrap resamples. The final analysis used 10,000 crossed percentile-bootstrap resamples over training seeds and shared aligned test conditions, with bootstrap seed 52042 and no multiple-endpoint adjustment.
+
+The crossed analysis reports favorably oriented effects, where positive values favor K=4 except for the explicitly diagnostic non-serial aggregate row:
+
+| Endpoint | Mean effect | Seed SD | Crossed 95% CI | Positive seeds |
+|---|---:|---:|---:|---:|
+| PC coverage, all | -0.0007 | 0.0009 | [-0.0027, +0.0012] | 1/3 |
+| PC coverage, non-serial | +0.0043 | 0.0012 | [+0.0023, +0.0064] | 3/3 |
+| PC coverage, serial | -0.0066 | 0.0020 | [-0.0107, -0.0033] | 0/3 |
+| Interval-vector distance, all | +0.4177 | 0.0510 | [+0.2950, +0.5612] | 3/3 |
+| Interval-vector distance, non-serial | +0.2047 | 0.0494 | [+0.1372, +0.2778] | 3/3 |
+| Interval-vector distance, serial | +0.6707 | 0.0592 | [+0.4230, +0.9595] | 3/3 |
+| Row-order accuracy, serial | +0.0815 | 0.0023 | [+0.0756, +0.0875] | 3/3 |
+| Aggregate completion, all | -0.0031 | 0.0006 | [-0.0047, -0.0018] | 0/3 |
+| Aggregate completion, serial | -0.0066 | 0.0011 | [-0.0097, -0.0040] | 0/3 |
+| Aggregate completion, non-serial diagnostic | -0.0002 | 0.0005 | [-0.0013, +0.0009] | -- |
+| Rhythmic-profile distance, all | +0.0507 | 0.0056 | [+0.0439, +0.0583] | 3/3 |
+| Density-curve error, all | +0.2278 | 0.0165 | [+0.2021, +0.2545] | 3/3 |
+| Gesture consistency, all | +0.0318 | 0.0009 | [+0.0283, +0.0353] | 3/3 |
+| Range-violation rate, all | +0.0003 | 0.0001 | [+0.0002, +0.0006] | 3/3 |
+
+The replication supports an endpoint-specific claim. K=4 favored interval-vector, row-order, rhythm, density, gesture, and range diagnostics across all three checkpoints, while serial pc-set coverage and serial aggregate completion moved in the unfavorable direction across all three. Overall pc-set coverage and the non-serial aggregate diagnostic crossed zero. These automatic endpoints overlap the reranking objective and do not provide human evidence of artistic quality.
+
+Primary outputs:
+
+- `results/project2_multiseed_controlled_statistics.json`
+- `results/project2_multiseed_controlled_statistics.csv`
+- `results/multiseed_controlled/seed_42_*`
+- `results/multiseed_controlled/seed_43_*`
+- `results/multiseed_controlled/seed_44_*`
+- `paper/tables/project2_multiseed_controlled_results.tex`
+- `logs/project2_multiseed_controlled.log`
+
 ## Final artifact and manuscript QA (2026-07-16)
 
-- The complete test suite passed: 26 tests after the controlled multiseed provenance and crossed-bootstrap preflight update.
+- The final repository test suite passed 28 tests after the controlled multiseed provenance and endpoint-completeness checks and after manuscript integration.
 - `results/project2_metrics.csv` contains all 13 expected full-run experiment rows, each evaluated on 2,000 test fragments.
 - All 12 required neural checkpoints and all three independent-seed checkpoints exist; the latter hashes match `results/project2_multiseed_training_metrics.csv`.
 - The expert package contains 20 MusicXML files and 20 JSON reports. All 20 XML roots parse as `score-partwise`; both blind-rating forms exist.
-- `paper/main.pdf` and `paper/main_anonymous.pdf` each compile to 21 non-empty pages. Fresh page renders were inspected throughout; no clipping, overlap, or table overflow was observed.
-- Both final XeLaTeX logs contain no overfull/underfull box, undefined reference, undefined citation, or rerun warning.
+- `paper/main.pdf` and `paper/main_anonymous.pdf` each compile to 23 non-empty pages. The final logs contain no overfull or underfull boxes, undefined references, undefined citations, or rerun warnings, and all 46 rendered pages passed visual inspection.
+- A final numerical trace matched all 14 primary controlled rows and all 14 three-checkpoint controlled rows to their archived JSON sources; the five replicated endpoints quoted in the Abstract and Results were also checked against the aggregate JSON.

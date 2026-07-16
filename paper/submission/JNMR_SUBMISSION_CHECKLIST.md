@@ -11,19 +11,21 @@ This checklist distinguishes verified repository facts from requirements that mu
 | Scope matches systematic and technological music research | PASS | Target rationale and official overview link are recorded in `.paper/journal_format.md`. |
 | Legal data strategy | PASS | Corpus is rule-generated; no copyrighted post-1945 score is downloaded. |
 | Full corpus and primary CUDA run | PASS | `results/project2_full_split_summary.json` and `results/project2_full_run_report.md`. |
-| Controlled same-checkpoint comparison | PASS | `results/project2_controlled_statistics.csv` and `.json`. |
-| Numeric claim traceability | PASS | `.paper/claim_evidence_ledger.md`; manuscript numbers are restricted to saved outputs. |
+| Primary-checkpoint controlled comparison | PASS | `results/project2_controlled_statistics.csv` and `.json`; this remains separate from the replication table. |
+| Three-checkpoint controlled replication | PASS WITH LIMIT | Seeds 42--44 each contain aligned K=1/K=4 outputs for 2,000 shared conditions. `results/project2_multiseed_controlled_statistics.csv` and `.json` report 14 crossed-bootstrap endpoints with no multiple-endpoint adjustment. |
+| Numeric claim traceability | PASS | All 14 primary controlled rows and all 14 three-checkpoint rows match their archived JSON sources; replicated endpoint values quoted in the Abstract and Results were checked directly. |
 | Human artistic-quality evidence | NOT CLAIMED | Expert package is prepared, but no ratings have been collected. |
-| Multi-seed training diagnostics | PASS WITH LIMIT | Seeds 42--44 completed and have aligned 2,000-item teacher-forced test metrics; controlled reranking remains single-checkpoint evidence. |
+| Multi-seed training diagnostics | PASS WITH LIMIT | Seeds 42--44 completed and have 2,000-item teacher-forced test metrics. These sequence diagnostics remain distinct from the controlled generation replication. |
+| Repository tests | PASS | The final suite passed 28 tests after manuscript integration. |
 
 ## Manuscript files
 
 | Item | Status | Evidence or action |
 |---|---|---|
-| Identified working manuscript | READY WITH PLACEHOLDERS | `paper/main.tex`; author and affiliation remain pending. |
-| Anonymous review manuscript | READY | `paper/main_anonymous.tex`; author, affiliation, and repository identity are withheld. |
-| Figures and tables cited in order | PASS IN CURRENT BUILD | Recheck after applying the journal template. |
-| References compile | PASS IN CURRENT BUILD | Recheck citation style against the live author instructions. |
+| Identified working manuscript | PASS WITH AUTHOR GATE | `paper/main.tex` compiles to 23 pages and passed full page inspection. Author and affiliation remain pending. |
+| Anonymous review manuscript | PASS | `paper/main_anonymous.tex` compiles to 23 pages, passed full page inspection, and withholds author, affiliation, and repository identity. |
+| Figures and tables cited in order | PASS | The integrated three-checkpoint table, figures, exploratory tables, and representative score were inspected in both variants. |
+| References compile | PASS | No undefined citations or references remain; journal-specific citation style still requires live-instruction verification. |
 | Exact abstract and main-text limits | MANUAL PORTAL GATE | Verify in the current JNMR instructions before upload. |
 | Exact template, line numbering, and spacing | MANUAL PORTAL GATE | Apply only after downloading the current official files. |
 | Separate figure formats and resolution | MANUAL PORTAL GATE | Confirm accepted formats and upload requirements. |

@@ -31,13 +31,18 @@ def _write_pair(tmp_path, seed: int):
     for index, (sample_id, metadata, serial) in enumerate(records):
         fingerprint = f"{seed + index:064x}"[-64:]
         common = {
+            "experiment": "controlled",
+            "split": "test",
+            "sample_index": index,
             "sample_id": sample_id,
             "evaluation_seed": 42042 + index,
+            "generation_batch_size": 32,
+            "sampling_protocol": "per_sample_generator_batch_v1",
             "first_candidate_sha256": fingerprint,
             "metadata": metadata,
         }
-        single_samples.append({**common, "analysis": _analysis(serial, False)})
-        reranked_samples.append({**common, "analysis": _analysis(serial, True)})
+        single_samples.append({**common, "candidate_attempts": 1, "analysis": _analysis(serial, False)})
+        reranked_samples.append({**common, "candidate_attempts": 4, "analysis": _analysis(serial, True)})
     common_payload = {
         "evaluation_seed": 42042,
         "sampling_protocol": "per_sample_generator_batch_v1",
@@ -126,6 +131,45 @@ def test_multiseed_controlled_analysis_rejects_duplicate_checkpoint(tmp_path):
     pairs[1][1].write_text(json.dumps(second_reranked), encoding="utf-8")
 
     with pytest.raises(ValueError, match="distinct checkpoint"):
+        analyze_multiseed_controlled(
+            [42, 43],
+            [pair[0] for pair in pairs],
+            [pair[1] for pair in pairs],
+            tmp_path / "summary.json",
+            tmp_path / "summary.csv",
+            tmp_path / "summary.tex",
+            bootstrap_samples=10,
+            expected_conditions=2,
+        )
+
+
+def test_multiseed_controlled_analysis_rejects_incomplete_endpoint(tmp_path):
+    pairs = [_write_pair(tmp_path, seed) for seed in (42, 43)]
+    payload = json.loads(pairs[1][1].read_text(encoding="utf-8"))
+    payload["samples"][0]["analysis"]["pcset_coverage"] = None
+    pairs[1][1].write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="Missing endpoint pcset_coverage:all"):
+        analyze_multiseed_controlled(
+            [42, 43],
+            [pair[0] for pair in pairs],
+            [pair[1] for pair in pairs],
+            tmp_path / "summary.json",
+            tmp_path / "summary.csv",
+            tmp_path / "summary.tex",
+            bootstrap_samples=10,
+            expected_conditions=2,
+        )
+
+
+def test_multiseed_controlled_analysis_rejects_wrong_rng_schedule(tmp_path):
+    pairs = [_write_pair(tmp_path, seed) for seed in (42, 43)]
+    for path in pairs[1]:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload["samples"][1]["evaluation_seed"] = 999
+        path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="must use evaluation seed 42043"):
         analyze_multiseed_controlled(
             [42, 43],
             [pair[0] for pair in pairs],

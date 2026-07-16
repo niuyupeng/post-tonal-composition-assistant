@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -178,13 +179,24 @@ def analyze_controlled_results(
         for left, right in zip(single, reranked):
             if not _sample_in_subset(left, subset):
                 continue
-            left_value = left.get("analysis", {}).get(metric)
-            right_value = right.get("analysis", {}).get(metric)
+            sample_id = left.get("sample_id")
+            left_analysis = left.get("analysis")
+            right_analysis = right.get("analysis")
+            if not isinstance(left_analysis, dict) or not isinstance(right_analysis, dict):
+                raise ValueError(f"Missing analysis payload for sample {sample_id}.")
+            left_value = left_analysis.get(metric)
+            right_value = right_analysis.get(metric)
             if left_value is None or right_value is None:
-                continue
-            paired.append((float(left_value), float(right_value)))
+                raise ValueError(f"Missing endpoint {metric}:{subset} for sample {sample_id}.")
+            try:
+                pair = (float(left_value), float(right_value))
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"Non-numeric endpoint {metric}:{subset} for sample {sample_id}.") from exc
+            if not all(math.isfinite(value) for value in pair):
+                raise ValueError(f"Non-finite endpoint {metric}:{subset} for sample {sample_id}.")
+            paired.append(pair)
         if not paired:
-            continue
+            raise ValueError(f"No observations for endpoint {metric}:{subset}.")
         single_values = np.asarray([pair[0] for pair in paired], dtype=np.float64)
         reranked_values = np.asarray([pair[1] for pair in paired], dtype=np.float64)
         raw_difference = reranked_values - single_values

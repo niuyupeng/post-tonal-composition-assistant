@@ -42,6 +42,20 @@ function Invoke-LoggedPython {
     }
 }
 
+function Test-FiniteNumber {
+    param($Value)
+    if ($null -eq $Value) {
+        return $false
+    }
+    try {
+        $number = [double]$Value
+        return -not [double]::IsNaN($number) -and -not [double]::IsInfinity($number)
+    }
+    catch {
+        return $false
+    }
+}
+
 function Test-CompletePerSample {
     param(
         [string]$Path,
@@ -56,7 +70,11 @@ function Test-CompletePerSample {
     }
     try {
         $payload = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
-        if ($payload.num_samples -ne 2000 -or $payload.candidate_attempts -ne $Attempts) {
+        if ($payload.num_samples -ne 2000 -or
+            $payload.candidate_attempts -ne $Attempts -or
+            $payload.evaluation_seed -ne 42042 -or
+            $payload.generation_batch_size -ne 32 -or
+            $payload.split -ne "test") {
             return $false
         }
         if ($payload.sampling_protocol -ne "per_sample_generator_batch_v1") {
@@ -73,10 +91,39 @@ function Test-CompletePerSample {
             $payload.provenance.dataset_split_size -ne 2000) {
             return $false
         }
-        $fingerprints = @($payload.samples | Where-Object {
-            $_.first_candidate_sha256 -is [string] -and $_.first_candidate_sha256.Length -eq 64
-        })
-        return $fingerprints.Count -eq 2000
+        $requiredMetrics = @(
+            "pcset_coverage",
+            "interval_vector_distance",
+            "aggregate_completion_rate",
+            "rhythmic_profile_distance",
+            "density_curve_error",
+            "gesture_consistency_score",
+            "range_violation_rate"
+        )
+        for ($index = 0; $index -lt 2000; $index++) {
+            $sample = $payload.samples[$index]
+            if ($sample.sample_index -ne $index -or
+                $sample.evaluation_seed -ne (42042 + $index) -or
+                $sample.candidate_attempts -ne $Attempts -or
+                $sample.generation_batch_size -ne 32 -or
+                $sample.sampling_protocol -ne "per_sample_generator_batch_v1" -or
+                $sample.split -ne "test" -or
+                $sample.first_candidate_sha256 -isnot [string] -or
+                $sample.first_candidate_sha256.Length -ne 64) {
+                return $false
+            }
+            foreach ($metric in $requiredMetrics) {
+                if (-not (Test-FiniteNumber $sample.analysis.$metric)) {
+                    return $false
+                }
+            }
+            $isSerial = @($sample.metadata.row).Count -gt 0 -and
+                -not [string]::IsNullOrWhiteSpace([string]$sample.metadata.row_form)
+            if ($isSerial -and -not (Test-FiniteNumber $sample.analysis.row_order_accuracy)) {
+                return $false
+            }
+        }
+        return $true
     }
     catch {
         return $false
@@ -169,6 +216,15 @@ foreach ($seed in $RequiredSeeds) {
 }
 
 if (-not $allRequiredOutputsComplete) {
+    foreach ($stalePath in @(
+        (Join-Path $Root "results\project2_multiseed_controlled_statistics.json"),
+        (Join-Path $Root "results\project2_multiseed_controlled_statistics.csv"),
+        (Join-Path $Root "paper\tables\project2_multiseed_controlled_results.tex")
+    )) {
+        if (Test-Path -LiteralPath $stalePath) {
+            Remove-Item -LiteralPath $stalePath -Force
+        }
+    }
     Write-Output "Completed selected seeds: $($Seeds -join ', '). Cross-seed aggregation is deferred until seeds 42, 43, and 44 all pass the provenance gate."
     return
 }

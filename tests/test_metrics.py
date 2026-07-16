@@ -168,6 +168,19 @@ def test_controlled_analysis_reports_serial_and_nonserial_subsets(tmp_path):
             bootstrap_samples=10,
         )
 
+    reranked_samples[1]["first_candidate_sha256"] = "b" * 64
+    reranked_samples[0]["analysis"]["pcset_coverage"] = None
+    reranked_path.write_text(json.dumps({"samples": reranked_samples}), encoding="utf-8")
+    with pytest.raises(ValueError, match="Missing endpoint pcset_coverage:all"):
+        analyze_controlled_results(
+            single_path,
+            reranked_path,
+            tmp_path / "missing-stats.json",
+            tmp_path / "missing-stats.csv",
+            tmp_path / "missing-stats.tex",
+            bootstrap_samples=10,
+        )
+
 
 def test_missing_table_metric_is_not_applicable():
     assert _format(None) == "--"

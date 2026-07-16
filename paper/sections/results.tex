@@ -24,9 +24,19 @@ Figure~\ref{fig:controlled-effects} summarizes prespecified favorable relative c
 
 \subsection{Independent-seed sequence diagnostics}
 
-The three memory-safe replications stopped after 25--26 epochs, with their selected checkpoints at epochs 15--16. Mean best validation loss was $0.8119 \pm 0.0011$. On the common 2,000-fragment test split, teacher-forced token accuracy was $0.6259 \pm 0.0005$ and cross-entropy was $0.8160 \pm 0.0012$ (mean $\pm$ sample SD, $n=3$; Table~\ref{tab:multiseed-training}). These values show similar sequence-prediction diagnostics under the three initialization and shuffle seeds. They do not estimate cross-seed variation in constraint-guided generation because the full paired $K=1$ versus $K=4$ decoding experiment was run only with the primary checkpoint.
+The three memory-safe replications stopped after 25--26 epochs, with their selected checkpoints at epochs 15--16. Mean best validation loss was $0.8119 \pm 0.0011$. On the common 2,000-fragment test split, teacher-forced token accuracy was $0.6259 \pm 0.0005$ and cross-entropy was $0.8160 \pm 0.0012$ (mean $\pm$ sample SD, $n=3$; Table~\ref{tab:multiseed-training}). These values show similar sequence-prediction diagnostics under the three initialization and shuffle seeds. They remain distinct from the controlled generation effects reported next; the aligned decoding replication uses the same three checkpoints.
 
 \input{tables/project2_multiseed_training}
+
+\subsection{Three-checkpoint controlled-decoding replication}
+
+The aligned $K=1$ versus $K=4$ protocol was repeated with the seed-42, seed-43, and seed-44 checkpoints. Each checkpoint contributed the same 2,000 test conditions, including 914 serial and 1,086 non-serial requests, and all 6,000 within-checkpoint first-candidate pairs matched by SHA-256. Table~\ref{tab:multiseed-controlled} reports favorable effects, so positive values indicate better adherence under reranking except for the explicitly directionless non-serial aggregate diagnostic.
+
+The row-order effect was favorable for all three checkpoints: mean improvement 0.0815, seed-level SD 0.0023, and crossed-bootstrap 95\% interval [0.0756, 0.0875]. Rhythmic-profile distance decreased by 0.0507 (SD 0.0056; [0.0439, 0.0583]), density-curve error decreased by 0.2278 (SD 0.0165; [0.2021, 0.2545]), and gesture consistency increased by 0.0318 (SD 0.0009; [0.0283, 0.0353]); each direction occurred in 3/3 checkpoints. Interval-vector distance also improved in 3/3 checkpoints, with an overall favorable effect of 0.4177 ([0.2950, 0.5612]).
+
+The replicated trade-offs were endpoint specific. Overall pc-set coverage changed by $-0.0007$ ([$-0.0027$, 0.0012]) and was favorable in only 1/3 checkpoints. Non-serial coverage increased by 0.0043 in 3/3 checkpoints, whereas serial coverage decreased by 0.0066 in 3/3 checkpoints. Serial aggregate completion decreased by 0.0066 ([$-0.0097$, $-0.0040$]) in all three checkpoints. The non-serial aggregate diagnostic crossed zero. These 14 endpoint intervals are descriptive and unadjusted for multiplicity.
+
+\input{tables/project2_multiseed_controlled_results}
 
 \subsection{Exploratory configuration archive}
 

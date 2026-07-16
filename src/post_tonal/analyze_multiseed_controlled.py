@@ -16,6 +16,11 @@ from post_tonal.analyze_controlled_results import ENDPOINTS
 from post_tonal.utils import ensure_dir, save_json
 
 
+CONTROLLED_EVALUATION_SEED = 42042
+CONTROLLED_GENERATION_BATCH_SIZE = 32
+CONTROLLED_SAMPLING_PROTOCOL = "per_sample_generator_batch_v1"
+
+
 def _load_payload(path: str | Path) -> dict[str, Any]:
     source = Path(path)
     if not source.is_file() or source.stat().st_size == 0:
@@ -61,14 +66,20 @@ def _validate_pair(
         raise ValueError(f"Seed {seed} K=1 payload must report one candidate attempt.")
     if reranked_payload.get("candidate_attempts") != 4:
         raise ValueError(f"Seed {seed} K=4 payload must report four candidate attempts.")
-    if single_payload.get("sampling_protocol") != "per_sample_generator_batch_v1":
+    if single_payload.get("sampling_protocol") != CONTROLLED_SAMPLING_PROTOCOL:
         raise ValueError(f"Seed {seed} does not use the required batched per-sample RNG protocol.")
     if single_payload.get("sampling_protocol") != reranked_payload.get("sampling_protocol"):
         raise ValueError(f"Seed {seed} uses different sampling protocols across conditions.")
     if single_payload.get("generation_batch_size") != reranked_payload.get("generation_batch_size"):
         raise ValueError(f"Seed {seed} uses different generation batch sizes across conditions.")
+    if single_payload.get("generation_batch_size") != CONTROLLED_GENERATION_BATCH_SIZE:
+        raise ValueError(
+            f"Seed {seed} generation batch size must be {CONTROLLED_GENERATION_BATCH_SIZE}."
+        )
     if single_payload.get("evaluation_seed") != reranked_payload.get("evaluation_seed"):
         raise ValueError(f"Seed {seed} uses different top-level evaluation seeds across conditions.")
+    if single_payload.get("evaluation_seed") != CONTROLLED_EVALUATION_SEED:
+        raise ValueError(f"Seed {seed} evaluation seed must be {CONTROLLED_EVALUATION_SEED}.")
 
     single_provenance = single_payload.get("provenance")
     reranked_provenance = reranked_payload.get("provenance")
@@ -100,7 +111,7 @@ def _validate_pair(
         raise ValueError(f"Seed {seed} provenance reports the wrong test-split size.")
 
     sample_ids: list[Any] = []
-    for left, right in zip(single, reranked):
+    for sample_index, (left, right) in enumerate(zip(single, reranked)):
         sample_id = left.get("sample_id")
         sample_ids.append(sample_id)
         if sample_id != right.get("sample_id"):
@@ -109,6 +120,22 @@ def _validate_pair(
             raise ValueError(f"Seed {seed} metadata differs for sample {sample_id}.")
         if left.get("evaluation_seed") != right.get("evaluation_seed"):
             raise ValueError(f"Seed {seed} evaluation seeds differ for sample {sample_id}.")
+        if left.get("sample_index") != sample_index or right.get("sample_index") != sample_index:
+            raise ValueError(f"Seed {seed} sample indices are invalid at position {sample_index}.")
+        expected_evaluation_seed = CONTROLLED_EVALUATION_SEED + sample_index
+        if left.get("evaluation_seed") != expected_evaluation_seed:
+            raise ValueError(
+                f"Seed {seed} sample {sample_id} must use evaluation seed {expected_evaluation_seed}."
+            )
+        for record, attempts in ((left, 1), (right, 4)):
+            if record.get("candidate_attempts") != attempts:
+                raise ValueError(f"Seed {seed} sample {sample_id} reports the wrong candidate attempts.")
+            if record.get("generation_batch_size") != CONTROLLED_GENERATION_BATCH_SIZE:
+                raise ValueError(f"Seed {seed} sample {sample_id} reports the wrong generation batch size.")
+            if record.get("sampling_protocol") != CONTROLLED_SAMPLING_PROTOCOL:
+                raise ValueError(f"Seed {seed} sample {sample_id} reports the wrong sampling protocol.")
+            if record.get("split") != "test":
+                raise ValueError(f"Seed {seed} sample {sample_id} was not recorded on the test split.")
         left_hash = left.get("first_candidate_sha256")
         right_hash = right.get("first_candidate_sha256")
         if not isinstance(left_hash, str) or len(left_hash) != 64:
@@ -126,23 +153,33 @@ def _effect_array(
     metric: str,
     subset: str,
     higher_is_better: bool | None,
-) -> np.ndarray:
+) -> tuple[list[Any], np.ndarray]:
+    sample_ids: list[Any] = []
     values: list[float] = []
     for left, right in zip(single, reranked):
         if not _in_subset(left, subset):
             continue
-        left_value = left.get("analysis", {}).get(metric)
-        right_value = right.get("analysis", {}).get(metric)
+        sample_id = left.get("sample_id")
+        left_analysis = left.get("analysis")
+        right_analysis = right.get("analysis")
+        if not isinstance(left_analysis, dict) or not isinstance(right_analysis, dict):
+            raise ValueError(f"Missing analysis payload for sample {sample_id}.")
+        left_value = left_analysis.get(metric)
+        right_value = right_analysis.get(metric)
         if left_value is None or right_value is None:
-            continue
-        raw = float(right_value) - float(left_value)
+            raise ValueError(f"Missing endpoint {metric}:{subset} for sample {sample_id}.")
+        try:
+            raw = float(right_value) - float(left_value)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"Non-numeric endpoint {metric}:{subset} for sample {sample_id}.") from exc
+        sample_ids.append(sample_id)
         values.append(raw if higher_is_better is not False else -raw)
     if not values:
         raise ValueError(f"No observations for endpoint {metric}:{subset}")
     result = np.asarray(values, dtype=np.float64)
     if not np.isfinite(result).all():
         raise ValueError(f"Non-finite effect for endpoint {metric}:{subset}")
-    return result
+    return sample_ids, result
 
 
 def crossed_bootstrap_ci(
@@ -291,19 +328,38 @@ def analyze_multiseed_controlled(
     for field in ("data_sha256", "vocab_sha256"):
         if len({run["provenance"][field] for run in runs}) != 1:
             raise ValueError(f"Training seeds do not share the same {field}.")
+    if len({run["sampling_protocol"] for run in runs}) != 1:
+        raise ValueError("Training seeds do not share one sampling protocol.")
+    if len({run["generation_batch_size"] for run in runs}) != 1:
+        raise ValueError("Training seeds do not share one generation batch size.")
 
     rows: list[dict[str, Any]] = []
     for metric_index, spec in enumerate(ENDPOINTS):
         metric = str(spec["metric"])
         subset = str(spec["subset"])
         higher_is_better = spec["higher_is_better"]
-        effects = [
+        observations = [
             _effect_array(run["single"], run["reranked"], metric, subset, higher_is_better)
             for run in runs
         ]
+        condition_ids = [item[0] for item in observations]
+        effects = [item[1] for item in observations]
+        expected_ids = [
+            sample.get("sample_id")
+            for sample in runs[0]["single"]
+            if _in_subset(sample, subset)
+        ]
+        for run, ids in zip(runs, condition_ids):
+            if ids != expected_ids:
+                raise ValueError(
+                    f"Endpoint {metric}:{subset} uses different condition IDs for seed {run['seed']}."
+                )
         counts = {int(values.size) for values in effects}
-        if len(counts) != 1:
-            raise ValueError(f"Endpoint {metric}:{subset} is not aligned across seeds: {sorted(counts)}")
+        if counts != {len(expected_ids)}:
+            raise ValueError(
+                f"Endpoint {metric}:{subset} is incomplete: observed {sorted(counts)}, "
+                f"expected {len(expected_ids)} aligned conditions."
+            )
         seed_means = [float(values.mean()) for values in effects]
         mean_effect = statistics.fmean(seed_means)
         seed_sd = statistics.stdev(seed_means)
