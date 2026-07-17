@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="980" height="522" viewBox="0 0 980 522">
 <rect width="100%" height="100%" fill="white"/>
 <text x="20" y="32" font-family="Arial" font-size="18" font-weight="700">Project 2 Constraint Summary</text>
-<text x="20" y="84" font-family="Arial" font-size="12">rule_baseline</text>
+<text x="20" y="84" font-family="Arial" font-size="12">proposed_constraint_guided_transformer</text>
 <rect x="260" y="70" width="130" height="14" fill="#eeeeee"/>
 <rect x="260" y="70" width="129" height="14" fill="#2f6f9f"/>
 <text x="260" y="98" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
 <rect x="430" y="70" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="70" width="130" height="14" fill="#6b8e23"/>
-<text x="430" y="98" font-family="Arial" font-size="10">row_order_accuracy: 1.00</text>
+<rect x="430" y="70" width="31" height="14" fill="#6b8e23"/>
+<text x="430" y="98" font-family="Arial" font-size="10">row_order_accuracy: 0.24</text>
 <rect x="600" y="70" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="70" width="52" height="14" fill="#9f5f2f"/>
-<text x="600" y="98" font-family="Arial" font-size="10">gesture_consistency_score: 0.40</text>
+<rect x="600" y="70" width="64" height="14" fill="#9f5f2f"/>
+<text x="600" y="98" font-family="Arial" font-size="10">gesture_consistency_score: 0.49</text>
 <rect x="770" y="70" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="70" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="98" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
@@ -22,151 +22,151 @@
 <rect x="430" y="104" width="20" height="14" fill="#6b8e23"/>
 <text x="430" y="132" font-family="Arial" font-size="10">row_order_accuracy: 0.16</text>
 <rect x="600" y="104" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="104" width="68" height="14" fill="#9f5f2f"/>
-<text x="600" y="132" font-family="Arial" font-size="10">gesture_consistency_score: 0.53</text>
+<rect x="600" y="104" width="62" height="14" fill="#9f5f2f"/>
+<text x="600" y="132" font-family="Arial" font-size="10">gesture_consistency_score: 0.48</text>
 <rect x="770" y="104" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="104" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="132" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="152" font-family="Arial" font-size="12">proposed_constraint_guided_transformer</text>
+<text x="20" y="152" font-family="Arial" font-size="12">transformer_no_constraints</text>
 <rect x="260" y="138" width="130" height="14" fill="#eeeeee"/>
-<rect x="260" y="138" width="129" height="14" fill="#2f6f9f"/>
-<text x="260" y="166" font-family="Arial" font-size="10">target_pcset_coverage: 0.99</text>
+<rect x="260" y="138" width="92" height="14" fill="#2f6f9f"/>
+<text x="260" y="166" font-family="Arial" font-size="10">target_pcset_coverage: 0.71</text>
 <rect x="430" y="138" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="138" width="30" height="14" fill="#6b8e23"/>
-<text x="430" y="166" font-family="Arial" font-size="10">row_order_accuracy: 0.23</text>
+<rect x="430" y="138" width="10" height="14" fill="#6b8e23"/>
+<text x="430" y="166" font-family="Arial" font-size="10">row_order_accuracy: 0.08</text>
 <rect x="600" y="138" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="138" width="72" height="14" fill="#9f5f2f"/>
-<text x="600" y="166" font-family="Arial" font-size="10">gesture_consistency_score: 0.56</text>
+<rect x="600" y="138" width="52" height="14" fill="#9f5f2f"/>
+<text x="600" y="166" font-family="Arial" font-size="10">gesture_consistency_score: 0.40</text>
 <rect x="770" y="138" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="138" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="166" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="186" font-family="Arial" font-size="12">transformer_no_constraints</text>
+<text x="20" y="186" font-family="Arial" font-size="12">without_pcset_constraints</text>
 <rect x="260" y="172" width="130" height="14" fill="#eeeeee"/>
-<rect x="260" y="172" width="130" height="14" fill="#2f6f9f"/>
-<text x="260" y="200" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
+<rect x="260" y="172" width="72" height="14" fill="#2f6f9f"/>
+<text x="260" y="200" font-family="Arial" font-size="10">target_pcset_coverage: 0.56</text>
 <rect x="430" y="172" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="172" width="0" height="14" fill="#6b8e23"/>
-<text x="430" y="200" font-family="Arial" font-size="10">row_order_accuracy: 0.00</text>
+<rect x="430" y="172" width="18" height="14" fill="#6b8e23"/>
+<text x="430" y="200" font-family="Arial" font-size="10">row_order_accuracy: 0.14</text>
 <rect x="600" y="172" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="172" width="90" height="14" fill="#9f5f2f"/>
-<text x="600" y="200" font-family="Arial" font-size="10">gesture_consistency_score: 0.70</text>
+<rect x="600" y="172" width="61" height="14" fill="#9f5f2f"/>
+<text x="600" y="200" font-family="Arial" font-size="10">gesture_consistency_score: 0.48</text>
 <rect x="770" y="172" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="172" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="200" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="220" font-family="Arial" font-size="12">without_pcset_constraints</text>
+<text x="20" y="220" font-family="Arial" font-size="12">without_serial_constraints</text>
 <rect x="260" y="206" width="130" height="14" fill="#eeeeee"/>
-<rect x="260" y="206" width="130" height="14" fill="#2f6f9f"/>
+<rect x="260" y="206" width="129" height="14" fill="#2f6f9f"/>
 <text x="260" y="234" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
 <rect x="430" y="206" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="206" width="20" height="14" fill="#6b8e23"/>
-<text x="430" y="234" font-family="Arial" font-size="10">row_order_accuracy: 0.16</text>
+<rect x="430" y="206" width="10" height="14" fill="#6b8e23"/>
+<text x="430" y="234" font-family="Arial" font-size="10">row_order_accuracy: 0.08</text>
 <rect x="600" y="206" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="206" width="67" height="14" fill="#9f5f2f"/>
-<text x="600" y="234" font-family="Arial" font-size="10">gesture_consistency_score: 0.52</text>
+<rect x="600" y="206" width="62" height="14" fill="#9f5f2f"/>
+<text x="600" y="234" font-family="Arial" font-size="10">gesture_consistency_score: 0.48</text>
 <rect x="770" y="206" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="206" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="234" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="254" font-family="Arial" font-size="12">without_serial_constraints</text>
+<text x="20" y="254" font-family="Arial" font-size="12">without_rhythm_constraints</text>
 <rect x="260" y="240" width="130" height="14" fill="#eeeeee"/>
 <rect x="260" y="240" width="129" height="14" fill="#2f6f9f"/>
-<text x="260" y="268" font-family="Arial" font-size="10">target_pcset_coverage: 0.99</text>
+<text x="260" y="268" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
 <rect x="430" y="240" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="240" width="0" height="14" fill="#6b8e23"/>
-<text x="430" y="268" font-family="Arial" font-size="10">row_order_accuracy: 0.00</text>
+<rect x="430" y="240" width="19" height="14" fill="#6b8e23"/>
+<text x="430" y="268" font-family="Arial" font-size="10">row_order_accuracy: 0.15</text>
 <rect x="600" y="240" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="240" width="68" height="14" fill="#9f5f2f"/>
-<text x="600" y="268" font-family="Arial" font-size="10">gesture_consistency_score: 0.53</text>
+<rect x="600" y="240" width="62" height="14" fill="#9f5f2f"/>
+<text x="600" y="268" font-family="Arial" font-size="10">gesture_consistency_score: 0.48</text>
 <rect x="770" y="240" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="240" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="268" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="288" font-family="Arial" font-size="12">without_rhythm_constraints</text>
+<text x="20" y="288" font-family="Arial" font-size="12">without_gesture_constraints</text>
 <rect x="260" y="274" width="130" height="14" fill="#eeeeee"/>
 <rect x="260" y="274" width="129" height="14" fill="#2f6f9f"/>
-<text x="260" y="302" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
+<text x="260" y="302" font-family="Arial" font-size="10">target_pcset_coverage: 0.99</text>
 <rect x="430" y="274" width="130" height="14" fill="#eeeeee"/>
 <rect x="430" y="274" width="20" height="14" fill="#6b8e23"/>
 <text x="430" y="302" font-family="Arial" font-size="10">row_order_accuracy: 0.16</text>
 <rect x="600" y="274" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="274" width="69" height="14" fill="#9f5f2f"/>
-<text x="600" y="302" font-family="Arial" font-size="10">gesture_consistency_score: 0.54</text>
+<rect x="600" y="274" width="49" height="14" fill="#9f5f2f"/>
+<text x="600" y="302" font-family="Arial" font-size="10">gesture_consistency_score: 0.38</text>
 <rect x="770" y="274" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="274" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="302" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="322" font-family="Arial" font-size="12">without_gesture_constraints</text>
+<text x="20" y="322" font-family="Arial" font-size="12">serial_only</text>
 <rect x="260" y="308" width="130" height="14" fill="#eeeeee"/>
-<rect x="260" y="308" width="129" height="14" fill="#2f6f9f"/>
-<text x="260" y="336" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
+<rect x="260" y="308" width="74" height="14" fill="#2f6f9f"/>
+<text x="260" y="336" font-family="Arial" font-size="10">target_pcset_coverage: 0.57</text>
 <rect x="430" y="308" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="308" width="20" height="14" fill="#6b8e23"/>
-<text x="430" y="336" font-family="Arial" font-size="10">row_order_accuracy: 0.16</text>
+<rect x="430" y="308" width="11" height="14" fill="#6b8e23"/>
+<text x="430" y="336" font-family="Arial" font-size="10">row_order_accuracy: 0.09</text>
 <rect x="600" y="308" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="308" width="81" height="14" fill="#9f5f2f"/>
-<text x="600" y="336" font-family="Arial" font-size="10">gesture_consistency_score: 0.63</text>
+<rect x="600" y="308" width="50" height="14" fill="#9f5f2f"/>
+<text x="600" y="336" font-family="Arial" font-size="10">gesture_consistency_score: 0.39</text>
 <rect x="770" y="308" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="308" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="336" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="356" font-family="Arial" font-size="12">serial_only</text>
+<text x="20" y="356" font-family="Arial" font-size="12">pcset_only</text>
 <rect x="260" y="342" width="130" height="14" fill="#eeeeee"/>
-<rect x="260" y="342" width="130" height="14" fill="#2f6f9f"/>
+<rect x="260" y="342" width="129" height="14" fill="#2f6f9f"/>
 <text x="260" y="370" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
 <rect x="430" y="342" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="342" width="57" height="14" fill="#6b8e23"/>
-<text x="430" y="370" font-family="Arial" font-size="10">row_order_accuracy: 0.44</text>
+<rect x="430" y="342" width="10" height="14" fill="#6b8e23"/>
+<text x="430" y="370" font-family="Arial" font-size="10">row_order_accuracy: 0.08</text>
 <rect x="600" y="342" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="342" width="91" height="14" fill="#9f5f2f"/>
-<text x="600" y="370" font-family="Arial" font-size="10">gesture_consistency_score: 0.71</text>
+<rect x="600" y="342" width="51" height="14" fill="#9f5f2f"/>
+<text x="600" y="370" font-family="Arial" font-size="10">gesture_consistency_score: 0.40</text>
 <rect x="770" y="342" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="342" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="370" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="390" font-family="Arial" font-size="12">pcset_only</text>
+<text x="20" y="390" font-family="Arial" font-size="12">rhythm_only</text>
 <rect x="260" y="376" width="130" height="14" fill="#eeeeee"/>
-<rect x="260" y="376" width="129" height="14" fill="#2f6f9f"/>
-<text x="260" y="404" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
+<rect x="260" y="376" width="97" height="14" fill="#2f6f9f"/>
+<text x="260" y="404" font-family="Arial" font-size="10">target_pcset_coverage: 0.75</text>
 <rect x="430" y="376" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="376" width="0" height="14" fill="#6b8e23"/>
-<text x="430" y="404" font-family="Arial" font-size="10">row_order_accuracy: 0.00</text>
+<rect x="430" y="376" width="10" height="14" fill="#6b8e23"/>
+<text x="430" y="404" font-family="Arial" font-size="10">row_order_accuracy: 0.08</text>
 <rect x="600" y="376" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="376" width="90" height="14" fill="#9f5f2f"/>
-<text x="600" y="404" font-family="Arial" font-size="10">gesture_consistency_score: 0.70</text>
+<rect x="600" y="376" width="49" height="14" fill="#9f5f2f"/>
+<text x="600" y="404" font-family="Arial" font-size="10">gesture_consistency_score: 0.38</text>
 <rect x="770" y="376" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="376" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="404" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="424" font-family="Arial" font-size="12">rhythm_only</text>
+<text x="20" y="424" font-family="Arial" font-size="12">gesture_only</text>
 <rect x="260" y="410" width="130" height="14" fill="#eeeeee"/>
-<rect x="260" y="410" width="130" height="14" fill="#2f6f9f"/>
-<text x="260" y="438" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
+<rect x="260" y="410" width="97" height="14" fill="#2f6f9f"/>
+<text x="260" y="438" font-family="Arial" font-size="10">target_pcset_coverage: 0.75</text>
 <rect x="430" y="410" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="410" width="0" height="14" fill="#6b8e23"/>
-<text x="430" y="438" font-family="Arial" font-size="10">row_order_accuracy: 0.00</text>
+<rect x="430" y="410" width="10" height="14" fill="#6b8e23"/>
+<text x="430" y="438" font-family="Arial" font-size="10">row_order_accuracy: 0.08</text>
 <rect x="600" y="410" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="410" width="80" height="14" fill="#9f5f2f"/>
-<text x="600" y="438" font-family="Arial" font-size="10">gesture_consistency_score: 0.62</text>
+<rect x="600" y="410" width="61" height="14" fill="#9f5f2f"/>
+<text x="600" y="438" font-family="Arial" font-size="10">gesture_consistency_score: 0.48</text>
 <rect x="770" y="410" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="410" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="438" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="458" font-family="Arial" font-size="12">gesture_only</text>
+<text x="20" y="458" font-family="Arial" font-size="12">no_constraints</text>
 <rect x="260" y="444" width="130" height="14" fill="#eeeeee"/>
-<rect x="260" y="444" width="130" height="14" fill="#2f6f9f"/>
-<text x="260" y="472" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
+<rect x="260" y="444" width="94" height="14" fill="#2f6f9f"/>
+<text x="260" y="472" font-family="Arial" font-size="10">target_pcset_coverage: 0.73</text>
 <rect x="430" y="444" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="444" width="0" height="14" fill="#6b8e23"/>
-<text x="430" y="472" font-family="Arial" font-size="10">row_order_accuracy: 0.00</text>
+<rect x="430" y="444" width="11" height="14" fill="#6b8e23"/>
+<text x="430" y="472" font-family="Arial" font-size="10">row_order_accuracy: 0.09</text>
 <rect x="600" y="444" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="444" width="69" height="14" fill="#9f5f2f"/>
-<text x="600" y="472" font-family="Arial" font-size="10">gesture_consistency_score: 0.54</text>
+<rect x="600" y="444" width="50" height="14" fill="#9f5f2f"/>
+<text x="600" y="472" font-family="Arial" font-size="10">gesture_consistency_score: 0.38</text>
 <rect x="770" y="444" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="444" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="472" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>
-<text x="20" y="492" font-family="Arial" font-size="12">no_constraints</text>
+<text x="20" y="492" font-family="Arial" font-size="12">rule_baseline</text>
 <rect x="260" y="478" width="130" height="14" fill="#eeeeee"/>
-<rect x="260" y="478" width="130" height="14" fill="#2f6f9f"/>
+<rect x="260" y="478" width="129" height="14" fill="#2f6f9f"/>
 <text x="260" y="506" font-family="Arial" font-size="10">target_pcset_coverage: 1.00</text>
 <rect x="430" y="478" width="130" height="14" fill="#eeeeee"/>
-<rect x="430" y="478" width="0" height="14" fill="#6b8e23"/>
-<text x="430" y="506" font-family="Arial" font-size="10">row_order_accuracy: 0.00</text>
+<rect x="430" y="478" width="130" height="14" fill="#6b8e23"/>
+<text x="430" y="506" font-family="Arial" font-size="10">row_order_accuracy: 1.00</text>
 <rect x="600" y="478" width="130" height="14" fill="#eeeeee"/>
-<rect x="600" y="478" width="90" height="14" fill="#9f5f2f"/>
-<text x="600" y="506" font-family="Arial" font-size="10">gesture_consistency_score: 0.70</text>
+<rect x="600" y="478" width="73" height="14" fill="#9f5f2f"/>
+<text x="600" y="506" font-family="Arial" font-size="10">gesture_consistency_score: 0.57</text>
 <rect x="770" y="478" width="130" height="14" fill="#eeeeee"/>
 <rect x="770" y="478" width="130" height="14" fill="#7b4fa3"/>
 <text x="770" y="506" font-family="Arial" font-size="10">musicxml_export_success_rate: 1.00</text>

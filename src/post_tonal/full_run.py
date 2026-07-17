@@ -73,6 +73,53 @@ def _read_csv_rows(path: str | Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle))
 
 
+def _read_json_object(path: str | Path) -> dict[str, object]:
+    payload = json.loads(Path(path).read_text(encoding="utf-8-sig"))
+    if not isinstance(payload, dict):
+        raise ValueError(f"Expected a JSON object: {path}")
+    return payload
+
+
+def _read_run_incidents(
+    path: str | Path | None,
+) -> tuple[list[dict[str, str]], list[str]]:
+    if path is None:
+        return [], []
+    incident_path = Path(path)
+    if not incident_path.exists():
+        return [], []
+    try:
+        payload = _read_json_object(incident_path)
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
+        return [], [f"{incident_path.as_posix()}: {type(exc).__name__}: {exc}"]
+    raw_incidents = payload.get("incidents", [])
+    if not isinstance(raw_incidents, list):
+        return [], [f"{incident_path.as_posix()}: incidents must be a list"]
+
+    required_fields = ("stage", "status", "failure", "recovery", "evidence")
+    incidents: list[dict[str, str]] = []
+    errors: list[str] = []
+    for index, item in enumerate(raw_incidents, start=1):
+        if not isinstance(item, dict):
+            errors.append(
+                f"{incident_path.as_posix()}: incident {index} must be an object"
+            )
+            continue
+        missing = [
+            field
+            for field in required_fields
+            if not str(item.get(field, "")).strip()
+        ]
+        if missing:
+            errors.append(
+                f"{incident_path.as_posix()}: incident {index} missing "
+                + ", ".join(missing)
+            )
+            continue
+        incidents.append({str(key): str(value) for key, value in item.items()})
+    return incidents, errors
+
+
 def _metric_row_errors(rows: list[dict[str, str]]) -> list[str]:
     errors: list[str] = []
     for row in rows:
@@ -170,6 +217,141 @@ def _read_command_log(path: str | Path) -> list[str]:
     ]
 
 
+def promote_generation_examples(
+    source: str,
+    output: str,
+    source_root: str = "results/eval_musicxml_v3",
+    destination_root: str = "results/eval_musicxml",
+) -> None:
+    payload = json.loads(Path(source).read_text(encoding="utf-8-sig"))
+    if not isinstance(payload, list):
+        raise ValueError(f"Expected a JSON list: {source}")
+
+    normalized_source = source_root.replace("\\", "/").rstrip("/")
+    normalized_destination = destination_root.replace("\\", "/").rstrip("/")
+    rewritten = 0
+    for index, record in enumerate(payload):
+        if not isinstance(record, dict):
+            raise ValueError(f"Expected an object at item {index}: {source}")
+        for field in ("musicxml", "analysis_report"):
+            value = record.get(field)
+            if not isinstance(value, str):
+                raise ValueError(
+                    f"Missing string field {field!r} at item {index}: {source}"
+                )
+            normalized_value = value.replace("\\", "/")
+            prefix = f"{normalized_source}/"
+            if normalized_value.startswith(prefix):
+                record[field] = (
+                    f"{normalized_destination}/{normalized_value[len(prefix):]}"
+                )
+                rewritten += 1
+
+    if rewritten == 0:
+        raise ValueError(
+            f"No artifact paths under {source_root!r} were found in {source}"
+        )
+    save_json(payload, output)
+    print(
+        "generation_examples_promoted",
+        {"source": source, "output": output, "rewritten_paths": rewritten},
+    )
+
+
+def _generation_example_errors(path: str | Path) -> list[str]:
+    examples_path = Path(path)
+    if not examples_path.is_file():
+        return [f"{examples_path.as_posix()}: file is missing"]
+    try:
+        payload = json.loads(examples_path.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"{examples_path.as_posix()}: {type(exc).__name__}: {exc}"]
+    if not isinstance(payload, list):
+        return [f"{examples_path.as_posix()}: expected a JSON list"]
+
+    errors: list[str] = []
+    counts = {name: 0 for name in EXPECTED_EXPERIMENTS}
+    for index, record in enumerate(payload):
+        if not isinstance(record, dict):
+            errors.append(f"generation example {index}: expected an object")
+            continue
+        experiment = str(record.get("experiment", ""))
+        if experiment in counts:
+            counts[experiment] += 1
+        else:
+            errors.append(
+                f"generation example {index}: unexpected experiment {experiment!r}"
+            )
+        xml_path = Path(str(record.get("musicxml", "")))
+        report_path = Path(str(record.get("analysis_report", "")))
+        if not xml_path.is_file():
+            errors.append(f"generation example {index}: missing {xml_path.as_posix()}")
+        else:
+            try:
+                if not ElementTree.parse(xml_path).getroot().tag.endswith(
+                    "score-partwise"
+                ):
+                    errors.append(
+                        f"generation example {index}: not score-partwise "
+                        f"{xml_path.as_posix()}"
+                    )
+            except (ElementTree.ParseError, OSError) as exc:
+                errors.append(
+                    f"generation example {index}: invalid MusicXML "
+                    f"{xml_path.as_posix()}: {exc}"
+                )
+        if not report_path.is_file():
+            errors.append(
+                f"generation example {index}: missing {report_path.as_posix()}"
+            )
+        else:
+            try:
+                _read_json_object(report_path)
+            except (OSError, json.JSONDecodeError, ValueError) as exc:
+                errors.append(
+                    f"generation example {index}: invalid report "
+                    f"{report_path.as_posix()}: {exc}"
+                )
+    for experiment, count in counts.items():
+        if count != 20:
+            errors.append(
+                f"{experiment}: expected 20 generation examples, found {count}"
+            )
+    return errors
+
+
+def _manifest_matches_package(
+    manifest: dict[str, object],
+    xml_paths: list[Path],
+    expert_root: Path,
+) -> bool:
+    items = manifest.get("items")
+    if not isinstance(items, list) or not all(isinstance(item, dict) for item in items):
+        return False
+    expected_ids = {path.stem for path in xml_paths}
+    expected_xml = {path.resolve() for path in xml_paths}
+    expected_reports = {
+        (expert_root / "analysis_reports" / f"{path.stem}.json").resolve()
+        for path in xml_paths
+    }
+    manifest_ids = {str(item.get("id")) for item in items}
+    manifest_xml = {
+        Path(str(item.get("musicxml", ""))).resolve()
+        for item in items
+    }
+    manifest_reports = {
+        Path(str(item.get("analysis_report", ""))).resolve()
+        for item in items
+    }
+    return (
+        manifest.get("count") == len(items)
+        and len(items) >= 20
+        and manifest_ids == expected_ids
+        and manifest_xml == expected_xml
+        and manifest_reports == expected_reports
+    )
+
+
 def write_report(
     output: str,
     metrics: str = "results/project2_metrics.csv",
@@ -181,6 +363,7 @@ def write_report(
     log_path: str = "logs/project2_full_run.log",
     main_table: str = "paper/tables/project2_main_results.tex",
     ablation_table: str = "paper/tables/project2_ablation_results.tex",
+    incidents: str | None = None,
 ) -> None:
     metrics_path = Path(metrics)
     rows = _read_csv_rows(metrics_path)
@@ -201,8 +384,8 @@ def write_report(
         report_path = expert_root / "analysis_reports" / f"{path.stem}.json"
         if report_path.exists():
             try:
-                metadata = json.loads(report_path.read_text(encoding="utf-8")).get("metadata", {})
-            except (OSError, json.JSONDecodeError) as exc:
+                metadata = _read_json_object(report_path).get("metadata", {})
+            except (OSError, json.JSONDecodeError, ValueError) as exc:
                 xml_parse_errors.append(
                     f"{report_path.as_posix()}: {type(exc).__name__}: {exc}"
                 )
@@ -214,7 +397,7 @@ def write_report(
             voice_ok += int(len(root.findall("./part")) == requested_voices)
 
     summary_path = Path(split_summary)
-    summary = json.loads(summary_path.read_text(encoding="utf-8")) if summary_path.exists() else {}
+    summary = _read_json_object(summary_path) if summary_path.exists() else {}
     completed = [
         str(row.get("experiment"))
         for row in rows
@@ -226,8 +409,8 @@ def write_report(
     training_summaries: list[dict[str, object]] = []
     for summary_file in sorted(Path(run_root).glob("*/train_summary.json")):
         try:
-            payload = json.loads(summary_file.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
+            payload = _read_json_object(summary_file)
+        except (OSError, json.JSONDecodeError, ValueError):
             continue
         training_summaries.append({"path": summary_file.as_posix(), **payload})
     training_by_run = {
@@ -271,8 +454,15 @@ def write_report(
         default=None,
     )
     commands = _read_command_log(log_path)
+    run_incidents, incident_errors = _read_run_incidents(incidents)
+    unresolved_incidents = [
+        item
+        for item in run_incidents
+        if item.get("status", "").strip().lower() not in {"recovered", "resolved"}
+    ]
     metrics_columns = set(rows[0]) if rows else set()
     metric_row_errors = _metric_row_errors(rows)
+    generation_example_errors = _generation_example_errors(examples)
     rows_complete = (
         not missing
         and not duplicate_rows
@@ -292,15 +482,13 @@ def write_report(
     manifest_path = expert_root / "manifest.json"
     if manifest_path.is_file():
         try:
-            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-            manifest_items = manifest.get("items", []) if isinstance(manifest, dict) else []
-            manifest_ok = (
-                manifest.get("count") == len(manifest_items)
-                and len(manifest_items) >= 20
-                and {str(item.get("id")) for item in manifest_items}
-                == {path.stem for path in xml_paths}
+            manifest = _read_json_object(manifest_path)
+            manifest_ok = _manifest_matches_package(
+                manifest,
+                xml_paths,
+                expert_root,
             )
-        except (OSError, json.JSONDecodeError, AttributeError):
+        except (OSError, json.JSONDecodeError, ValueError, AttributeError):
             manifest_ok = False
     package_complete = (
         len(xml_paths) >= 20
@@ -321,8 +509,7 @@ def write_report(
     )
     supporting_outputs_complete = (
         len(_read_csv_rows(constraints)) == len(EXPECTED_EXPERIMENTS)
-        and Path(examples).is_file()
-        and Path(examples).stat().st_size > 0
+        and not generation_example_errors
         and tables_complete
     )
     completion_status = (
@@ -331,6 +518,8 @@ def write_report(
         and package_complete
         and supporting_outputs_complete
         and not incomplete_training
+        and not incident_errors
+        and not unresolved_incidents
     )
     report = [
         "# Project 2 Corrected Full Run Report",
@@ -397,9 +586,25 @@ def write_report(
         *(f"- Missing or incomplete checkpoint: {name}" for name in incomplete_training),
         *([] if incomplete_training else ["- None."]),
         "",
-        "## Failed Experiments",
-        "- No experiment failure is inferred from a missing artifact. Consult the command log for explicit tracebacks.",
+        "## Failed or Retried Stages",
+        *(
+            (
+                f"- {item['stage']} [{item['status']}]: {item['failure']} "
+                f"Recovery: {item['recovery']} Evidence: {item['evidence']}"
+            )
+            for item in run_incidents
+        ),
+        *(
+            ["- No failed or retried stage was recorded in the supplied incident file."]
+            if not run_incidents and not incident_errors
+            else []
+        ),
+        *(f"- Invalid incident record: {error}" for error in incident_errors),
         *(f"- Invalid MusicXML/report artifact: {error}" for error in xml_parse_errors),
+        *(
+            f"- Invalid generation example artifact: {error}"
+            for error in generation_example_errors
+        ),
         "",
         "## OOM Adjustments",
         *oom_adjustments,
@@ -449,6 +654,11 @@ def write_report(
             if not expert_complete
             else []
         ),
+        *(
+            ["- Resolve or explicitly close the recorded run incident(s)."]
+            if unresolved_incidents or incident_errors
+            else []
+        ),
         "- Add blind expert ratings after human evaluation.",
         "- Add independent, legally supplied MusicXML validation examples when available.",
         "- Complete author metadata, declarations, and live journal-portal checks.",
@@ -464,6 +674,15 @@ def main() -> None:
     split_parser = subparsers.add_parser("write-split-summary")
     split_parser.add_argument("--config", default="configs/post_tonal_main.yaml")
     split_parser.add_argument("--output", default="results/project2_full_split_summary.json")
+    promote_parser = subparsers.add_parser("promote-generation-examples")
+    promote_parser.add_argument("--source", required=True)
+    promote_parser.add_argument("--output", required=True)
+    promote_parser.add_argument(
+        "--source-root", default="results/eval_musicxml_v3"
+    )
+    promote_parser.add_argument(
+        "--destination-root", default="results/eval_musicxml"
+    )
     report_parser = subparsers.add_parser("write-report")
     report_parser.add_argument("--output", default="results/project2_full_run_report.md")
     report_parser.add_argument("--metrics", default="results/project2_metrics.csv")
@@ -475,11 +694,19 @@ def main() -> None:
     report_parser.add_argument("--log-path", default="logs/project2_full_run.log")
     report_parser.add_argument("--main-table", default="paper/tables/project2_main_results.tex")
     report_parser.add_argument("--ablation-table", default="paper/tables/project2_ablation_results.tex")
+    report_parser.add_argument("--incidents")
     args = parser.parse_args()
     if args.command == "env-check":
         env_check()
     elif args.command == "write-split-summary":
         write_split_summary(args.config, args.output)
+    elif args.command == "promote-generation-examples":
+        promote_generation_examples(
+            args.source,
+            args.output,
+            args.source_root,
+            args.destination_root,
+        )
     elif args.command == "write-report":
         write_report(
             args.output,
@@ -492,6 +719,7 @@ def main() -> None:
             args.log_path,
             args.main_table,
             args.ablation_table,
+            args.incidents,
         )
 
 

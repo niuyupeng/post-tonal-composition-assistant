@@ -1,74 +1,92 @@
 {
   "analysis": {
-    "aggregate_completion_rate": 0.5,
+    "aggregate_completion_rate": 0.4166666666666667,
+    "aggregate_target_applicable": false,
+    "content_span_ratio": 0.25892857142857145,
     "density_curve": [
-      30.0,
-      5.0,
-      0.0,
+      21.0,
+      16.0,
       0.0,
       0.0,
       0.0,
       0.0,
       0.0
     ],
-    "density_curve_error": 11.5,
+    "density_curve_error": 16.14285659790039,
+    "density_curve_reference": "held_out_target_density_curve",
     "expected_row_form": null,
     "generated_interval_vector": [
+      2,
+      1,
+      1,
+      2,
       3,
-      0,
-      3,
-      6,
-      3,
-      0
+      1
     ],
-    "gesture_consistency_score": 0.25390625,
+    "gesture_consistency_score": 0.29017857142857145,
     "gesture_features": {
-      "average_duration": 0.34285715222358704,
-      "note_density": 1.09375,
-      "onset_dispersion": 1.19936203956604,
-      "register_spread": 9.0,
-      "rest_ratio": 0.1171875
+      "average_duration": 0.7162162065505981,
+      "note_density": 0.2642857142857143,
+      "onset_dispersion": 1.092632532119751,
+      "register_spread": 15.0,
+      "rest_ratio": 0.04642857142857143
     },
     "instrument_range_violation_rate": 0.0,
     "interval_vector_distance": 0.0,
-    "note_count": 35,
+    "note_count": 37,
+    "off_target_pc_rate": 0.0,
     "pcset": [
       0,
-      3,
-      4,
-      7,
-      8,
-      11
+      1,
+      5,
+      6,
+      8
     ],
     "pcset_coverage": 1.0,
+    "pcset_jaccard": 1.0,
+    "pcset_precision": 1.0,
     "range_violation_rate": 0.0,
-    "rhythmic_profile_distance": 0.8846153616905212,
+    "realized_content_measures": 2,
+    "realized_voice_count": 5,
+    "requested_measures": 7,
+    "requested_voice_count": 5,
+    "rhythm_reference": "deterministic_profile_template",
+    "rhythmic_profile_distance": 0.6285713911056519,
     "row_order_accuracy": null,
-    "serial_transformation_accuracy": null
+    "serial_transformation_accuracy": null,
+    "voice_count_adherence": 1.0
   },
   "metadata": {
     "gesture": "registral_expansion",
     "instrument": "clarinet",
     "interval_vector": [
+      2,
+      1,
+      1,
+      2,
       3,
-      0,
-      3,
-      6,
-      3,
-      0
+      1
     ],
-    "measures": 8,
+    "measures": 7,
     "pcset": [
       0,
-      3,
-      4,
-      7,
-      8,
-      11
+      1,
+      5,
+      6,
+      8
     ],
-    "rhythm_profile": "dense",
+    "rhythm_profile": "medium",
     "row": null,
     "row_form": null,
-    "voices": 4
+    "target_density_curve": [
+      19.0,
+      20.0,
+      20.0,
+      20.0,
+      24.0,
+      23.0,
+      20.0
+    ],
+    "voices": 5
   }
 }

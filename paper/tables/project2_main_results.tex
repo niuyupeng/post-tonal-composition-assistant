@@ -2,16 +2,16 @@
 \centering
 \small
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrr}
+\begin{tabular}{lrrrrrrrrrrrrrrr}
 \toprule
-Experiment & Token acc. & PC cov. & Row acc. & Rhythm dist. & Gesture & XML (20) \\
+Experiment & Token acc. & PC cov. & PC prec. & IV dist. & Row acc. & Aggregate & Form acc. & Rhythm dist. & Density err. & Gesture & Range viol. & Span & Voices & XML export & XML span \\
 \midrule
-Rule reference & -- & 0.9968 & 1.0000 & 1.7150 & 0.4025 & 1.0000 \\
-Independent vanilla & 0.6279 & 0.9967 & 0.1579 & 0.9093 & 0.5278 & 1.0000 \\
-Original guided & 0.6254 & 0.9949 & 0.2320 & 0.8163 & 0.5564 & 1.0000 \\
+Shared generator, K=4 guided & 0.6686 & 0.9999 & 1.0000 & 0.0045 & 0.2411 & 0.9969 & 0.0000 & 0.5041 & 12.2353 & 0.4937 & 0.0000 & 0.5195 & 1.0000 & 1.0000 & 1.0000 \\
+Shared generator, K=1 & 0.6686 & 0.9963 & 0.9937 & 0.2390 & 0.1581 & 0.9949 & 0.0000 & 0.5113 & 12.3501 & 0.4772 & 0.0000 & 0.5024 & 1.0000 & 1.0000 & 1.0000 \\
+Rule reference & -- & 0.9988 & 1.0000 & 0.0260 & 1.0000 & 0.9958 & 0.9819 & 0.3021 & 2.9263 & 0.5683 & 0.0000 & 0.9986 & 1.0000 & 1.0000 & 1.0000 \\
 \bottomrule
 \end{tabular}
 }
-\caption{Archived aggregate results. Independent neural rows use different generated corpora and are descriptive rather than paired comparisons. Row accuracy is averaged only over row-conditioned samples, so its denominator differs from the 2,000-item test-set total and can vary by configuration. XML success is measured over 20 attempted exports per configuration.}
+\caption{Corrected aggregate results on one shared procedural corpus. Neural condition ablations preserve sample identifiers, targets, and train/validation/test membership while changing only condition-prefix fields. Row and serial-form accuracy are averaged over row-conditioned samples. XML-span adherence is measured over 20 attempted exports per configuration.}
 \label{tab:project2-main-results}
 \end{table}

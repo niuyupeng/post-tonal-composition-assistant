@@ -9,7 +9,7 @@ Enter NA for serial logic when no row form is specified. Rate only the symbolic 
 The system identity is withheld; do not infer or rate authorship, style imitation, or audio quality.
 
 ## project2_01
-- target conditions: pc-set {0,3,4,7,8,11}; row form not specified; rhythm sparse; gesture rhythmic_burst; voices 8; measures 15
+- target conditions: pc-set {}; row form RI0; rhythm medium; gesture sustained; voices 8; measures 11
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -20,7 +20,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_02
-- target conditions: pc-set {0,1,5,6,8}; row form not specified; rhythm burst; gesture pointillistic; voices 3; measures 6
+- target conditions: pc-set {0,2,3,5}; row form not specified; rhythm medium; gesture registral_expansion; voices 3; measures 14
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -31,7 +31,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_03
-- target conditions: pc-set {0,1,2,5,6}; row form I10; rhythm sparse; gesture registral_expansion; voices 2; measures 5
+- target conditions: pc-set {0,1,2,5,6}; row form not specified; rhythm burst; gesture rhythmic_burst; voices 4; measures 10
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -42,7 +42,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_04
-- target conditions: pc-set {0,2,4,7,9}; row form I1; rhythm pointillistic; gesture sustained; voices 5; measures 12
+- target conditions: pc-set {}; row form I5; rhythm additive; gesture pointillistic; voices 7; measures 16
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -53,7 +53,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_05
-- target conditions: pc-set {0,1,4,6}; row form not specified; rhythm medium; gesture pointillistic; voices 7; measures 6
+- target conditions: pc-set {}; row form R10; rhythm pointillistic; gesture cluster_like; voices 3; measures 9
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -64,7 +64,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_06
-- target conditions: pc-set {0,1,4,6}; row form R6; rhythm sustained; gesture silence_gap; voices 3; measures 14
+- target conditions: pc-set {}; row form R10; rhythm additive; gesture fragmented; voices 5; measures 14
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -75,7 +75,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_07
-- target conditions: pc-set {0,1,5,6,8}; row form not specified; rhythm pointillistic; gesture registral_expansion; voices 4; measures 6
+- target conditions: pc-set {0,1,4}; row form not specified; rhythm additive; gesture fragmented; voices 4; measures 5
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -86,7 +86,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_08
-- target conditions: pc-set {0,1,4,6}; row form not specified; rhythm burst; gesture rhythmic_burst; voices 4; measures 7
+- target conditions: pc-set {}; row form R7; rhythm additive; gesture registral_expansion; voices 2; measures 9
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -97,7 +97,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_09
-- target conditions: pc-set {0,1,4,6}; row form P1; rhythm additive; gesture silence_gap; voices 4; measures 7
+- target conditions: pc-set {0,2,3,5}; row form not specified; rhythm sustained; gesture fragmented; voices 7; measures 14
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -108,7 +108,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_10
-- target conditions: pc-set {0,1,2,5,6}; row form not specified; rhythm burst; gesture pointillistic; voices 3; measures 15
+- target conditions: pc-set {0,3,4,7,8,11}; row form not specified; rhythm burst; gesture registral_expansion; voices 3; measures 13
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -119,7 +119,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_11
-- target conditions: pc-set {0,3,4,7,8,11}; row form not specified; rhythm pointillistic; gesture sustained; voices 6; measures 9
+- target conditions: pc-set {0,3,4,7,8,11}; row form not specified; rhythm burst; gesture rhythmic_burst; voices 4; measures 14
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -130,7 +130,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_12
-- target conditions: pc-set {0,1,4,6}; row form P8; rhythm dense; gesture silence_gap; voices 4; measures 13
+- target conditions: pc-set {}; row form R7; rhythm sparse; gesture rhythmic_burst; voices 2; measures 5
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -141,7 +141,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_13
-- target conditions: pc-set {0,2,3,5}; row form R9; rhythm sparse; gesture rhythmic_burst; voices 2; measures 6
+- target conditions: pc-set {0,1,4,6}; row form not specified; rhythm medium; gesture sustained; voices 7; measures 6
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -152,7 +152,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_14
-- target conditions: pc-set {0,1,4}; row form not specified; rhythm medium; gesture fragmented; voices 7; measures 11
+- target conditions: pc-set {0,1,4,6}; row form not specified; rhythm dense; gesture pointillistic; voices 8; measures 8
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -163,7 +163,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_15
-- target conditions: pc-set {0,3,4,7,8,11}; row form not specified; rhythm dense; gesture registral_expansion; voices 4; measures 8
+- target conditions: pc-set {0,1,5,6,8}; row form not specified; rhythm medium; gesture registral_expansion; voices 5; measures 7
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -174,7 +174,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_16
-- target conditions: pc-set {0,3,4,7,8,11}; row form I8; rhythm medium; gesture rhythmic_burst; voices 5; measures 16
+- target conditions: pc-set {}; row form P9; rhythm medium; gesture pointillistic; voices 5; measures 4
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -185,7 +185,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_17
-- target conditions: pc-set {0,1,4}; row form P1; rhythm sparse; gesture rhythmic_burst; voices 8; measures 4
+- target conditions: pc-set {}; row form P11; rhythm burst; gesture pointillistic; voices 5; measures 7
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -196,7 +196,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_18
-- target conditions: pc-set {0,2,3,5}; row form not specified; rhythm sparse; gesture sustained; voices 5; measures 9
+- target conditions: pc-set {0,1,4,6}; row form not specified; rhythm pointillistic; gesture rhythmic_burst; voices 4; measures 4
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -207,7 +207,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_19
-- target conditions: pc-set {0,1,5,6,8}; row form I11; rhythm pointillistic; gesture sustained; voices 4; measures 13
+- target conditions: pc-set {0,1,5,6,8}; row form not specified; rhythm sparse; gesture pointillistic; voices 6; measures 8
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7
@@ -218,7 +218,7 @@ The system identity is withheld; do not infer or rate authorship, style imitatio
 - comments: 
 
 ## project2_20
-- target conditions: pc-set {0,3,4,7,8,11}; row form RI6; rhythm sustained; gesture fragmented; voices 5; measures 5
+- target conditions: pc-set {0,1,2,5,6}; row form not specified; rhythm sustained; gesture registral_expansion; voices 4; measures 4
 - post-tonal material coherence: ___ / 7
 - pc-set / interval consistency: ___ / 7
 - serial logic clarity: ___ / 7

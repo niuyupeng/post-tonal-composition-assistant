@@ -59,9 +59,18 @@ function Test-EvaluationComplete {
         [string]$Path,
         [string]$ConfigPath,
         [AllowNull()]
-        [string]$CheckpointPath
+        [string]$CheckpointPath,
+        [string]$ExportDirectory
     )
     if (-not (Test-Path -LiteralPath $Path)) {
+        return $false
+    }
+    if (-not (Test-Path -LiteralPath $ExportDirectory)) {
+        return $false
+    }
+    $xmlExports = @(Get-ChildItem -LiteralPath $ExportDirectory -Filter "*_test_*.musicxml" -File)
+    $reportExports = @(Get-ChildItem -LiteralPath $ExportDirectory -Filter "*_test_*.json" -File)
+    if ($xmlExports.Count -ne 20 -or $reportExports.Count -ne 20) {
         return $false
     }
     try {
@@ -236,7 +245,14 @@ foreach ($exp in $experiments) {
         $summary | Add-Member -NotePropertyName config_path -NotePropertyValue $exp.Config -Force
         $summary | Add-Member -NotePropertyName config_sha256 -NotePropertyValue ((Get-FileHash -LiteralPath (Join-Path $Root $exp.Config) -Algorithm SHA256).Hash.ToLowerInvariant()) -Force
         $summary | Add-Member -NotePropertyName checkpoint_sha256 -NotePropertyValue ((Get-FileHash -LiteralPath $checkpoint -Algorithm SHA256).Hash.ToLowerInvariant()) -Force
-        $summary | ConvertTo-Json -Depth 100 | Set-Content -LiteralPath (Join-Path $runDirectory "train_summary.json") -Encoding UTF8
+        $summaryPath = Join-Path $runDirectory "train_summary.json"
+        Assert-WorkspacePath $summaryPath
+        $summaryJson = $summary | ConvertTo-Json -Depth 100
+        [System.IO.File]::WriteAllText(
+            $summaryPath,
+            $summaryJson,
+            [System.Text.UTF8Encoding]::new($false)
+        )
     }
     elseif ($exp.Train) {
         if (Test-TrainingComplete $runDirectory $exp.Config) {
@@ -260,7 +276,8 @@ foreach ($exp in $experiments) {
 
     $metricsOutput = Join-Path $Root "results\project2_v3_$($exp.Name)_metrics.json"
     $evaluationCheckpoint = if ($usesCheckpoint) { $checkpoint } else { $null }
-    if (-not ((Test-EvaluationComplete $metricsOutput $exp.Config $evaluationCheckpoint) -and (Test-MetricsRowPresent $exp.Name))) {
+    $evaluationExport = Join-Path $Root "results\eval_musicxml_v3\$($exp.Name)"
+    if (-not ((Test-EvaluationComplete $metricsOutput $exp.Config $evaluationCheckpoint $evaluationExport) -and (Test-MetricsRowPresent $exp.Name))) {
         $evalArguments = @(
             "-m", "post_tonal.evaluate",
             "--config", $exp.Config,
@@ -368,15 +385,24 @@ Invoke-LoggedPython @(
     "--run-root", "runs/v3",
     "--log-path", "logs/project2_v3_full_run.log",
     "--main-table", "paper/tables/project2_v3_main_results.tex",
-    "--ablation-table", "paper/tables/project2_v3_ablation_results.tex"
+    "--ablation-table", "paper/tables/project2_v3_ablation_results.tex",
+    "--incidents", "results/project2_v3_run_incidents.json"
 )
 
 if ($ShouldPromote) {
     Copy-Item -LiteralPath (Join-Path $Root "results\project2_v3_metrics.csv") -Destination (Join-Path $Root "results\project2_metrics.csv") -Force
     Copy-Item -LiteralPath (Join-Path $Root "results\project2_v3_constraints.csv") -Destination (Join-Path $Root "results\project2_constraints.csv") -Force
-    Copy-Item -LiteralPath (Join-Path $Root "results\project2_v3_generation_examples.json") -Destination (Join-Path $Root "results\project2_generation_examples.json") -Force
+    Invoke-LoggedPython @(
+        "-m", "post_tonal.full_run", "promote-generation-examples",
+        "--source", "results/project2_v3_generation_examples.json",
+        "--output", "results/project2_generation_examples.json",
+        "--source-root", "results/eval_musicxml_v3",
+        "--destination-root", "results/eval_musicxml"
+    )
     Copy-Item -LiteralPath (Join-Path $Root "results\project2_v3_full_split_summary.json") -Destination (Join-Path $Root "results\project2_full_split_summary.json") -Force
     Copy-Item -LiteralPath (Join-Path $Root "results\project2_v3_full_run_report.md") -Destination (Join-Path $Root "results\project2_full_run_report.md") -Force
+    Copy-Item -LiteralPath (Join-Path $Root "results\project2_v3_run_incidents.json") -Destination (Join-Path $Root "results\project2_full_run_incidents.json") -Force
+    Copy-Item -LiteralPath (Join-Path $Root "results\project2_v3_constraint_summary.svg") -Destination (Join-Path $Root "results\project2_constraint_summary.svg") -Force
     Copy-Item -LiteralPath (Join-Path $Root "paper\tables\project2_v3_main_results.tex") -Destination (Join-Path $Root "paper\tables\project2_main_results.tex") -Force
     Copy-Item -LiteralPath (Join-Path $Root "paper\tables\project2_v3_ablation_results.tex") -Destination (Join-Path $Root "paper\tables\project2_ablation_results.tex") -Force
     Copy-Item -LiteralPath $LogPath -Destination (Join-Path $Root "logs\project2_full_run.log") -Force
@@ -386,12 +412,24 @@ if ($ShouldPromote) {
         New-Item -ItemType Directory -Force -Path $destinationRun | Out-Null
         Copy-Item -Path (Join-Path $sourceRun "*") -Destination $destinationRun -Recurse -Force
     }
+    $canonicalEvaluation = Join-Path $Root "results\eval_musicxml"
+    Assert-WorkspacePath $canonicalEvaluation
+    if (Test-Path -LiteralPath $canonicalEvaluation) {
+        Remove-Item -LiteralPath $canonicalEvaluation -Recurse -Force
+    }
+    Copy-Item -LiteralPath (Join-Path $Root "results\eval_musicxml_v3") -Destination $canonicalEvaluation -Recurse -Force
     $canonicalExpert = Join-Path $Root "expert_eval\project2"
     Assert-WorkspacePath $canonicalExpert
     if (Test-Path -LiteralPath $canonicalExpert) {
         Remove-Item -LiteralPath $canonicalExpert -Recurse -Force
     }
-    Copy-Item -LiteralPath (Join-Path $Root "expert_eval\project2_v3") -Destination $canonicalExpert -Recurse -Force
+    Invoke-LoggedPython @(
+        "-m", "post_tonal.prepare_expert_eval",
+        "--output-dir", "expert_eval/project2",
+        "--count", "20",
+        "--examples-json", "results/project2_generation_examples.json",
+        "--experiment", "proposed_constraint_guided_transformer"
+    )
     Invoke-LoggedPython @(
         "-m", "post_tonal.full_run", "write-report",
         "--output", "results/project2_full_run_report.md",
@@ -403,7 +441,8 @@ if ($ShouldPromote) {
         "--run-root", "runs/v3",
         "--log-path", "logs/project2_v3_full_run.log",
         "--main-table", "paper/tables/project2_main_results.tex",
-        "--ablation-table", "paper/tables/project2_ablation_results.tex"
+        "--ablation-table", "paper/tables/project2_ablation_results.tex",
+        "--incidents", "results/project2_full_run_incidents.json"
     )
     Copy-Item -LiteralPath $LogPath -Destination (Join-Path $Root "logs\project2_full_run.log") -Force
     Write-Host "Corrected v3 outputs promoted to canonical result paths."

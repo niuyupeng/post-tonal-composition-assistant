@@ -1,9 +1,16 @@
 {
   "analysis": {
     "aggregate_completion_rate": 0.5,
+    "aggregate_target_applicable": false,
+    "content_span_ratio": 0.39732142857142855,
     "density_curve": [
-      17.0,
-      9.0,
+      16.0,
+      14.0,
+      3.0,
+      11.0,
+      16.0,
+      4.0,
+      0.0,
       0.0,
       0.0,
       0.0,
@@ -12,7 +19,8 @@
       0.0,
       0.0
     ],
-    "density_curve_error": 8.0,
+    "density_curve_error": 7.285714149475098,
+    "density_curve_reference": "held_out_target_density_curve",
     "expected_row_form": null,
     "generated_interval_vector": [
       3,
@@ -22,17 +30,18 @@
       3,
       0
     ],
-    "gesture_consistency_score": 0.2660256226857503,
+    "gesture_consistency_score": 0.4887152777777778,
     "gesture_features": {
-      "average_duration": 2.096153736114502,
-      "note_density": 0.7222222222222222,
-      "onset_dispersion": 0.9756654500961304,
-      "register_spread": 9.0,
-      "rest_ratio": 1.2638888359069824
+      "average_duration": 0.33984375,
+      "note_density": 0.2857142857142857,
+      "onset_dispersion": 1.0309836864471436,
+      "register_spread": 40.0,
+      "rest_ratio": 0.046875
     },
     "instrument_range_violation_rate": 0.0,
     "interval_vector_distance": 0.0,
-    "note_count": 26,
+    "note_count": 64,
+    "off_target_pc_rate": 0.0,
     "pcset": [
       0,
       3,
@@ -42,14 +51,22 @@
       11
     ],
     "pcset_coverage": 1.0,
+    "pcset_jaccard": 1.0,
+    "pcset_precision": 1.0,
     "range_violation_rate": 0.0,
-    "rhythmic_profile_distance": 0.7272727489471436,
+    "realized_content_measures": 6,
+    "realized_voice_count": 4,
+    "requested_measures": 14,
+    "requested_voice_count": 4,
+    "rhythm_reference": "deterministic_profile_template",
+    "rhythmic_profile_distance": 0.3794642984867096,
     "row_order_accuracy": null,
-    "serial_transformation_accuracy": null
+    "serial_transformation_accuracy": null,
+    "voice_count_adherence": 1.0
   },
   "metadata": {
-    "gesture": "sustained",
-    "instrument": "piano",
+    "gesture": "rhythmic_burst",
+    "instrument": "clarinet",
     "interval_vector": [
       3,
       0,
@@ -58,7 +75,7 @@
       3,
       0
     ],
-    "measures": 9,
+    "measures": 14,
     "pcset": [
       0,
       3,
@@ -67,9 +84,25 @@
       8,
       11
     ],
-    "rhythm_profile": "pointillistic",
+    "rhythm_profile": "burst",
     "row": null,
     "row_form": null,
-    "voices": 6
+    "target_density_curve": [
+      20.0,
+      9.0,
+      9.0,
+      12.0,
+      11.0,
+      6.0,
+      12.0,
+      7.0,
+      5.0,
+      15.0,
+      10.0,
+      4.0,
+      14.0,
+      12.0
+    ],
+    "voices": 4
   }
 }

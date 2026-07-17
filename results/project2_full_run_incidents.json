@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "incidents": [
+    {
+      "stage": "pcset_only training startup",
+      "occurred_at": "2026-07-17T06:11:46+08:00",
+      "status": "recovered",
+      "failure": "Python exited with -1073740791 (0xC0000409). Windows Application Error event 1000 identified nvcuda64.dll 32.0.15.9186 as the faulting module.",
+      "impact": "The process failed before epoch 1 completed. The first nine completed experiment rows and checkpoints remained intact.",
+      "recovery": "A CUDA fp16 4096-by-4096 matrix multiplication health check succeeded, then the full wrapper was restarted with -Resume. pcset_only subsequently completed 60 epochs and its 2000-sample test evaluation.",
+      "evidence": "Windows report ID ce14a5f2-af73-41cf-afe2-2fb4d61f681c; logs/project2_v3_wrapper_20260716_223610.stderr.log; runs/v3/pcset_only/train_summary.json"
+    }
+  ]
+}

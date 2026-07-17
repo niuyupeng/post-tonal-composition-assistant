@@ -1,95 +1,104 @@
 {
   "analysis": {
-    "aggregate_completion_rate": 1.0,
+    "aggregate_completion_rate": 0.3333333333333333,
+    "aggregate_target_applicable": false,
+    "content_span_ratio": 0.6741071428571429,
     "density_curve": [
-      12.0,
-      7.0,
+      6.0,
+      10.0,
       5.0,
+      5.0,
+      7.0,
+      8.0,
+      5.0,
+      6.0,
+      9.0,
+      2.0,
       0.0,
       0.0,
       0.0,
       0.0
     ],
-    "density_curve_error": 4.142857074737549,
-    "expected_row_form": [
-      1,
-      7,
-      5,
-      9,
-      10,
-      3,
-      2,
-      4,
-      6,
-      11,
-      0,
-      8
-    ],
+    "density_curve_error": 4.5,
+    "density_curve_reference": "held_out_target_density_curve",
+    "expected_row_form": null,
     "generated_interval_vector": [
-      12,
-      12,
-      12,
-      12,
-      12,
-      6
+      1,
+      2,
+      2,
+      0,
+      1,
+      0
     ],
-    "gesture_consistency_score": 0.4132653304508754,
+    "gesture_consistency_score": 0.42163050836986965,
     "gesture_features": {
-      "average_duration": 0.4791666567325592,
-      "note_density": 0.8571428571428571,
-      "onset_dispersion": 1.2493053674697876,
-      "register_spread": 49.0,
-      "rest_ratio": 0.6607142686843872
+      "average_duration": 0.9523809552192688,
+      "note_density": 0.16071428571428573,
+      "onset_dispersion": 1.1478068828582764,
+      "register_spread": 39.0,
+      "rest_ratio": 0.07525510204081633
     },
     "instrument_range_violation_rate": 0.0,
-    "interval_vector_distance": 60.0,
-    "note_count": 24,
+    "interval_vector_distance": 0.0,
+    "note_count": 63,
+    "off_target_pc_rate": 0.0,
     "pcset": [
       0,
-      1,
-      4,
-      6
+      2,
+      3,
+      5
     ],
     "pcset_coverage": 1.0,
+    "pcset_jaccard": 1.0,
+    "pcset_precision": 1.0,
     "range_violation_rate": 0.0,
-    "rhythmic_profile_distance": 0.6904761791229248,
-    "row_order_accuracy": 0.25,
-    "serial_transformation_accuracy": 0.25
+    "realized_content_measures": 10,
+    "realized_voice_count": 7,
+    "requested_measures": 14,
+    "requested_voice_count": 7,
+    "rhythm_reference": "deterministic_profile_template",
+    "rhythmic_profile_distance": 0.37755098938941956,
+    "row_order_accuracy": null,
+    "serial_transformation_accuracy": null,
+    "voice_count_adherence": 1.0
   },
   "metadata": {
-    "gesture": "silence_gap",
-    "instrument": "piano",
+    "gesture": "fragmented",
+    "instrument": "cello",
     "interval_vector": [
       1,
+      2,
+      2,
+      0,
       1,
-      1,
-      1,
-      1,
-      1
+      0
     ],
-    "measures": 7,
+    "measures": 14,
     "pcset": [
       0,
-      1,
-      4,
-      6
-    ],
-    "rhythm_profile": "additive",
-    "row": [
-      0,
-      6,
-      4,
-      8,
-      9,
       2,
-      1,
       3,
-      5,
-      10,
-      11,
-      7
+      5
     ],
-    "row_form": "P1",
-    "voices": 4
+    "rhythm_profile": "sustained",
+    "row": null,
+    "row_form": null,
+    "target_density_curve": [
+      15.0,
+      10.0,
+      6.0,
+      11.0,
+      9.0,
+      12.0,
+      7.0,
+      9.0,
+      6.0,
+      5.0,
+      7.0,
+      10.0,
+      8.0,
+      5.0
+    ],
+    "voices": 7
   }
 }

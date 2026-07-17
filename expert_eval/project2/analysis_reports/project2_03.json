@@ -1,47 +1,43 @@
 {
   "analysis": {
-    "aggregate_completion_rate": 0.6666666666666666,
+    "aggregate_completion_rate": 0.4166666666666667,
+    "aggregate_target_applicable": false,
+    "content_span_ratio": 0.4875,
     "density_curve": [
-      2.0,
-      1.0,
-      3.0,
-      2.0,
+      14.0,
+      0.0,
+      20.0,
+      5.0,
+      10.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
       0.0
     ],
-    "density_curve_error": 1.2000000476837158,
-    "expected_row_form": [
-      10,
-      3,
-      0,
-      1,
-      7,
-      4,
-      8,
-      9,
-      6,
-      2,
-      5,
-      11
-    ],
+    "density_curve_error": 10.100000381469727,
+    "density_curve_reference": "held_out_target_density_curve",
+    "expected_row_form": null,
     "generated_interval_vector": [
-      5,
-      4,
-      6,
-      6,
-      5,
-      2
+      3,
+      1,
+      1,
+      2,
+      2,
+      1
     ],
-    "gesture_consistency_score": 0.625,
+    "gesture_consistency_score": 0.48526075813505387,
     "gesture_features": {
-      "average_duration": 1.75,
-      "note_density": 0.4,
-      "onset_dispersion": 0.7261843681335449,
-      "register_spread": 27.0,
-      "rest_ratio": 0.7749999761581421
+      "average_duration": 0.33673468232154846,
+      "note_density": 0.30625,
+      "onset_dispersion": 1.0893782377243042,
+      "register_spread": 36.0,
+      "rest_ratio": 0.0375
     },
     "instrument_range_violation_rate": 0.0,
-    "interval_vector_distance": 18.0,
-    "note_count": 8,
+    "interval_vector_distance": 0.0,
+    "note_count": 49,
+    "off_target_pc_rate": 0.0,
     "pcset": [
       0,
       1,
@@ -49,15 +45,23 @@
       5,
       6
     ],
-    "pcset_coverage": 0.6,
+    "pcset_coverage": 1.0,
+    "pcset_jaccard": 1.0,
+    "pcset_precision": 1.0,
     "range_violation_rate": 0.0,
-    "rhythmic_profile_distance": 0.4000000059604645,
-    "row_order_accuracy": 0.125,
-    "serial_transformation_accuracy": 0.125
+    "realized_content_measures": 5,
+    "realized_voice_count": 4,
+    "requested_measures": 10,
+    "requested_voice_count": 4,
+    "rhythm_reference": "deterministic_profile_template",
+    "rhythmic_profile_distance": 0.4593749940395355,
+    "row_order_accuracy": null,
+    "serial_transformation_accuracy": null,
+    "voice_count_adherence": 1.0
   },
   "metadata": {
-    "gesture": "registral_expansion",
-    "instrument": "violin",
+    "gesture": "rhythmic_burst",
+    "instrument": "generic_voice",
     "interval_vector": [
       3,
       1,
@@ -66,7 +70,7 @@
       2,
       1
     ],
-    "measures": 5,
+    "measures": 10,
     "pcset": [
       0,
       1,
@@ -74,22 +78,21 @@
       5,
       6
     ],
-    "rhythm_profile": "sparse",
-    "row": [
-      2,
-      9,
-      0,
-      11,
-      5,
-      8,
-      4,
-      3,
-      6,
-      10,
-      7,
-      1
+    "rhythm_profile": "burst",
+    "row": null,
+    "row_form": null,
+    "target_density_curve": [
+      21.0,
+      13.0,
+      6.0,
+      15.0,
+      13.0,
+      9.0,
+      17.0,
+      13.0,
+      3.0,
+      12.0
     ],
-    "row_form": "I10",
-    "voices": 2
+    "voices": 4
   }
 }

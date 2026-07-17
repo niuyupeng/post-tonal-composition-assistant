@@ -34,9 +34,14 @@ results/*.json
 !results/project2_multiseed_controlled_statistics.json
 !results/project2_v3_full_split_summary.json
 !results/project2_v3_rule_baseline_metrics.json
+!results/project2_full_run_incidents.json
+!results/project2_v3_run_incidents.json
 results/smoke_v3/
 results/*before_2000_eval_*
 results/eval_musicxml/
+results/eval_musicxml_v3/
+results/project2_v3_constraint_summary.svg
+expert_eval/project2_v3/
 paper/tables/*.tex
 !paper/tables/project2_multiseed_controlled_results.tex
 !generated_scores/.gitkeep
