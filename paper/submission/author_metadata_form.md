@@ -1,10 +1,11 @@
 # Author Metadata Form
 
-Complete this file from author-supplied information. Do not infer identities, affiliations, grants, or contributions from the repository owner.
+Complete this file from author-supplied information. Do not infer identities,
+affiliations, grants, or contributions from the repository owner.
 
 ## Manuscript
 
-- Title: Neural-Symbolic Post-Tonal Composition Assistance with Pitch-Class Set, Serial, and Rhythmic-Profile Constraints
+- Title: Neural-Symbolic Post-Tonal Composition Assistant with Pitch-Class Set, Serial, and Rhythmic-Profile Constraints
 - Chinese title: 融合音级集合、序列与节奏轮廓约束的神经符号后调性作曲辅助方法
 - Target journal: Journal of New Music Research
 - Article type: PENDING_PORTAL_VERIFICATION
@@ -39,4 +40,5 @@ Repeat this block for every author in final order.
 - Prior submission history, or `none`: PENDING_AUTHOR_CONFIRMATION
 - Funding agency and grant number, or `none`: PENDING_AUTHOR_INPUT
 - Competing interests, or `none declared`: PENDING_AUTHOR_CONFIRMATION
+- AI-assistance disclosure: PENDING_AUTHOR_CONFIRMATION_AND_POLICY_CHECK
 - Suggested/excluded reviewers, only if allowed by portal: PENDING_PORTAL_VERIFICATION

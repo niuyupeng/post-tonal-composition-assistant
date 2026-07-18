@@ -89,13 +89,13 @@ def _write_table(path: Path, rows: list[dict[str, Any]], caption: str, label: st
         "musicxml_measure_adherence_rate",
     ]
     lines = [
-        "\\begin{table}[t]",
+        "\\begin{sidewaystable}[p]",
         "\\centering",
         "\\small",
-        "\\resizebox{\\textwidth}{!}{%",
+        "\\resizebox{\\textheight}{!}{%",
         "\\begin{tabular}{lrrrrrrrrrrrrrrr}",
         "\\toprule",
-        "Experiment & Token acc. & PC cov. & PC prec. & IV dist. & Row acc. & Aggregate & Form acc. & Rhythm dist. & Density err. & Gesture & Range viol. & Span & Voices & XML export & XML span \\\\",
+        "Experiment & Token acc. & PC cov. & PC prec. & IV dist. & Row acc. & Aggregate & Form acc. & Rhythm dist. & Density err. & Gesture & Range viol. & Span & Content voices & XML parse & XML measures \\\\",
         "\\midrule",
     ]
     for row in rows:
@@ -115,7 +115,7 @@ def _write_table(path: Path, rows: list[dict[str, Any]], caption: str, label: st
             "}",
             f"\\caption{{{caption}}}",
             f"\\label{{{label}}}",
-            "\\end{table}",
+            "\\end{sidewaystable}",
             "",
         ]
     )
@@ -138,13 +138,13 @@ def make_tables(
     _write_table(
         Path(main_table),
         main_rows,
-        "Corrected aggregate results on one shared procedural corpus. Neural condition ablations preserve sample identifiers, targets, and train/validation/test membership while changing only condition-prefix fields. Row and serial-form accuracy are averaged over row-conditioned samples. XML-span adherence is measured over 20 attempted exports per configuration.",
+        "Automatic results on the fixed 2,000-condition procedural test split. The guided and single-candidate rows share one checkpoint; the rule reference implements constraints directly. Row and serial-form accuracy are averaged over row-conditioned samples. XML parse and measure adherence are measured over 20 attempted exports per configuration; XML part-count adherence is 1.0000 for all three rows.",
         "tab:project2-main-results",
     )
     _write_table(
         Path(ablation_table),
         ablation_rows,
-        "Condition-prefix ablations and focused-condition models on the shared procedural corpus. Each model sees the ablated condition prefix, while evaluation retains the original held-out targets. Row and serial-form accuracy are averaged over row-conditioned samples. XML-span adherence is measured over 20 attempted exports per configuration.",
+        "Single-candidate condition-prefix ablations and focused-condition models on the fixed procedural test split. Each model sees its configured prefix while evaluation retains the original held-out targets. Row and serial-form accuracy are averaged over row-conditioned samples. XML parse and measure adherence are measured over 20 attempted exports per configuration; XML part-count adherence is 1.0000 for all rows.",
         "tab:project2-ablation-results",
     )
     return {"rows": len(rows), "main_rows": len(main_rows), "ablation_rows": len(ablation_rows)}

@@ -1,24 +1,44 @@
 \section{Results}
 \label{sec:results}
 
-\subsection{Corrected full-run status}
+\subsection{Full-run completion}
 
-The corrected v3 corpus split is available with 20,000 training, 2,000 validation, and 2,000 test fragments and \texttt{smoke=false}. The code-level verification suite and CPU smoke workflow pass, and the independent rule reference has been exercised on the full test split. These checks establish pipeline integrity but do not replace neural training.
+The formal corpus comprised 20,000 training, 2,000 validation, and 2,000 test fragments, with \texttt{smoke=false}. Training and evaluation ran under Python 3.11.9 and PyTorch 2.5.1+cu121 with CUDA available on an NVIDIA GeForce RTX 4060 Ti 16GB. Thirteen configurations were evaluated on the same 2,000-condition test split. These comprised one rule reference and twelve neural rows, with the proposed $K=4$ and vanilla $K=1$ rows sharing one checkpoint. Canonical metrics are stored in \path{results/project2_metrics.csv} and \path{results/project2_constraints.csv}; per-example records are stored in \path{results/project2_generation_examples.json}.
 
-The corrected neural experiment matrix is not yet complete. Token accuracy, constraint metrics, ablation comparisons, and proposed-versus-vanilla differences therefore remain \texttt{PENDING\_REAL\_}\allowbreak\texttt{EXPERIMENT}. Legacy v2 numerical tables, figures, and controlled-decoding statistics are not used as evidence for the corrected protocol.
+\subsection{Guided candidate selection with a shared generator}
 
-\subsection{Formal result tables}
+Increasing the candidate budget from one to four and applying symbolic scoring moved every plotted selection endpoint in its preferred direction relative to the aligned first candidate (Table~\ref{tab:project2-main-results}; Figure~\ref{fig:full-results}a). Pc-set coverage increased from 0.9963 to 0.9999 while pc-set precision increased from 0.9937 to 1.0000. Interval-vector distance decreased from 0.2390 to 0.0045. Cyclic row-order accuracy increased from 0.1581 to 0.2411, and aggregate completion increased from 0.9949 to 0.9969. Rhythmic-profile distance decreased from 0.5113 to 0.5041, and gesture consistency increased from 0.4772 to 0.4937. The held-out density-curve error, which was unavailable to candidate scoring, decreased descriptively from 12.3501 to 12.2353.
 
-\IfFileExists{tables/project2_v3_main_results.tex}
-  {The full runner populated Table~\ref{tab:project2-main-results} directly from the corrected CSV file after all checkpoint and provenance gates passed.
-   \input{tables/project2_v3_main_results}}
-  {\noindent\texttt{PENDING\_REAL\_EXPERIMENT}: the corrected main-result table has not yet been generated.}
+Teacher-forced token accuracy was identical at 0.6686 because both rows use the same checkpoint. Strict serial-transformation accuracy remained 0.0000 for both decoders. Thus, reranking improved partial cyclic row adherence but did not yield exact complete twelve-note forms. Mean content-span ratio increased from 0.5024 to 0.5195, leaving almost half of the requested temporal extent without generated content on average even though export padded the requested measure count.
 
-\IfFileExists{tables/project2_v3_ablation_results.tex}
-  {The full runner populated Table~\ref{tab:project2-ablation-results} directly from the corrected CSV file after all checkpoint and provenance gates passed.
-   \input{tables/project2_v3_ablation_results}}
-  {\noindent\texttt{PENDING\_REAL\_EXPERIMENT}: the corrected ablation table has not yet been generated.}
+\input{tables/project2_main_results}
 
-\subsection{MusicXML examples}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/project2_full_results.pdf}
+  \caption{Automatic constraint effects on the fixed 2,000-condition test split. (a) The $K=1$ and $K=4$ points use one shared generator and aligned random streams; $K=4$ samples four candidates and applies symbolic scoring. (b) The full-prefix and condition-removal models were trained separately, all use $K=1$ decoding, and are evaluated against unchanged targets. Arrows state the preferred metric direction. These are descriptive single-seed automatic endpoints, not perceptual ratings or inferential estimates.}
+  \label{fig:full-results}
+\end{figure}
 
-Twenty corrected full-model examples and paired analysis reports will be admitted to the expert package only if each file parses as MusicXML and matches the requested measure and voice counts. The final count and automatic metrics remain \texttt{PENDING\_REAL\_EXPERIMENT} until the proposed checkpoint evaluation completes.
+\subsection{Condition fields and procedural reference}
+
+Removing a condition field from a separately trained $K=1$ model degraded its matching endpoint relative to the full-prefix $K=1$ model (Figure~\ref{fig:full-results}b). Without the pc-set field, coverage fell from 0.9963 to 0.5593 and interval-vector distance rose from 0.2390 to 6.6267. Without the serial field, row-order accuracy fell from 0.1581 to 0.0804. Without the rhythm field, rhythmic-profile distance rose from 0.5113 to 0.5803 and held-out density error rose from 12.3501 to 13.6056. Without the gesture field, gesture consistency fell from 0.4772 to 0.3818. These contrasts show that the learned generator used the corresponding prefix fields on the procedural distribution; they do not establish generalization to human-authored repertoire.
+
+The rule reference directly implements the requested procedures and therefore serves as a construction reference rather than a learned baseline. It reached row-order accuracy 1.0000 and strict serial-form accuracy 0.9819, compared with 0.2411 and 0.0000 for the proposed neural decoder. It also produced a lower rhythmic-profile distance of 0.3021 and a lower density error of 2.9263. These gaps identify exact serial ordering and rhythmic realization as unresolved neural-generation problems.
+
+\input{tables/project2_ablation_results}
+
+\subsection{MusicXML and inspectable examples}
+
+All 260 attempted exports across the thirteen configurations parsed as MusicXML and matched the requested measure and part counts. Range-violation rate was 0.0000 for every aggregate row, and requested-voice adherence was 1.0000 except for negligible rounding in two focused ablations. The proposed-model expert package contains twenty MusicXML files, twenty paired JSON reports, a manifest, and blank blind-rating forms under \path{expert_eval/project2/}.
+
+Figure~\ref{fig:score-example} shows one proposed-model example from that package. Its conditions were pc set $\{0,1,2,5,6\}$, a sustained rhythmic profile, registral expansion, four voices, and four measures. Its automatic report records pc-set coverage and precision of 1.0000, interval-vector distance 0.0000, rhythmic-profile distance 0.3125, gesture consistency 0.7565, content-span ratio 1.0000, and no range violation. The example is provided for notation-level inspection and is not evidence of artistic quality.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.96\textwidth,trim=35 360 35 35,clip]{figures/project2_full_score_example.pdf}
+  \caption{Representative proposed-model output \texttt{project2\_20}, rendered from the exported MusicXML. The four requested parts and four measures are visible. Empty space, register, and durations are generated symbolic decisions; no human preference rating has been assigned to this example.}
+  \label{fig:score-example}
+\end{figure}
+
+\FloatBarrier

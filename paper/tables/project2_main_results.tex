@@ -1,10 +1,10 @@
-\begin{table}[t]
+\begin{sidewaystable}[p]
 \centering
 \small
-\resizebox{\textwidth}{!}{%
+\resizebox{\textheight}{!}{%
 \begin{tabular}{lrrrrrrrrrrrrrrr}
 \toprule
-Experiment & Token acc. & PC cov. & PC prec. & IV dist. & Row acc. & Aggregate & Form acc. & Rhythm dist. & Density err. & Gesture & Range viol. & Span & Voices & XML export & XML span \\
+Experiment & Token acc. & PC cov. & PC prec. & IV dist. & Row acc. & Aggregate & Form acc. & Rhythm dist. & Density err. & Gesture & Range viol. & Span & Content voices & XML parse & XML measures \\
 \midrule
 Shared generator, K=4 guided & 0.6686 & 0.9999 & 1.0000 & 0.0045 & 0.2411 & 0.9969 & 0.0000 & 0.5041 & 12.2353 & 0.4937 & 0.0000 & 0.5195 & 1.0000 & 1.0000 & 1.0000 \\
 Shared generator, K=1 & 0.6686 & 0.9963 & 0.9937 & 0.2390 & 0.1581 & 0.9949 & 0.0000 & 0.5113 & 12.3501 & 0.4772 & 0.0000 & 0.5024 & 1.0000 & 1.0000 & 1.0000 \\
@@ -12,6 +12,6 @@ Rule reference & -- & 0.9988 & 1.0000 & 0.0260 & 1.0000 & 0.9958 & 0.9819 & 0.30
 \bottomrule
 \end{tabular}
 }
-\caption{Corrected aggregate results on one shared procedural corpus. Neural condition ablations preserve sample identifiers, targets, and train/validation/test membership while changing only condition-prefix fields. Row and serial-form accuracy are averaged over row-conditioned samples. XML-span adherence is measured over 20 attempted exports per configuration.}
+\caption{Automatic results on the fixed 2,000-condition procedural test split. The guided and single-candidate rows share one checkpoint; the rule reference implements constraints directly. Row and serial-form accuracy are averaged over row-conditioned samples. XML parse and measure adherence are measured over 20 attempted exports per configuration; XML part-count adherence is 1.0000 for all three rows.}
 \label{tab:project2-main-results}
-\end{table}
+\end{sidewaystable}

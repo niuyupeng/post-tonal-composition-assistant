@@ -1,33 +1,37 @@
 # JNMR Submission Checklist
 
-Status date: 2026-07-16
+Status date: 2026-07-18
 
 ## Scientific package
 
 | Item | Status | Evidence or action |
 |---|---|---|
 | Legal procedural corpus | PASS | No copyrighted post-1945 score is downloaded or bundled. |
-| Corrected full split | PASS | `results/project2_v3_full_split_summary.json`: 20,000/2,000/2,000, `smoke=false`. |
-| Corrected full neural training | PENDING_REAL_EXPERIMENT | Required v3 checkpoints are incomplete. |
-| Corrected aggregate metrics | PENDING_REAL_EXPERIMENT | `results/project2_v3_metrics.csv` does not yet contain all required rows. |
-| Corrected LaTeX result tables | PENDING_REAL_EXPERIMENT | Generated only after complete v3 metrics. |
-| Full-model expert package | PENDING_REAL_EXPERIMENT | Must contain 20 exact-span, exact-voice MusicXML examples. |
-| Human artistic-quality evidence | PENDING_REAL_EXPERIMENT | Rating forms exist; ratings have not been collected. |
-| Independent legal MusicXML validation | PENDING_REAL_EXPERIMENT | User-supplied material is not yet available. |
+| Formal split | PASS | `results/project2_full_split_summary.json`: 20,000/2,000/2,000, seed 42, `smoke=false`. |
+| Formal neural training | PASS | All required checkpoints exist; all neural rows reached 60 epochs. |
+| Aggregate metrics | PASS | 13 real 2,000-condition rows in the canonical metrics and constraints CSV files. |
+| LaTeX result tables | PASS | Regenerated from the canonical CSV files after the full run. |
+| Expert package | PASS | 20 MusicXML files and 20 paired JSON reports pass structural gates. |
+| Human artistic-quality evidence | NOT CONDUCTED | Blank forms are prepared; no perceptual claim is made. |
+| Independent legal MusicXML validation | NOT CONDUCTED | No user-supplied score was provided; no transfer claim is made. |
 
 ## Manuscript files
 
 | Item | Status | Evidence or action |
 |---|---|---|
-| Active manuscript excludes legacy v2 numeric claims | PASS | Abstract, Results, Discussion, Limitations, and Conclusion use corrected status. |
-| Chinese title encoding | PASS | UTF-8 title in `paper/main.tex` and `README.md`. |
-| Method figure matches corrected pipeline | PASS | Conditions to encoders to generator to guided decoder to MusicXML/report. |
-| Corrected numeric traceability | PENDING_REAL_EXPERIMENT | Refresh after v3 CSV/JSON generation. |
-| Final identified and anonymous compilation | PENDING_REAL_EXPERIMENT | Recompile and inspect after tables are generated. |
-| Current JNMR template and limits | MANUAL PORTAL GATE | Verify against live author instructions before submission. |
+| Numeric traceability | PASS | Active claims map to canonical CSV/JSON or full-run provenance files. |
+| References | PASS | All bibliography keys resolve and every bibliography entry is cited. |
+| Figures and tables | PASS | Source data/build scripts retained; rendered output visually inspected. |
+| Identified PDF compilation | PASS WITH AUTHOR FIELDS PENDING | `paper/main.pdf`, 21 pages, clean log. |
+| Anonymous PDF compilation | PASS | `paper/main_anonymous.pdf`, 21 pages, clean log and anonymity audit. |
+| Test suite | PASS | 60 tests passed after the final table-generator change. |
+| Current JNMR format and portal fields | MANUAL PORTAL GATE | Verify against the live author instructions immediately before upload. |
 
-## Author-supplied information
+## Author and release inputs
 
-Author names, order, affiliations, ORCID identifiers, CRediT roles, funding, conflicts, originality confirmation, AI-assistance disclosure, and archival release details remain pending.
+- Author names, order, affiliations, ORCID identifiers, corresponding-author details, and CRediT roles: `PENDING_AUTHOR_INPUT`.
+- Funding, competing interests, originality, exclusive submission, and AI-assistance disclosure: `PENDING_AUTHOR_CONFIRMATION`.
+- Public archive or journal-compliant anonymous snapshot, license, URL, and DOI: `PENDING_RELEASE`.
+- Article type, final template, limits, and portal-specific fields: `PENDING_PORTAL_VERIFICATION`.
 
-Do not mark the package submission-ready until every corrected full-run and author/portal gate is resolved.
+The computational experiment is complete. Do not replace the remaining author or portal fields with inferred information.

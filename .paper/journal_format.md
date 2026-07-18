@@ -1,33 +1,43 @@
 # Journal Route
 
-## Primary Target
+## Primary target
 
 **Journal of New Music Research (JNMR)**
 
-Rationale: JNMR explicitly publishes systematic, scientific, and technological work on music, including composition, music theory, and music technologies. Its official page lists the Science Citation Index and Arts & Humanities Citation Index. The present score-level post-tonal control study fits that scope better than a generic machine-learning journal.
+JNMR's official scope includes systematic, scientific, and technological work on music, including composition, music theory, and music technologies. This score-level post-tonal control study fits that scope more directly than a generic machine-learning venue.
 
-Official source: https://www.tandfonline.com/journals/nnmr20/about-this-journal
+Official journal page: https://www.tandfonline.com/journals/nnmr20/about-this-journal
 
-Current route constraints, checked 2026-07-14:
+Facts checked on 2026-07-18:
 
-- peer review uses editor screening and at least two anonymous referees;
-- official journal metrics report a 7% acceptance rate and a long post-review decision cycle;
-- hybrid open access is optional, so a non-open-access route does not require an APC;
-- the paper must emphasize musical relevance and scientific rigor, not software availability alone.
+- manuscripts undergo editorial screening and anonymized review by at least two referees;
+- the journal is hybrid, so open access is optional;
+- the official journal page reports a 7% acceptance rate;
+- recent JNMR articles use author-year citations;
+- Taylor & Francis anonymized review guidance permits identified and anonymized manuscript versions and requires removal of author-identifying affiliations, acknowledgments, grants, and self-identifying references.
 
-The working manuscript remains in a neutral 11-point article layout until the current author instructions and Taylor & Francis template are downloaded at submission time. Exact abstract length, manuscript word limit, reference style, anonymization rules, figure-file requirements, and declarations remain to be checked against that submission page.
+The manuscript therefore uses author-year citations and provides identified and anonymous wrappers. The identified wrapper still requires author-supplied metadata; the anonymous wrapper suppresses the repository identity.
 
-## Fast SCIE Fallback
+## Portal checks still required
 
-**Applied Sciences**
+The live JNMR author-instructions endpoint was not reliably retrievable during this audit. Before portal submission, the corresponding author must verify the current:
 
-The official indexing page lists SCIE coverage, and the journal reports a faster editorial cycle. It is a broader and less musically specific venue and requires an APC for its open-access model. Use this route only if speed and SCIE status outweigh the stronger disciplinary fit of JNMR.
+- article type;
+- abstract and manuscript word limits;
+- keyword count;
+- Taylor & Francis template/class requirement;
+- separate figure-file and alt-text fields;
+- exact anonymization workflow;
+- data/code availability fields;
+- declarations, CRediT, funding, competing-interest, and AI-assistance fields.
+
+These are journal-portal and author-identity inputs, not missing experiment results. No exact limit is invented in the repository.
+
+## Fallback
+
+Applied Sciences remains a faster SCIE fallback but is broader, less musically specific, and normally requires an open-access publication charge. Use it only if speed and SCIE status outweigh the stronger disciplinary fit of JNMR.
 
 Official sources:
 
 - https://www.mdpi.com/journal/applsci/indexing
 - https://www.mdpi.com/journal/applsci
-
-## Manuscript Consequence
-
-Draft for JNMR first. Keep the title, related work, score examples, and discussion centered on post-tonal compositional control. Do not frame the submission as a generic Transformer benchmark. Before submission, replace the neutral template with the current JNMR format and add author, affiliation, funding, data/code availability, conflict-of-interest, and author-contribution statements.

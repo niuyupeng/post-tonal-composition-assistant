@@ -1,78 +1,30 @@
-# Project 2 SCI Writing and Submission Plan
+# Project 2 Writing and Submission Board
 
-## Evidence status
+## Completed evidence work
 
-The repository is in the corrected v3 experiment phase. The full synthetic split
-has been generated as 20,000 training, 2,000 validation, and 2,000 test samples,
-with `smoke=false`. This split is an implementation artifact, not evidence that
-neural training or final evaluation has completed.
+- Formal 20,000/2,000/2,000 corpus generated with `smoke=false`.
+- Thirteen formal test configurations evaluated on 2,000 conditions each.
+- Twelve neural checkpoint paths and all training summaries present.
+- Canonical metrics, constraint metrics, per-example JSON, tables, and run report generated.
+- Twenty-example proposed-model expert package verified.
+- Full-run result figure and representative score figure generated from formal artifacts.
+- Abstract, Experimental Setup, Results, Discussion, Limitations, Reproducibility, and Conclusion updated with traceable values.
+- Data/code availability text, declarations draft, alt text, and supplementary inventory prepared.
 
-No numerical manuscript claim may be treated as final until it can be traced to
-the corrected v3 CSV or JSON outputs produced by the current run. Legacy v2
-metrics, tables, figures, PDFs, and controlled-decoding outputs are retained only
-for provenance and must not be cited as current evidence.
+## Completed repository gates
 
-## Stage 1: Corrected experiment
+1. Identified and anonymous PDFs compiled without warnings.
+2. All 21 pages of both PDFs rendered and inspected.
+3. Citation, number, placeholder, and anonymity audits passed for the active manuscript.
+4. The full test suite passed after the table-generator change: 60 tests.
+5. The manuscript revision is ready for commit and push.
 
-1. Pass the complete test suite under Python 3.10 or 3.11.
-2. Verify CUDA PyTorch and the RTX 4060 Ti device.
-3. Train the proposed seed-42 model to early stopping or the 60-epoch limit.
-4. Train the remaining required baseline and ablation configurations when GPU
-   scheduling permits.
-5. Evaluate every completed checkpoint on the fixed 2,000-sample test split.
-6. Generate at least 20 structurally valid MusicXML examples from the corrected
-   proposed checkpoint.
-7. Build v3 tables and figures only from corrected result files.
+## External gates requiring the authors
 
-Evidence gate: checkpoints, training summaries, metric rows, exact split
-metadata, and MusicXML structural checks must all agree.
+- names, order, affiliations, corresponding author, ORCID, and CRediT roles;
+- funding, competing interests, AI-assistance disclosure, originality, and exclusive-submission confirmations;
+- anonymous review snapshot or archival repository DOI and license;
+- live JNMR portal checks for article type, word/keyword limits, template, and file fields;
+- human blind ratings and independent legal MusicXML validation, if these are to be added as evidence.
 
-## Stage 2: Manuscript integration
-
-1. Replace every `PENDING_REAL_EXPERIMENT` value only with a value read from a
-   corrected v3 CSV or JSON file.
-2. Report the model-selection protocol, early stopping, hardware, software
-   versions, and any OOM adjustment exactly as recorded by the run.
-3. Keep automatic constraint adherence separate from artistic usefulness.
-4. Do not claim composer preference, perceptual validity, or practical utility
-   before a properly approved expert study is completed.
-5. Preserve the distinction between unordered pc-set constraints and ordered
-   serial constraints throughout the analysis.
-
-## Stage 3: Submission package
-
-1. Rebuild identified and anonymous PDFs after corrected results are integrated.
-2. Audit every numerical sentence against the v3 evidence ledger.
-3. Check references, figures, tables, page rendering, and MusicXML examples.
-4. Confirm author, funding, conflict-of-interest, AI-assistance, and repository
-   release statements.
-5. Commit and publish only after the corrected experiment and manuscript gates
-   pass.
-
-## Current execution board
-
-| Workstream | Current status | Completion gate |
-|---|---|---|
-| Legal synthetic corpus | generated | v3 split summary records 20,000/2,000/2,000 and `smoke=false` |
-| Rule baseline | corrected; final v3 evaluation pending | independent rule generation, not target replay |
-| Proposed neural model, seed 42 | pending formal run | completed training summary and best checkpoint |
-| Remaining baselines and ablations | pending GPU scheduling | all required checkpoints and metric rows |
-| Automatic result tables | pending | generated only from corrected v3 CSV files |
-| MusicXML expert package | smoke package exists; full package pending | at least 20 corrected full-run examples and reports |
-| Manuscript numerical results | pending | every value traces to corrected v3 evidence |
-| Expert ratings | not started | approved protocol and collected ratings |
-| Submission package | draft only | corrected experiment, PDF QA, and author confirmations |
-
-## Immediate order
-
-1. Finish code, configuration, and documentation regression checks.
-2. Run the corrected rule baseline and isolated CPU smoke workflow.
-3. Start the proposed seed-42 CUDA training run.
-4. Record the best epoch, checkpoint hash, RAM/VRAM peaks, and stop reason.
-5. Continue the remaining experiment matrix only under an authorized GPU slot.
-6. Generate v3 tables, examples, and the full-run report after all required
-   experiments pass their gates.
-7. Integrate final numbers into the manuscript and perform submission QA.
-
-The paper remains a work in progress until these gates are satisfied. Missing
-quantitative evidence must remain `PENDING_REAL_EXPERIMENT`.
+The experiment is complete. The remaining external gates must not be represented as completed or replaced with fabricated values.

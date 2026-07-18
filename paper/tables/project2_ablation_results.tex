@@ -1,10 +1,10 @@
-\begin{table}[t]
+\begin{sidewaystable}[p]
 \centering
 \small
-\resizebox{\textwidth}{!}{%
+\resizebox{\textheight}{!}{%
 \begin{tabular}{lrrrrrrrrrrrrrrr}
 \toprule
-Experiment & Token acc. & PC cov. & PC prec. & IV dist. & Row acc. & Aggregate & Form acc. & Rhythm dist. & Density err. & Gesture & Range viol. & Span & Voices & XML export & XML span \\
+Experiment & Token acc. & PC cov. & PC prec. & IV dist. & Row acc. & Aggregate & Form acc. & Rhythm dist. & Density err. & Gesture & Range viol. & Span & Content voices & XML parse & XML measures \\
 \midrule
 No constraints (seed 42) & 0.6668 & 0.7097 & 0.4970 & 24.4978 & 0.0838 & 0.5942 & 0.0000 & 0.5885 & 13.9216 & 0.4014 & 0.0000 & 0.4664 & 1.0000 & 1.0000 & 1.0000 \\
 No pc-set token & 0.6691 & 0.5593 & 0.5615 & 6.6267 & 0.1436 & 0.9951 & 0.0000 & 0.5119 & 12.3192 & 0.4754 & 0.0000 & 0.5043 & 0.9999 & 1.0000 & 1.0000 \\
@@ -19,6 +19,6 @@ No constraints (seed 53) & 0.6676 & 0.7264 & 0.4932 & 25.5506 & 0.0870 & 0.6019 
 \bottomrule
 \end{tabular}
 }
-\caption{Condition-prefix ablations and focused-condition models on the shared procedural corpus. Each model sees the ablated condition prefix, while evaluation retains the original held-out targets. Row and serial-form accuracy are averaged over row-conditioned samples. XML-span adherence is measured over 20 attempted exports per configuration.}
+\caption{Single-candidate condition-prefix ablations and focused-condition models on the fixed procedural test split. Each model sees its configured prefix while evaluation retains the original held-out targets. Row and serial-form accuracy are averaged over row-conditioned samples. XML parse and measure adherence are measured over 20 attempted exports per configuration; XML part-count adherence is 1.0000 for all rows.}
 \label{tab:project2-ablation-results}
-\end{table}
+\end{sidewaystable}

@@ -3,7 +3,7 @@
 
 \subsection{Task formulation}
 
-The system generates a quantized symbolic score fragment $x$ from a condition bundle $c$. The bundle may contain a pitch-class set $S$, a six-entry interval vector $v(S)$, a twelve-tone row $r$, a serial form $f\in\{P_n,R_n,I_n,RI_n\}$, a rhythmic profile, a gesture label, an instrument, a voice count, and a measure count. The requested output contains 4--16 measures and 2--8 parts and is returned as event tokens, MusicXML, and a score-level analysis report. No waveform or audio representation is used.
+The system generates a quantized symbolic score fragment $x$ from a condition bundle $c$. The bundle may contain a pitch-class set $S$, a six-entry interval vector $v(S)$, a twelve-tone row $r$, a serial form $f\in\{P_n,R_n,I_n,RI_n\}$, a rhythmic profile, a gesture label, an instrument, a voice count, and a measure count. The requested output contains 4--16 measures and 2--8 parts and is returned as event tokens, MusicXML, and a score-level analysis report. Figure~\ref{fig:method-pipeline} summarizes this score-level path. No waveform or audio representation is used.
 
 The conditional language model factorizes
 \begin{equation}
@@ -28,7 +28,7 @@ Many complete fragments exceed the 256-token model context. Training therefore u
 
 \subsection{Conditional Transformer}
 
-The generator is a causal Transformer \cite{vaswani2017attention} with six layers, hidden dimension 384, six attention heads, GELU feed-forward blocks of width $4d$, learned positional embeddings, pre-normalization, and dropout 0.1. The training objective is teacher-forced negative log likelihood over the unmasked score-body labels:
+The generator is a causal Transformer \citep{vaswani2017attention} with six layers, hidden dimension 384, six attention heads, GELU feed-forward blocks of width $4d$, learned positional embeddings, pre-normalization, and dropout 0.1. The training objective is teacher-forced negative log likelihood over the unmasked score-body labels:
 \begin{equation}
   \mathcal{L}_{\mathrm{NLL}}(\theta)
   =-\sum_{t\in\mathcal{T}}\log p_\theta(z_t\mid z_{<t}),
@@ -51,4 +51,4 @@ The primary controlled contrast uses one shared trained generator: $K=1$ is the 
 
 Each selected fragment receives pc-set coverage, pc-set precision and Jaccard similarity, generated interval vector, interval-vector distance, cyclic row-order accuracy, strict complete-form accuracy, serial aggregate completion, density curve, rhythmic-profile distance, held-out density-curve error, gesture features, gesture consistency, register spread, range violations, content-span adherence, and requested-voice adherence. Strict serial-form accuracy counts complete non-overlapping twelve-note blocks and is independent of cyclic row-order accuracy.
 
-MusicXML export creates the requested number of score parts and measures, pads empty trailing measures, and removes events outside the requested span \cite{musicxml2021spec}. Success is recorded separately for structural parsing, requested measure count, and requested part count.
+MusicXML export creates the requested number of score parts and measures, pads empty trailing measures, and removes events outside the requested span \citep{musicxml2021spec}. Success is recorded separately for structural parsing, requested measure count, and requested part count.
