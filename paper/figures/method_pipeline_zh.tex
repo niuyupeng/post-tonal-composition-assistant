@@ -1,0 +1,22 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  block/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=25mm, fill=blue!5},
+  theory/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=25mm, fill=green!7},
+  output/.style={draw, rounded corners=2pt, align=center, minimum height=13mm, text width=25mm, fill=orange!8},
+  arrow/.style={-{Latex[length=2mm]}, thick}
+]
+  \node[theory] (conditions) {后调性条件\\音级集合/音程向量、序列形式、节奏、姿态};
+  \node[block, right=5mm of conditions] (encoders) {条件编码器\\前缀标记};
+  \node[block, right=5mm of encoders] (generator) {乐谱生成器\\因果 Transformer};
+  \node[theory, right=5mm of generator] (decoder) {约束引导解码器\\$K$ 个候选};
+  \node[output, right=5mm of decoder] (outputs) {MusicXML 乐谱\\与分析报告};
+  \draw[arrow] (conditions) -- (encoders);
+  \draw[arrow] (encoders) -- (generator);
+  \draw[arrow] (generator) -- (decoder);
+  \draw[arrow] (decoder) -- (outputs);
+\end{tikzpicture}
+\caption{推断流程。后调性条件经条件编码器序列化后输入因果乐谱生成器，再由约束引导解码器分析和选择候选，最终导出 MusicXML 乐谱及分析报告。合法的程序化生成器提供训练所需的条件--乐谱对。}
+\label{fig:method-pipeline-zh}
+\end{figure}
