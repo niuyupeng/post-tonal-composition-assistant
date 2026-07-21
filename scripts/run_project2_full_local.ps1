@@ -158,23 +158,6 @@ function Test-MetricsRowPresent {
     return $rows.Count -eq 1
 }
 
-function Assert-ResourceGate {
-    $os = Get-CimInstance Win32_OperatingSystem
-    $freePhysicalGB = [double]$os.FreePhysicalMemory / 1MB
-    $commitCounter = Get-Counter "\Memory\Committed Bytes", "\Memory\Commit Limit"
-    $committedBytes = [double]$commitCounter.CounterSamples[0].CookedValue
-    $commitLimit = [double]$commitCounter.CounterSamples[1].CookedValue
-    $freeCommitGB = ($commitLimit - $committedBytes) / 1GB
-    if ($freePhysicalGB -lt 6.0) {
-        throw ("Resource gate failed: free physical memory is {0:N2} GiB; at least 6 GiB is required." -f $freePhysicalGB)
-    }
-    if ($freeCommitGB -lt 12.0) {
-        throw ("Resource gate failed: free commit capacity is {0:N2} GiB; at least 12 GiB is required." -f $freeCommitGB)
-    }
-    "RESOURCE_GATE free_physical_gib=$([math]::Round($freePhysicalGB, 3)) free_commit_gib=$([math]::Round($freeCommitGB, 3))" |
-        Tee-Object -FilePath $LogPath -Append
-}
-
 if ($Fresh) {
     $targets = @(
         (Join-Path $Root "runs\v3"),
@@ -262,7 +245,6 @@ foreach ($exp in $experiments) {
             if ((Test-TrainingArtifactsPresent $runDirectory) -and -not $Resume) {
                 throw "Incomplete training artifacts exist for $($exp.Name). Use -Resume to continue or -Fresh to restart explicitly."
             }
-            Assert-ResourceGate
             $trainArguments = @("-m", "post_tonal.train", "--config", $exp.Config, "--auto-oom-retry")
             if ($Resume) {
                 $trainArguments += "--resume"
