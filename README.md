@@ -34,7 +34,7 @@ See [`docs/RESULTS_PROVENANCE.md`](docs/RESULTS_PROVENANCE.md) before citing any
 
 No copyrighted post-1945 score is scraped, bundled, or required. The default corpus is generated from explicit, seeded symbolic rules. Serial and non-serial targets are separated: serial samples use a twelve-tone row and transformed form, while non-serial samples use a pitch-class set and interval vector. Optional external MusicXML must be supplied by a user who has the right to use it.
 
-The source code, aggregate results, provenance records, and representative MusicXML examples in this repository are publicly accessible. The 24,000-sample processed tensor and neural checkpoints are reproducible derived artifacts and are intentionally excluded from Git because of their size. Their paths and SHA-256 hashes are recorded in the canonical split and run reports. Consequently, this repository is a public code and evidence repository, not a complete archival deposit of every derived artifact. See [`docs/DATA_AVAILABILITY.md`](docs/DATA_AVAILABILITY.md).
+The datasets generated and analysed during the study, source code, fixed configurations and seeds, corpus-generation scripts, aggregate results, provenance records, and representative MusicXML examples are publicly accessible in this repository. The 24,000-sample processed tensor, tokenizer vocabulary, and twelve best neural checkpoints are distributed as assets of the [`v1.0.0` reproducibility release](https://github.com/niuyupeng/post-tonal-composition-assistant/releases/tag/v1.0.0). Their SHA-256 hashes are published with the release and recorded in the canonical split and run reports. See [`docs/DATA_AVAILABILITY.md`](docs/DATA_AVAILABILITY.md).
 
 ## Installation
 

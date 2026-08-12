@@ -79,7 +79,15 @@ Expected gates:
 - 20 expert-package MusicXML files and 20 reports;
 - MusicXML parse, requested-measure, and requested-part checks pass.
 
-The processed corpus and checkpoints are intentionally ignored by Git:
+The processed corpus and checkpoints are ignored by the Git source tree because
+of their size and are distributed as assets of the public `v1.0.0`
+reproducibility release:
+
+```text
+https://github.com/niuyupeng/post-tonal-composition-assistant/releases/tag/v1.0.0
+```
+
+After downloading the assets, restore these canonical paths:
 
 ```text
 data/processed/project2_v3_main.pt
