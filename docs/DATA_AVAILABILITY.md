@@ -6,7 +6,7 @@
 > with the source code and materials required to regenerate the synthetic
 > corpus and reproduce the reported analyses, are publicly available in the
 > Post-Tonal Composition Assistant GitHub repository,
-> https://github.com/niuyupeng/post-tonal-composition-assistant.
+> https://github.com/niuyupeng/post-tonal-composition-assistant/releases/tag/v1.0.0.
 
 This wording uses the journal's public-repository form and should be entered
 identically in the manuscript and submission system. The public repository
