@@ -1,15 +1,21 @@
 # Data Availability
 
-## Statement for the Current Peer-Review Stage
+## Manuscript Data-Availability Statement
 
 > The datasets generated and/or analysed during the current study are
 > available from the corresponding author on reasonable request.
 
-This wording matches a standard form requested by the journal editor. It must
-also be entered consistently in the submission system. The GitHub repository
-is currently private and therefore is not a public or persistent data archive.
-Do not replace the statement above with a public-repository claim until an
-accessible release or DOI-bearing deposit has been verified.
+This wording matches a standard form requested by the journal editor and should
+be entered consistently in the submission system. The source code, aggregate
+results, provenance records, and representative MusicXML examples are publicly
+accessible at:
+
+> https://github.com/niuyupeng/post-tonal-composition-assistant
+
+The repository does not include the complete processed corpus tensor or neural
+checkpoints and is not an immutable, DOI-bearing data archive. Its public status
+therefore does not by itself establish public archival availability of every
+dataset or derived artifact used in the study.
 
 ## What Exists
 
@@ -24,11 +30,11 @@ accessible release or DOI-bearing deposit has been verified.
 - No human expert ratings or independent user-provided validation scores are
   represented as collected data.
 
-## Public Release Gate
+## Archival Data-Release Gate
 
-Before describing the materials as publicly available:
+Before describing every dataset and derived artifact as publicly archived:
 
-1. obtain author approval for repository visibility and licensing;
+1. obtain author approval for software and generated-data licensing;
 2. create an immutable release and, preferably, a DOI-bearing archive;
 3. upload the processed corpus and required checkpoints or document a tested,
    complete regeneration route;
