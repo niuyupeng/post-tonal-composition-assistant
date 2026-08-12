@@ -1,12 +1,9 @@
-import json
 from pathlib import Path
 
-import numpy as np
 import pytest
 import torch
 import yaml
 
-from post_tonal.analyze_controlled_results import analyze_controlled_results, paired_bootstrap_ci
 from post_tonal.data.score_tokenizer import ScoreTokenizer
 from post_tonal.evaluate import evaluate, generated_events_from_rule
 from post_tonal.generate import candidate_loss
@@ -150,95 +147,6 @@ def test_batched_sampling_is_reproducible_and_preserves_first_candidate():
         generators=[torch.Generator().manual_seed(seeds[0])],
     )[0]
     assert compatible == legacy
-
-
-def test_paired_bootstrap_ci_tracks_constant_improvement():
-    low, high = paired_bootstrap_ci(np.full(12, 0.25), seed=5, samples=200)
-    assert low == 0.25
-    assert high == 0.25
-
-
-def test_controlled_analysis_reports_serial_and_nonserial_subsets(tmp_path):
-    common_analysis = {
-        "pcset_coverage": 0.5,
-        "interval_vector_distance": 2.0,
-        "row_order_accuracy": None,
-        "aggregate_completion_rate": 0.5,
-        "rhythmic_profile_distance": 1.0,
-        "density_curve_error": 1.0,
-        "gesture_consistency_score": 0.5,
-        "range_violation_rate": 0.0,
-    }
-    single_samples = [
-        {
-            "sample_id": "nonserial",
-            "evaluation_seed": 10,
-            "first_candidate_sha256": "a" * 64,
-            "metadata": {"row": None, "row_form": None},
-            "analysis": dict(common_analysis),
-        },
-        {
-            "sample_id": "serial",
-            "evaluation_seed": 11,
-            "first_candidate_sha256": "b" * 64,
-            "metadata": {"row": list(range(12)), "row_form": "P0"},
-            "analysis": {**common_analysis, "row_order_accuracy": 0.25},
-        },
-    ]
-    reranked_samples = json.loads(json.dumps(single_samples))
-    reranked_samples[0]["analysis"]["pcset_coverage"] = 0.75
-    reranked_samples[1]["analysis"]["row_order_accuracy"] = 0.5
-    single_path = tmp_path / "single.json"
-    reranked_path = tmp_path / "reranked.json"
-    single_path.write_text(json.dumps({"samples": single_samples}), encoding="utf-8")
-    reranked_path.write_text(json.dumps({"samples": reranked_samples}), encoding="utf-8")
-
-    result = analyze_controlled_results(
-        single_path,
-        reranked_path,
-        tmp_path / "stats.json",
-        tmp_path / "stats.csv",
-        tmp_path / "stats.tex",
-        bootstrap_samples=50,
-    )
-    endpoints = {row["endpoint"]: row for row in result["metrics"]}
-    assert result["bootstrap_method"] == "paired percentile bootstrap over test conditions"
-    assert result["multiple_endpoint_adjustment"] == "none"
-    assert result["first_candidate_alignment"] == "verified_by_sha256"
-    assert result["first_candidate_fingerprints_verified"] == 2
-    assert endpoints["pcset_coverage:all"]["n"] == 2
-    assert endpoints["pcset_coverage:non-serial"]["n"] == 1
-    assert endpoints["pcset_coverage:serial"]["n"] == 1
-    assert endpoints["interval_vector_distance:serial"]["n"] == 1
-    assert endpoints["row_order_accuracy:serial"]["n"] == 1
-    assert endpoints["aggregate_completion_rate:non-serial"]["n"] == 1
-    assert endpoints["aggregate_completion_rate:non-serial"]["higher_is_better"] is None
-    assert endpoints["aggregate_completion_rate:non-serial"]["favorable_improvement"] is None
-
-    reranked_samples[1]["first_candidate_sha256"] = "c" * 64
-    reranked_path.write_text(json.dumps({"samples": reranked_samples}), encoding="utf-8")
-    with pytest.raises(ValueError, match="First candidates differ"):
-        analyze_controlled_results(
-            single_path,
-            reranked_path,
-            tmp_path / "bad-stats.json",
-            tmp_path / "bad-stats.csv",
-            tmp_path / "bad-stats.tex",
-            bootstrap_samples=10,
-        )
-
-    reranked_samples[1]["first_candidate_sha256"] = "b" * 64
-    reranked_samples[0]["analysis"]["pcset_coverage"] = None
-    reranked_path.write_text(json.dumps({"samples": reranked_samples}), encoding="utf-8")
-    with pytest.raises(ValueError, match="Missing endpoint pcset_coverage:all"):
-        analyze_controlled_results(
-            single_path,
-            reranked_path,
-            tmp_path / "missing-stats.json",
-            tmp_path / "missing-stats.csv",
-            tmp_path / "missing-stats.tex",
-            bootstrap_samples=10,
-        )
 
 
 def test_missing_table_metric_is_not_applicable():

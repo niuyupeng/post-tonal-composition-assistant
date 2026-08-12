@@ -6,7 +6,28 @@ build-backend = "setuptools.build_meta"
 name = "post-tonal-assistant"
 version = "0.1.0"
 description = "Neural-symbolic post-tonal composition assistant with pc-set, serial, and rhythmic-profile constraints"
-requires-python = ">=3.10"
+readme = "README.md"
+requires-python = ">=3.10,<3.12"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Jiayu Liu" },
+  { name = "Yupeng Niu" },
+]
+keywords = [
+  "music generation",
+  "neural-symbolic",
+  "post-tonal music",
+  "MusicXML",
+  "pitch-class sets",
+  "serialism",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
   "numpy>=1.24",
   "PyYAML>=6.0",
@@ -17,6 +38,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=7.4"]
+
+[project.urls]
+Repository = "https://github.com/niuyupeng/post-tonal-composition-assistant"
+Issues = "https://github.com/niuyupeng/post-tonal-composition-assistant/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

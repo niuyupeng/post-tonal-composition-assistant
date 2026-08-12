@@ -1,49 +1,104 @@
+# Python and test caches
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# Virtual environments and local tooling
 .venv/
 .venv*/
+.agents/
+.codex/
 .omx/
+.paper/
 archive/
-logs/
 tmp/
+logs/
 
-# LaTeX build intermediates; compiled manuscript PDFs remain tracked.
-paper/*.aux
-paper/*.bbl
-paper/*.blg
-paper/*.log
-paper/*.out
+# Credentials and operating-system files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
+Thumbs.db
+Desktop.ini
+~$*
 
+# Model checkpoints and generated corpora
 *.pt
 *.pth
 *.ckpt
 runs/*/
 !runs/.gitkeep
-
-data/generated/*/
-data/generated/*.musicxml
-data/processed/*.pt
-data/processed/*.json
+data/generated/*
+data/processed/*
 !data/generated/.gitkeep
 !data/processed/.gitkeep
 
-generated_scores/*.musicxml
-generated_scores/*/
-results/*.json
-!results/project2_multiseed_controlled_statistics.json
-!results/project2_v3_full_split_summary.json
-!results/project2_v3_rule_baseline_metrics.json
-!results/project2_full_run_incidents.json
-!results/project2_v3_run_incidents.json
+# Ad hoc score generation
+generated_scores/*
+!generated_scores/.gitkeep
+
+# Staging, smoke, and high-volume evaluation artifacts
 results/smoke_v3/
-results/*before_2000_eval_*
 results/eval_musicxml/
 results/eval_musicxml_v3/
-results/project2_v3_constraint_summary.svg
+results/project2_v3_*
+results/*_per_sample.json
+results/multiseed_controlled/*_per_sample.json
+results/*_metrics.json
+results/*before_2000_eval_*
+results/smoke_*.json
+results/multiseed_controlled/
+results/project2_controlled_*
+results/project2_multiseed_*
 expert_eval/project2_v3/
-paper/tables/*.tex
-!paper/tables/project2_multiseed_controlled_results.tex
-!generated_scores/.gitkeep
-!results/.gitkeep
-!paper/tables/.gitkeep
+
+# LaTeX build products. Figure PDFs used by the manuscript remain versioned.
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/main*.pdf
+paper/main*.tex
+paper/references.bib
+paper/sections/
+paper/sections_zh/
+paper/CLAIMS_LEDGER.md
+paper/SCI_*.md
+paper/submission/
+paper/tables/cpu_smoke_*.tex
+paper/tables/smoke_*.tex
+paper/tables/project2_v3_*.tex
+paper/figures/controlled_effects.*
+paper/figures/controlled_effects_*
+paper/figures/score_example_controlled_019*
+paper/tables/project2_controlled_*.tex
+paper/tables/project2_multiseed_*.tex
+
+# Historical development-only experiment branches
+configs/post_tonal_controlled_*.yaml
+configs/post_tonal_multiseed_*.yaml
+configs/post_tonal_gesture.yaml
+configs/post_tonal_serial.yaml
+configs/post_tonal_without_gesture.yaml
+configs/post_tonal_without_pcset.yaml
+configs/post_tonal_without_rhythm.yaml
+configs/post_tonal_without_serial.yaml
+scripts/run_project2_multiseed_controlled.ps1
+src/post_tonal/analyze_controlled_results.py
+src/post_tonal/analyze_multiseed_*.py
+tests/test_analyze_multiseed_*.py
+paper/figures/make_controlled_effects.py
+
+# Office and submission packages
+*.docx
+*.doc
+paper/submission*.zip

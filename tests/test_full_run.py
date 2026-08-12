@@ -10,6 +10,7 @@ from post_tonal.full_run import (
     _read_command_log,
     _read_json_object,
     _read_run_incidents,
+    _sanitize_report_command,
     promote_generation_examples,
     write_report,
 )
@@ -37,6 +38,18 @@ def test_read_command_log_supports_windows_powershell_utf16(tmp_path):
     assert _read_command_log(log) == [
         "python -m post_tonal.evaluate --split test"
     ]
+
+
+def test_sanitize_report_command_replaces_windows_user_path():
+    command = (
+        r"C:\Users\researcher\project\.venv311\Scripts\python.exe "
+        r"-m post_tonal.train --config C:\Users\researcher\project\config.yaml"
+    )
+
+    sanitized = _sanitize_report_command(command)
+
+    assert "C:\\Users\\researcher" not in sanitized
+    assert sanitized.startswith("<USER_HOME>/project/")
 
 
 def test_read_json_object_supports_windows_powershell_utf8_bom(tmp_path):

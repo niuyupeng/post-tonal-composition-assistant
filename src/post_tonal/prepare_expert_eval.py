@@ -263,7 +263,7 @@ def main() -> None:
     parser.add_argument("--count", type=int, default=20)
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--examples-json", default=None)
-    parser.add_argument("--experiment", default="controlled_constraint_reranked")
+    parser.add_argument("--experiment", default="proposed_constraint_guided_transformer")
     args = parser.parse_args()
     if args.examples_json:
         print(prepare_from_evaluation_examples(args.examples_json, args.experiment, args.output_dir, args.count))

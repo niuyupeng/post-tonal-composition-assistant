@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software or its generated research artifacts, please cite it using the metadata below."
+title: "Auditable neural-symbolic post-tonal score generation"
+type: software
+authors:
+  - family-names: Liu
+    given-names: Jiayu
+  - family-names: Niu
+    given-names: Yupeng
+repository-code: "https://github.com/niuyupeng/post-tonal-composition-assistant"
+url: "https://github.com/niuyupeng/post-tonal-composition-assistant"
+version: 0.1.0
+keywords:
+  - neural-symbolic music generation
+  - post-tonal composition
+  - pitch-class set theory
+  - twelve-tone serialism
+  - constraint-guided decoding
+  - MusicXML

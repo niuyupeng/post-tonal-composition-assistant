@@ -1,95 +1,91 @@
-# Neural-Symbolic Post-Tonal Composition Assistant
+# Auditable Neural-Symbolic Post-Tonal Score Generation
+
+[![Tests](https://github.com/niuyupeng/post-tonal-composition-assistant/actions/workflows/tests.yml/badge.svg)](https://github.com/niuyupeng/post-tonal-composition-assistant/actions/workflows/tests.yml)
+[![Python 3.10--3.11](https://img.shields.io/badge/python-3.10%20%7C%203.11-3776AB.svg)](https://www.python.org/)
+
+Research code and reproducibility materials for:
+
+> **An auditable neural-symbolic framework enables verifiable control of post-tonal score generation**
+
+Project title: *Neural-Symbolic Post-Tonal Composition Assistant with Pitch-Class Set, Serial, and Rhythmic-Profile Constraints*
 
 Chinese title: 融合音级集合、序列与节奏轮廓约束的神经符号后调性作曲辅助方法
 
-This repository implements a score-level research system for post-tonal composition assistance. It conditions symbolic generation on pitch-class sets, interval vectors, twelve-tone rows and P/R/I/RI forms, rhythmic profiles, gesture labels, instrumentation, voice count, and requested score span. Outputs are editable MusicXML scores and explainable JSON analysis reports. The project does not generate audio, pop accompaniment, or performance MIDI.
+This repository implements score-level contemporary art-music composition assistance. A conditional Transformer and a deterministic rule reference operate on pitch-class sets, interval vectors, twelve-tone rows and P/R/I/RI forms, rhythmic profiles, gesture labels, instrumentation, voice count, and requested score span. The system exports editable MusicXML scores and machine-readable post-tonal analysis reports. It does not generate audio, pop accompaniment, or performance MIDI.
 
-## Evidence Status
+## Repository Status
 
-The corrected v3 code path is the current experiment protocol. CPU smoke verification and the full 20,000/2,000/2,000 synthetic split are available. Corrected neural full-run metrics are not final until `scripts/run_project2_full_local.ps1` completes every checkpoint, evaluation, table, and MusicXML gate.
+The canonical full experiment is complete. Its fixed procedural corpus contains 20,000 training, 2,000 validation, and 2,000 test fragments (`smoke=false`, seed 42). The archived evaluation contains 13 rows over the same 2,000-condition test split, and the full-run gate reports 260/260 successful MusicXML parse, measure-count, and part-count checks.
 
-Older v2 checkpoints, tables, figures, and numerical manuscript text are historical development artifacts. They must not be cited as corrected final results. The full runner writes v3-prefixed artifacts first and promotes them to canonical paths only after all completion gates pass.
+These are automatic controllability and structural-validity results on a synthetic distribution. No human artistic-quality claim or transfer claim is made. Blind expert ratings and independent legally supplied MusicXML validation remain future work.
+
+Primary evidence:
+
+- [`results/project2_metrics.csv`](results/project2_metrics.csv): canonical aggregate metrics.
+- [`results/project2_constraints.csv`](results/project2_constraints.csv): constraint-specific metrics.
+- [`results/project2_generation_examples.json`](results/project2_generation_examples.json): per-example evaluation records.
+- [`results/project2_full_split_summary.json`](results/project2_full_split_summary.json): split counts, seed, format, and corpus hashes.
+- [`results/project2_full_run_report.md`](results/project2_full_run_report.md): environment, commands, checkpoint hashes, incidents, and completion gates.
+- [`expert_eval/project2/`](expert_eval/project2/): 20 MusicXML scores, paired reports, a manifest, and blank rating forms.
+
+See [`docs/RESULTS_PROVENANCE.md`](docs/RESULTS_PROVENANCE.md) before citing any numerical result.
 
 ## Legal Data Strategy
 
-The repository does not scrape, redistribute, or train on copyrighted post-1945 scores. Its default corpus is generated reproducibly from explicit symbolic rules. Users may separately validate with MusicXML that they are legally entitled to use, but no external score is bundled.
+No copyrighted post-1945 score is scraped, bundled, or required. The default corpus is generated from explicit, seeded symbolic rules. Serial and non-serial targets are separated: serial samples use a twelve-tone row and transformed form, while non-serial samples use a pitch-class set and interval vector. Optional external MusicXML must be supplied by a user who has the right to use it.
 
-Serial and non-serial pitch targets are separated in the corrected corpus: serial examples use a twelve-tone row and row form, while non-serial examples use a pitch-class set and interval vector. A held-out stochastic density curve is retained only for evaluation and is removed from model-visible condition metadata.
+The 24,000-sample processed tensor and neural checkpoints are reproducible derived artifacts and are intentionally excluded from Git because of their size. Their paths and SHA-256 hashes are recorded in the canonical split and run reports. The current peer-review data-access statement is documented in [`docs/DATA_AVAILABILITY.md`](docs/DATA_AVAILABILITY.md); this private repository must not be described as a public archive.
 
-## Windows Setup
+## Installation
+
+Target platform: Windows 11, Python 3.10 or 3.11, PyTorch, and `music21`. The formal run used Python 3.11.9, PyTorch 2.5.1+cu121, CUDA, and an NVIDIA GeForce RTX 4060 Ti 16 GB.
 
 ```powershell
+git clone https://github.com/niuyupeng/post-tonal-composition-assistant.git
+cd post-tonal-composition-assistant
 .\scripts\setup_windows.ps1
 .\.venv311\Scripts\Activate.ps1
 $env:PYTHONPATH = "src"
-```
-
-The setup script requires Python 3.10 or 3.11. For the formal run, verify the CUDA environment:
-
-```powershell
 python --version
 python -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO CUDA')"
 ```
 
-The target local device is an NVIDIA GeForce RTX 4060 Ti with 16 GB VRAM. Formal configs use fp16, physical batch size 16, zero Windows data-loader workers, gradient clipping, and automatic OOM retries at batch sizes 8 and 4 with accumulation.
+The broad dependency ranges are in [`requirements.txt`](requirements.txt). [`requirements-cuda121.txt`](requirements-cuda121.txt) documents the PyTorch build used by the archived run; the run report is authoritative for the recorded Python, PyTorch, and hardware versions.
 
-## CPU Smoke Test
+## CPU Verification
+
+Run the test suite:
+
+```powershell
+$env:PYTHONPATH = "src"
+python -m pytest
+```
+
+Run the isolated CPU smoke workflow:
 
 ```powershell
 .\scripts\smoke_project2.ps1
 ```
 
-The smoke workflow is isolated from formal outputs. It generates a tiny corpus, runs pytest, trains one CPU epoch, evaluates the neural checkpoint, and exports three MusicXML examples under:
+Smoke artifacts are written below `results/smoke_v3/`, `generated_scores/smoke_v3/`, and `runs/smoke_v3/`; they are never promoted to canonical result paths.
 
-- `results/smoke_v3/`
-- `generated_scores/smoke_v3/`
-- `runs/smoke_v3/`
+## Full CUDA Reproduction
 
-## Corrected Full CUDA Run
+On the RTX 4060 Ti machine:
 
 ```powershell
 .\scripts\run_project2_full_local.ps1 -Resume
 ```
 
-Use `-NoPromote` to retain only v3-prefixed outputs while auditing:
+The runner validates Python, CUDA, tests, corpus membership, checkpoint completeness, evaluation rows, tables, and MusicXML exports. It trains or resumes the shared conditional Transformer and condition-removal/focused-condition configurations, evaluates the rule reference and decoding variants, and promotes outputs only after every completion gate passes.
+
+Use `-NoPromote` when auditing v3-prefixed staging artifacts:
 
 ```powershell
 .\scripts\run_project2_full_local.ps1 -Resume -NoPromote
 ```
 
-The full runner:
-
-1. validates Python, PyTorch, CUDA, tests, memory, and the explicit corpus split;
-2. trains or resumes the shared conditional Transformer and all condition-prefix ablations;
-3. evaluates the independent rule reference, single-candidate decoder, four-candidate guided decoder, no-constraint controls, and focused-condition models;
-4. writes aggregate CSV/JSON outputs, LaTeX tables, a summary plot, and 20 structurally checked MusicXML examples;
-5. promotes corrected outputs to canonical paths only after all required rows, checkpoints, tables, reports, and expert-package files pass.
-
-Training writes both the best `checkpoint.pt` and a resumable `last_checkpoint.pt`. Each run summary records the best epoch, hashes, elapsed time, OOM adjustment, and measured peak RAM/VRAM.
-
-## Direct Primary Training
-
-```powershell
-$env:PYTHONPATH = "src"
-.\.venv311\Scripts\python.exe -m post_tonal.train `
-  --config configs/post_tonal_main.yaml `
-  --auto-oom-retry `
-  --resume
-```
-
-Evaluation:
-
-```powershell
-.\.venv311\Scripts\python.exe -m post_tonal.evaluate `
-  --config configs/post_tonal_main.yaml `
-  --checkpoint runs/v3/proposed_constraint_guided_transformer/checkpoint.pt `
-  --split test `
-  --experiment-name proposed_constraint_guided_transformer `
-  --output results/project2_v3_proposed_constraint_guided_transformer_metrics.json `
-  --metrics-csv results/project2_v3_metrics.csv `
-  --constraints-csv results/project2_v3_constraints.csv `
-  --examples-output results/project2_v3_generation_examples.json
-```
+Detailed commands, artifact policy, and verification checks are in [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md).
 
 ## Generate a MusicXML Sketch
 
@@ -109,30 +105,32 @@ $env:PYTHONPATH = "src"
   --report results/example_report.json
 ```
 
-Use a row and row form instead of a small pc-set when requesting serial material.
-
-## Corrected Output Paths
-
-Before promotion:
-
-- `results/project2_v3_full_split_summary.json`
-- `results/project2_v3_metrics.csv`
-- `results/project2_v3_constraints.csv`
-- `results/project2_v3_generation_examples.json`
-- `results/project2_v3_full_run_report.md`
-- `paper/tables/project2_v3_main_results.tex`
-- `paper/tables/project2_v3_ablation_results.tex`
-- `runs/v3/`
-- `expert_eval/project2_v3/`
-
-After every completion gate passes, the runner copies these to the required canonical `project2_*`, `runs/<experiment>/`, and `expert_eval/project2/` paths.
+For serial material, provide a twelve-tone row and a form such as `P0`, `R7`, `I5`, or `RI0` instead of a small pitch-class set.
 
 ## Metrics
 
-Evaluation reports body-token accuracy and cross-entropy, target pc-set coverage and precision, interval-vector distance, cyclic row-order accuracy, strict complete-form accuracy, serial aggregate completion, rhythmic-profile distance, held-out density-curve error, gesture consistency, instrument-range violations, content-span adherence, requested-voice adherence, and MusicXML structural/span/voice success.
+Evaluation reports body-token accuracy and cross-entropy, target pc-set coverage and precision, interval-vector distance, cyclic row-order accuracy, strict serial-form accuracy, aggregate completion, rhythmic-profile distance, held-out density-curve error, gesture consistency, range violations, content-span adherence, voice-count adherence, and MusicXML structural/span/voice success.
 
-The rule reference generates a new deterministic realization for each test condition. It does not reuse stored target events. Constraint-guided decoding uses non-differentiable metrics only for candidate reranking, not as fabricated differentiable training losses.
+Constraint metrics are non-differentiable diagnostics used for evaluation and candidate selection. They are not presented as differentiable training losses. The rule reference creates an independent deterministic realization for each condition and does not replay stored targets.
+
+## Project Layout
+
+```text
+configs/                full, ablation, baseline, and smoke configurations
+data/                   corpus documentation; generated tensors are ignored
+docs/                   data availability and reproducibility records
+expert_eval/project2/   20 blinded MusicXML examples and paired reports
+paper/                  LaTeX companion source, figures, and generated tables
+results/                canonical aggregate evidence and provenance reports
+scripts/                Windows setup, smoke, training, and full-run wrappers
+src/post_tonal/          data, theory, model, training, evaluation, and export code
+tests/                   CPU-safe automated tests
+```
 
 ## Limitations
 
-The synthetic corpus measures controllability and reproducibility rather than stylistic authenticity. The gesture metric is heuristic, the event vocabulary omits microtonality and advanced engraving detail, one instrument label is repeated across the requested parts, and automatic constraint metrics are not substitutes for composer judgment. Blind expert ratings, legally supplied external MusicXML validation, author metadata, and an archival release remain external tasks.
+The procedural corpus measures controllability and reproducibility, not stylistic authenticity. Gesture scoring is heuristic. The event vocabulary omits microtonality and advanced engraving detail. Instrument labels are simplified. Exact serial-form realization remains unresolved for the neural models, and structural measure-count success can include padded silence. Automatic metrics do not substitute for composer judgment.
+
+## Citation and License
+
+Use [`CITATION.cff`](CITATION.cff) for software citation metadata. The repository remains private during peer review, and no public reuse license has yet been granted; see [`LICENSE`](LICENSE). Before a public release, all authors should approve code and generated-data licenses and update the repository metadata consistently. Third-party dependencies retain their own licenses.

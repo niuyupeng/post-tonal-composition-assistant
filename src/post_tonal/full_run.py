@@ -7,6 +7,7 @@ import csv
 import hashlib
 import json
 import math
+import re
 import statistics
 import sys
 from datetime import datetime, timezone
@@ -211,10 +212,23 @@ def _read_command_log(path: str | Path) -> list[str]:
     encoding = "utf-16" if raw.startswith((b"\xff\xfe", b"\xfe\xff")) else "utf-8"
     text = raw.decode(encoding, errors="replace")
     return [
-        line.removeprefix("COMMAND ").strip()
+        _sanitize_report_command(line.removeprefix("COMMAND ").strip())
         for line in text.splitlines()
         if line.startswith("COMMAND ")
     ]
+
+
+def _sanitize_report_command(command: str) -> str:
+    """Replace local absolute paths while retaining a reproducible command."""
+    cwd = str(Path.cwd().resolve())
+    sanitized = command.replace(cwd, "<PROJECT_ROOT>")
+    sanitized = sanitized.replace(cwd.replace("\\", "/"), "<PROJECT_ROOT>")
+    sanitized = re.sub(
+        r"(?i)(?<![A-Za-z0-9_])C:[\\/]Users[\\/][^\\/\s`\"']+[\\/]",
+        "<USER_HOME>/",
+        sanitized,
+    )
+    return sanitized.replace("\\", "/")
 
 
 def promote_generation_examples(
